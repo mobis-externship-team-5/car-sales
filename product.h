@@ -2,6 +2,11 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
+enum PRODUUCT_STATUS {
+    ABLE,
+    DISABLE
+};
+
 enum OEM {
     HYUNDAI,
     KIA,
@@ -23,15 +28,26 @@ enum FEUL {
 typedef struct product_t {
     int id;
     char model[100]; // 모델명
-    OEM oem; // 제조사
+    enum OEM oem; // 제조사
     int price; // 가격
-    FEUL fuel; // 연료
+    enum FEUL fuel; // 연료
     double gas_mileage; // 연비
-    // + 배기량?
+    enum PRODUUCT_STATUS status; // 상품의 판매 상태
 
     struct product_t *next;
 } PRODUCT;
 
 typedef PRODUCT *LP_PRODUCT;
+
+/* 임의로 만들어 놓은 상품들만 있다고 가정 */
+
+// 페이지 별로 상품 리스트 출력
+// ABLE 인것만 출력
+int print_list(void *head, int page_no);
+
+// 상품 검색
+int search(PRODUCT *head, PRODUCT **shead, PRODUCT **stail);
+
+int find_product(int id);
 
 #endif
