@@ -1,7 +1,6 @@
 #ifndef ORDER_H
 #define ORDER_H
 
-#include "user.h"
 #include "product.h"
 
 typedef struct order_t {
@@ -9,6 +8,8 @@ typedef struct order_t {
     char date[20]; // 구매 날짜
     int user_id; // 고객 아이디 FK
     int product_id; // 상품 아이디 FK
+
+    struct order_t *next;
 } ORDER;
 
 

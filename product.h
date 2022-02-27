@@ -3,7 +3,6 @@
 #define PRODUCT_H
 
 #include "product-detail.h"
-#include "stock.h"
 
 enum PRODUUCT_STATUS {
     ABLE,
@@ -17,7 +16,7 @@ enum OEM {
 };
 
 /* 연료 */
-enum FEUL {
+enum FUEL {
     GASOLINE,
     DIESEL,
     LPG,
@@ -33,7 +32,7 @@ typedef struct product_t {
     char model[100]; // 모델명
     enum OEM oem; // 제조사
     int price; // 가격
-    enum FEUL fuel; // 연료
+    enum FUEL fuel; // 연료
     double gas_mileage; // 연비
     enum PRODUUCT_STATUS status; // 상품의 판매 상태
 

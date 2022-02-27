@@ -1,9 +1,6 @@
 #ifndef USER_H
 #define USER_H
 
-#include "order.h"
-#include "product-detail.h"
-
 enum USER_ROLE {
     CUSTOMER,
     ADMIN
@@ -16,6 +13,8 @@ typedef struct user_t {
     char addr[50];
     char phone[20];
     enum USER_ROLE role;
+
+    struct user_t *next;
 } USER;
 
 /* 사용자 기능 */

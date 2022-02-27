@@ -13,7 +13,7 @@ enum SIZE {
 typedef struct product_detail_t {
     int product_id;
     char detail_name[50]; // 상세한 제품명
-    int color;
+    char color [20];
     enum SIZE size;
     int cc;
     int description;
