@@ -46,7 +46,7 @@ typedef PRODUCT *LP_PRODUCT;
 
 // [관리자] 차량 입고 (프로그램 시작 시 또는 관리자 선택 시 차량 상품 삽입)
 // 재고가 되기 전 목록들
-int insert_product(PRODUCT **phead, PRODUCT **ptail, PRODUCT_DETAIL **dhead, PRODUCT_DETAIL **dtail, STOCK **sthead, STOCK **sttail);
+int insert_product(PRODUCT **phead, PRODUCT **ptail, PRODUCT_DETAIL **dhead, PRODUCT_DETAIL **dtail);
 
 // [관리자] 재고 현황 확인 (차량 목록 출력)
 // 상품 목록

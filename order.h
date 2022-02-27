@@ -15,7 +15,8 @@ typedef struct order_t {
 // 상품 구매
 // 상품의 상태를 변경시키고
 // ORDER 구조체 동적 할당 (추가)
-int purchase(ORDER **ohead, ORDER **otail, PRODUCT *phead, int user_id, int product_id, STOCK **sthead, STOCK **sttail);
+// 이 함수에서 동적 할당받아 생성한 PRODUCT 를 재고 관리 함수로 넘기기
+int purchase(ORDER **ohead, ORDER **otail, PRODUCT *phead, int user_id, int product_id);
 
 // 차랑 출고 (사용자가 '주문'을 하면 차량 상품 목록에서 DISABLE)
 // 전체 주문 목록 출력, 팔았다 = 출고 == 주문

@@ -17,10 +17,11 @@ typedef struct stock_t {
 // model, quantity
 int print_stock();
 
-// insert_product
-int increase_stock();
+int increase_stock(STOCK *sthead, PRODUCT product);
 
-int decrease_stock();
+int decrease_stock(STOCK *sthead, PRODUCT product);
+
+// 재고 찾는 함수가 중복되면 search 따로 빼는 것을 고려 해봅시다!
 
 #endif
 

@@ -18,8 +18,6 @@ typedef struct user_t {
     enum USER_ROLE role;
 } USER;
 
-#endif;
-
 /* 사용자 기능 */
 // 고객 계정 생성 (관리자는 미리 생성된 계정 사용)
 int signup(USER **uhead, USER **utail);
@@ -37,3 +35,5 @@ int find_user(USER *uhead, char *user_id);
 
 // [관리자] 회원 리스트 출력
 int print_all_user(USER *uhead);
+
+#endif;
