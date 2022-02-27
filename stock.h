@@ -15,7 +15,12 @@ typedef struct stock_t {
 //   - 사용자가 구매를 한 날짜에서 오차 범위 안
 
 // model, quantity
-int print_stock(/*hash*/);
+int print_stock();
+
+// insert_product
+int increase_stock();
+
+int decrease_stock();
 
 #endif
 

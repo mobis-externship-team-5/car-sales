@@ -4,36 +4,28 @@
 #include "user.h"
 #include "product.h"
 
-
 typedef struct order_t {
-    int id;
     int order_num;
-    int date; // 구매 날짜
+    char date[20]; // 구매 날짜
     int user_id; // 고객 아이디 FK
     int product_id; // 상품 아이디 FK
-    // USER user; // 고객
-    // PRODUCT product; // 구매한 상품
-    int total_price;
 } ORDER;
 
 
 // 상품 구매
 // 상품의 상태를 변경시키고
 // ORDER 구조체 동적 할당 (추가)
-int purchase(int user_id, int product_id);
+int purchase(ORDER **ohead, ORDER **otail, PRODUCT *phead, int user_id, int product_id, STOCK **sthead, STOCK **sttail);
 
-// + 추가적인 구매 페이지를 둘 건지?
+// 차랑 출고 (사용자가 '주문'을 하면 차량 상품 목록에서 DISABLE)
+// 전체 주문 목록 출력, 팔았다 = 출고 == 주문
+// 관리자 입장에서는 '모든' 구매 내역 확인, 사용자 입장에서는 '자신의' 구매 내역만 확인
+int print_order_list(ORDER *ohead, PRODUCT *phead);
+
+// 메출 출력 (판매한 총 금액) // STATUS == DISABLE
+// 어떻게 하면 보기 좋게 출력할지? total_price 말고 더 보여줄게 뭐가 있을지?
+// 검색 결과에 따른 리스트들의 총합 (월별 매출 리스트)
+// 명세서처럼 양식이 달라져도 괜찮을 듯 (지난 달 대비 증감)
+int print_toatl_order_price(ORDER *ohead, PRODUCT *phead);
 
 #endif
-
-// load_file(); 파일에 저장된 구조체 내용들을 모두 불러온다
-// 프로그램이 종료 되면 save_file();
-
-
-// 주문 데이터는 관리자의 '구매내역조회'에서 사용될 예정
-// 매출 관리는 어디에서..?
-
-// Question !!
-// (1) 구조체 안에 외래키를 포함시킬지? (2) 참조하는 구조체 자체를 포함시킬지?
-// (1) 구조체 자체 크기는 감소하나, 파일 입출력이 까다로울 것으로 예상
-// (2) 구조체의 크기가 커지지만, 하나의 파일 출력으로 해결될 것으로 예상

@@ -12,19 +12,16 @@ enum SIZE {
 
 typedef struct product_detail_t {
     int product_id;
+    char detail_name[50]; // 상세한 제품명
     int color;
     enum SIZE size;
     int cc;
     int description;
+
+    struct product_detail_t *next;
 } PRODUCT_DETAIL;
 
-// 상품 리스트
-// 상품 번호 | 내용 | 내용
-// DETAIL 상품번호(product_id)
-// 상품 번호에 해당되는 상품 찾고
-// 상품 번호에 해당되는 상세 찾고
-// 출력
-int print_detail(PRODUCT *shead, PRODUCT_DETAIL *dhead, int product_id);
-
+// 상품 상세 정보 출력 (상품 + 상품 디테일)
+int print_detail(PRODUCT *phead, PRODUCT_DETAIL *dhead, int product_id);
 
 #endif
