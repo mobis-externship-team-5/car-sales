@@ -55,7 +55,7 @@ int increase_product_id(PRODUCT **product, PRODUCT *ptail);
 int print_product_list(PRODUCT *phead, int page_no);
 int print_all_product(PRODUCT *phead, int page_no);
 int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail);
-
+int product_copy(PRODUCT *origin, PRODUCT *copy);
 int find_product(PRODUCT *tmp_product, int product_id);
 
 int load_product(PRODUCT **phead, PRODUCT **ptail, const char *filename);
