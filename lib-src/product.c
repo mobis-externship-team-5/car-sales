@@ -4,8 +4,6 @@
 
 #include "product.h"
 
-extern int errno;
-
 int create_product(PRODUCT **product)
 {
     *product = (PRODUCT *)malloc(sizeof(PRODUCT));
@@ -46,17 +44,7 @@ int insert_product(PRODUCT **phead, PRODUCT **ptail)
         return err_code;
     }
 
-    // if (*phead == NULL) {
-    //     *phead = *ptail = new_product;
-    // }
-    // else {
-    //     (*ptail)->next = new_product;
-    //     *ptail = new_product;
-    // }
-
     link_product(phead, ptail, &new_product);
-
-    print_product_list(*phead, 0);
     
     return ERR_PRODUCT_OK;
 }
@@ -176,10 +164,6 @@ int save_product(PRODUCT *phead, const char *filename)
     
     int errnum;
     if ((fp = fopen(filename, "w")) == NULL) {
-        errnum = errno;
-        fprintf(stderr, "Value of errno: %d\n", errno);
-        perror("Error printed by perror");
-        fprintf(stderr, "Error opening file: %s\n", strerror( errnum ));
         return ERR_PRODUCT_FILE;
     }
 
