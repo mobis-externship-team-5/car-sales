@@ -8,12 +8,6 @@ int signup(USER **uhead, USER **utail)
     FILE *fp;
     USER *temp, *comp;
 
-    //유저 데이터를 불러옴
-    fp = fopen("user.txt","w");
-    if(fp==NULL) {
-        printf("유저 데이터를 불러올 수 없습니다.\n");
-    }
-
     temp = (USER*)malloc(sizeof(USER));
 
     //개인정보 입력
@@ -67,9 +61,6 @@ int signup(USER **uhead, USER **utail)
     }
 
     printf("%s님 회원가입이 완료되었습니다.\n\n",temp->name);
-    fwrite(temp,sizeof(USER),1,fp);
-    fclose(fp);
-
     return 0;
 }
 
