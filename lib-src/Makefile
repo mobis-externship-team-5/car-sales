@@ -1,4 +1,4 @@
-SRCS = product.c 
+SRCS = product.c product-detail.c hash.c
 OBJS = $(SRCS:.c=.o)
 INCPATH = ../include
 CFLAGS = -I$(INCPATH) -g -c -fPIC
