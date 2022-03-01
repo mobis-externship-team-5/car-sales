@@ -1,5 +1,5 @@
 #ifndef STOCK_H
-#define STCOK_H
+#define STOCK_H
 
 #include "product.h"
 
