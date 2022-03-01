@@ -13,6 +13,7 @@
 int ui_basic_form_top(char *page_name);
 int ui_basic_form_bottom();
 int ui_basic_form_up();
+
 int ui_login(char *switch_value, int *user_role);
 int ui_main_window(char *switch_value, int *user_role);
 int ui_mypage(char *switch_value, int *user_role);
@@ -1060,6 +1061,7 @@ int ui_basic_form_top(char *page_name)
 		}
 		printf("\n"); // 가로 방향으로 별을 다 그린 뒤 다음 줄로 넘어감
 	}
+
 }
 
 
@@ -1068,3 +1070,4 @@ int ui_basic_form_bottom()
 	for (int i = 0; i < 72; i++)
 		printf("=");
 }
+

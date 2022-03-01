@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "ui-printlist.h"
+
 #include "product.h"
 
 int create_product(PRODUCT **product)
@@ -176,6 +177,7 @@ int save_product(PRODUCT *phead, const char *filename)
 
     fclose(fp);
     return ERR_PRODUCT_OK;
+
 }
 
 
@@ -223,4 +225,5 @@ int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],
 
 
 }
+
 
