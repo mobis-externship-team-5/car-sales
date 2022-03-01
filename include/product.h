@@ -35,7 +35,7 @@ char *fuel_str[] = { "GASOLINE", "DIESEL", "LPG", "EV", "HEV", "FCEV" };
 /* 차량 상품 */
 typedef struct product_t {
     int product_id;
-    char model[100]; // 모델명
+    char model[50]; // 모델명
     enum OEM oem; // 제조사
     int price; // 가격
     enum FUEL fuel; // 연료

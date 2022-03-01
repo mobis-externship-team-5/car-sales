@@ -11,11 +11,11 @@
 #define ERR_HASH_NOT_FOUND -2003
 
 
-#define HASH_DEFAULT_SIZE 17
+#define HASH_DEFAULT_SIZE 50
 #define HASH_KEY_SIZE 256
 
 #define FALSE 0
-#define TRUE !FALSE
+#define TRUE (!FALSE)
 
 #define BEFORE_START_POSITION ((POSITION) -1)
 
@@ -25,8 +25,8 @@ typedef unsigned int UINT;
 
 
 typedef struct _tagNode {
-UINT         hashValue;
-char         key[HASH_KEY_SIZE];
+UINT         hashValue; // 해시값
+int          key;
 LPDATA       value;
 struct _tagNode* pNext;
 } NODE;
@@ -53,13 +53,13 @@ typedef const HASH* LPC_HASH;
 int hashCreate(LPHASH* lppRet);
 int hashCount(LPHASH lpHash, int* pCount);
 int hashGetValue(LPHASH lpHash, const int key, LPDATA* value);
-int hashSetValue(LPHASH lpHash, const int key, const LPDATA value);
-int hashIsKey(LPHASH lpHash, const char* key, int* isValue);
-int hashRemoveKey(LPHASH lpHash, const char* key);
+int hashSetValue(LPHASH *lpHash, const int key, const LPDATA value);
+int hashIsKey(LPHASH lpHash, const int key, int* isValue);
+int hashRemoveKey(LPHASH lpHash, const int key);
 int hashGetFirstPostion(LPHASH lpHash, POSITION* position);
-int hashGetNextPostion(LPHASH lpHash, POSITION* position, char** pKey, LPDATA* pValue);
-int hashSetFree(LPHASH lpHash, void(*)(void*));
-int hashDestroy(LPHASH lpHash);
+int hashGetNextPostion(LPHASH lpHash, POSITION* position, int* pKey, LPDATA* pValue);
+int hashSetFree(LPHASH *lpHash, void(*)(void*));
+int hashDestroy(LPHASH *lpHash);
 
 
 #endif /*_HASH_DF294208_F203_4892_8059_44FA1D9BECEE_*/

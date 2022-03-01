@@ -8,11 +8,11 @@
 int create_product(PRODUCT **product)
 {
     *product = (PRODUCT *)malloc(sizeof(PRODUCT));
-    if (product == NULL) {
+    if (*product == NULL) {
         return ERR_PRODUCT_CREATE;
     }
     (*product)->next = NULL;
-    printf("create_product = %u\n", *product);
+
     return ERR_PRODUCT_OK;
 }
 
@@ -39,7 +39,7 @@ int insert_product(PRODUCT **phead, PRODUCT **ptail)
     if (ERR_PRODUCT_OK != err_code) {
         return err_code;
     }
-    printf("create_product = %u\n", new_product);
+
     err_code = input_product_info(&new_product, *ptail);
     if (ERR_PRODUCT_OK != err_code) {
         return err_code;

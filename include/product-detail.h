@@ -16,7 +16,7 @@ char *size_str[] = { "COMPACT", "MEDIUM", "FULL_SIZE", "TRUCK" };
 
 typedef struct product_detail_t {
     int product_id;
-    char detail_name[50];
+    char detail_name[100];
     char color [20];
     enum SIZE size;
     int cc;
@@ -25,9 +25,11 @@ typedef struct product_detail_t {
     struct product_detail_t *next;
 } PRODUCT_DETAIL;
 
-int create_product_detail(PRODUCT_DETAIL *product_detail);
+int create_product_detail(PRODUCT_DETAIL **product_detail);
 int insert_product_detail(int product_id, LPHASH *pdhash);
-int input_product_detail(PRODUCT_DETAIL *product_detail);
-int print_product_detail(int product_id, LPHASH *pdhash);
+int input_product_detail(PRODUCT_DETAIL **product_detail);
+int find_product_detail(LPHASH pdhash, int product_id, PRODUCT_DETAIL **product_detail);
+int print_product_detail_list(int product_id, LPHASH pdhash);
+int print_product_detail(PRODUCT_DETAIL *product_detail);
 
 #endif
