@@ -4,6 +4,7 @@
 
 #include "product.h"
 
+extern int errno;
 
 int create_product(PRODUCT **product)
 {
@@ -172,8 +173,13 @@ int save_product(PRODUCT *phead, const char *filename)
 {
     FILE *fp;
     PRODUCT *current;
-
+    
+    int errnum;
     if ((fp = fopen(filename, "w")) == NULL) {
+        errnum = errno;
+        fprintf(stderr, "Value of errno: %d\n", errno);
+        perror("Error printed by perror");
+        fprintf(stderr, "Error opening file: %s\n", strerror( errnum ));
         return ERR_PRODUCT_FILE;
     }
 

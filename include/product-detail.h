@@ -5,6 +5,7 @@
 
 #define ERR_PRODUCT_DETAIL_OK           0 /* 함수 성공 시 상수값 */
 #define ERR_PRODUCT_DETAIL_CREATE   -1100 /* 메모리 할당 시 오류 코드 */
+#define ERR_PRODUCT_DETAIL_FILE     -1101 /* 파일 입출력 오류 코드 */
 
 enum SIZE {
     COMPACT,
@@ -20,7 +21,6 @@ typedef struct product_detail_t {
     char color [20];
     enum SIZE size;
     int cc;
-    char description[1024];
 
     struct product_detail_t *next;
 } PRODUCT_DETAIL;
@@ -29,7 +29,10 @@ int create_product_detail(PRODUCT_DETAIL **product_detail);
 int insert_product_detail(int product_id, LPHASH *pdhash);
 int input_product_detail(PRODUCT_DETAIL **product_detail);
 int find_product_detail(LPHASH pdhash, int product_id, PRODUCT_DETAIL **product_detail);
-int print_product_detail_list(int product_id, LPHASH pdhash);
+int print_product_detail_list(LPHASH pdhash);
 int print_product_detail(PRODUCT_DETAIL *product_detail);
+
+int load_product_detail(LPHASH *pdhash, char *filename);
+int save_product_detail(LPHASH pdhash, char *filename);
 
 #endif

@@ -29,27 +29,28 @@ int main(void)
         return 0;
     }
     
-    printf("Hello, world!!!\n");
-
     load_product(&phead, &ptail, PRODUCT_FILE);
     printf("after load product\n");
     print_product_list(phead, 0);
 
-    for(int i=0; i<3; i++) {
-        // insert_product(&phead, &ptail);
+    load_product_detail(&pdhash, PRODUCT_DETAIL_FILE);
+    printf("after load product detail\n");
+    print_product_detail_list(pdhash);
+
+    for(int i=0; i<1; i++) {
+        insert_product(&phead, &ptail);
         insert_product_detail(i, &pdhash);
-        print_product_detail_list(i, pdhash);
+        print_product_detail_list(pdhash);
     }
 
-    for (int i=0; i<3; i++)
+    for (int i=0; i<1; i++)
     {
-        find_product_detail(pdhash, 2-i, &cur_product_detail);
+        find_product_detail(pdhash, i, &cur_product_detail);
         print_product_detail(cur_product_detail);
     }
     
-
-
     save_product(phead, PRODUCT_FILE);
+    save_product_detail(pdhash, PRODUCT_DETAIL_FILE);
 
     return 0;
 }
