@@ -1,27 +1,11 @@
-#include<stdio.h>
+
+#include <stdio.h>
 #include <string.h>
-#include <math.h>
 #include "ui-printlist.h"
-
-int print_list_product(char element[][6][20],char element_column[][6][20],int arr[6]){
+//int print_list_product(char element[][6][20],char element_column[][6][20],int arr[6]){
 	
-	int page_no = 0;
-	int chart_length = 72;
-	int element_size = 0;
-	int arr_size = 6;
-//	ui_printlist_printroof('-','*');
-
-	ui_printlist_printline('=');	
-	ui_printlist_printline('-');
-	set_column_size(arr,chart_length,arr_size,element_column,1,page_no);
-	ui_printlist_printline('-');
-	set_column_size(arr,chart_length,arr_size,element,3,page_no);
-	ui_printlist_printline('-');
-        printf("\n                                   %d/10                           \n",page_no+1);
-	ui_printlist_printline('=');
 
 
-}
 /*int print_list_7(char element[][7][20],char element_column[][7][20],int arr[7]){
 
         int page_no = 0;
@@ -41,9 +25,47 @@ int print_list_product(char element[][6][20],char element_column[][6][20],int ar
 
 }
 */
+
+int printspace_string(char* element,int arr_num){
+	int item_size = strlen(element);//의사이즈 까지
+        ui_printlist_space_bar(arr_num - item_size -1);
+	printf("%s",element);
+	if(item_size<arr_num)
+        printf(" ");
+	if(item_size != 0 || arr_num == 6)
+        printf("|");
+        else
+        printf(" ");
+}
+
+int printspace_int(int element,int arr_num){
+	int item_size = 5;
+	ui_printlist_space_bar(arr_num - item_size -1);
+        printf("%5d",element);
+        if(item_size<arr_num)
+        printf(" ");
+        if(item_size != 0 || arr_num == 6)
+        printf("|");
+        else
+        printf(" ");
+}
+
+int printspace_double(double element,int arr_num){
+	int item_size = 5;
+        ui_printlist_space_bar(arr_num- item_size -1);
+        printf("%2.2f",element);
+        if(item_size<arr_num)
+        printf(" ");
+        if(item_size != 0 || arr_num == 6)
+        printf("|");
+        else
+        printf(" ");
+}
+
 int set_column_size(int arr[],int chart_length,int arr_size,char element[][6][20],int element_size,int page_no){
 
-	for(int i = page_no*10; i< page_no*10 +element_size; i++){
+	for(int i = page_no*10; i< page_no*10 +1; i++){
+
 		printf("|");
 		for(int j = 0; j< arr_size; j++){
 			int item_size = strlen(element[i][j]);//의사이즈 까지
@@ -60,6 +82,9 @@ int set_column_size(int arr[],int chart_length,int arr_size,char element[][6][20
 	}
 }
 /*int set_column_size7(int arr[],int chart_length,int arr_size,char element[][7][20],int element_size,int page_no){
+
+
+
 
         for(int i = page_no*10; i< page_no*10 +element_size; i++){
                 printf("|");

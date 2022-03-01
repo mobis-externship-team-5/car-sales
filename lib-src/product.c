@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "ui-printlist.h"
 
 #include "product.h"
 
@@ -176,4 +177,53 @@ int save_product(PRODUCT *phead, const char *filename)
 
     fclose(fp);
     return ERR_PRODUCT_OK;
+
 }
+
+
+
+
+
+int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],int arr[6]){
+        PRODUCT *current = phead;
+        int chart_length = 72;
+        int arr_size = 6;
+//      ui_printlist_printroof('-','*');
+
+        ui_printlist_printline('=');
+        ui_printlist_printline('-');
+        set_column_size(arr,chart_length,arr_size,element_column,1,0);
+	ui_printlist_printline('-');
+
+//정수는 루트 10ㅇ으로 짜르고ㅑㄴ
+        for(int i=0; i<page_no*5;i++){
+           if(current==NULL)
+			break;
+		current=current->next;
+	}
+        int count = 0;
+        while (current)
+    {
+        if(count == 5)
+                break;
+        printf("|");
+                printspace_int(current->product_id,arr[0]);
+                printspace_string(current->model,arr[1]);
+                printspace_string(oem_str[current->oem],arr[2]);
+                printspace_int(current->price,arr[3]);
+        printspace_string(fuel_str[current->fuel],arr[4]);
+        printspace_double(current->gas_mileage,arr[5]);
+//printspace_string(product_status_str[current->status],arr[0]);
+        printf("\n");
+
+        current = current->next;
+        count++;
+        }
+        ui_printlist_printline('-');
+        printf("\n                                   %d/10                           \n",page_no+1);
+        ui_printlist_printline('=');
+
+
+}
+
+
