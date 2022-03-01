@@ -1,0 +1,5 @@
+# VS Code setting files
+.vscode
+
+# VS Code debugging files
+**/*.dSYM
