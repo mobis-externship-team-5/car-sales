@@ -66,13 +66,15 @@ int signup(USER **uhead, USER **utail)
 
 int login(USER *uhead, USER *current_user) {
     USER *temp = (USER*)malloc(sizeof(USER));
+    USER *guest = (USER*)malloc(sizeof(USER));
     char id[20];
     char pw[20];
+    char gt;
     int chk = 0;
     //아이디와 패스워드 입력
     while(1){
         printf("id : ");
-        fets(id,19,stdin);
+        fgets(id,19,stdin);
         id[strlen(id)-1]='\0';
 
         printf("password : ");
@@ -84,8 +86,15 @@ int login(USER *uhead, USER *current_user) {
         temp = uhead;
         while(temp!=NULL){
             if(strcmp(id,temp->user_id)==0 && strcmp(pw,temp->password)==0) {
-                chk = 1;
+                if(strcmp(id,"root")==0 && strcmp(pw,"root")==0){
+                    current_user = temp;
+                    current_user->role = ADMIN;
+                    chk = 1; 
+                    break;
+                }
                 current_user = temp;
+                current_user->role = CUSTOMER;
+                chk = 1;
                 break;
             }
             temp = temp->next;
@@ -93,10 +102,24 @@ int login(USER *uhead, USER *current_user) {
         if(chk) break;
         else {
             printf("아이디 또는 비밀번호가 일치하지 않습니다.\n");
+            printf("비회원으로 접속하시겠습니까? (y/n) : ");
+            scanf("%c",&gt); getchar();
+            if(gt=='y' || gt=='Y'){
+                current_user = guest;
+                current_user->role = GUEST;
+                break;
+            }
         }
     }
-    printf("로그인 성공\n\n");
-    //관리자 및 비회원 구분 추가해야함.
+    if(current_user->role == CUSTOMER){
+        printf("회원으로 로그인합니다.\n\n");
+    }
+    else if(current_user->role == ADMIN){
+        printf("관리자로 로그인합니다.\n\n");
+    }
+    else if(current_user->role == GUEST){
+        printf("비회원으로 로그인합니다.\n\n");
+    }
     return 0;
 }
 

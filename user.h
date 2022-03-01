@@ -3,7 +3,8 @@
 
 enum USER_ROLE {
     CUSTOMER,
-    ADMIN
+    ADMIN,
+    GUEST
 };
 
 typedef struct user_t {
@@ -35,4 +36,4 @@ int find_user(USER *uhead, char *user_id);
 // [관리자] 회원 리스트 출력
 int print_all_user(USER *uhead);
 
-#endif;
+#endif
