@@ -468,13 +468,13 @@ int ui_product_search(char *switch_value, int *user_role)
 		printf(" D) GAS_MILLEGE : (ex: 22.)\n");
 		printf(" E) FUEL : (ex: 0,1,2)\n");
 		printf(" F) PRICE : (ex: 2000 4000)\n");
-		printf(" G) Search Start\n");
+		printf(" G) SEARCH START\n");
 		printf("\n");
 
 		ui_basic_form_bottom();
 		if(*user_role != 0 ){
-			printf("\n                              ★★ MENU ★★\n3:DETAILS\n4:PREVIOUS\n5:NEXT\n7:MYPAGE\n8:MAIN\n9:LOGOUT\n0:EXIT\n\n");
-			printf("-> Select Menu :");
+			printf("\n                              ★★ MENU ★★\n 3 : DETAILS\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_search);
 			getchar();
 			system("clear");
