@@ -6,7 +6,7 @@
         char element_column_product[1][6][20]={
         {"PRODUCT_ID","MODEL","OEM","GAS_MILLEGE","FUEL","PRICE"}
 	};
-        int arr[] = {10,16,9,11,10,9};
+        int arr_product[] = {10,16,9,11,10,9};
 	
 	char element_user[3][6][20]={
         {"1234","SONATA","H3YUNDAI","DIGEAL","SUV","10n"},

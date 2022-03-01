@@ -9,9 +9,13 @@ typedef struct order_t {
     int user_id; // 고객 아이디 FK
     int product_id; // 상품 아이디 FK
 
+    // 멤버 함수
+    // C언어를 마치 객체지향 언어처럼 사용 가능
+    // 클래스가 C로 넘어오면 ㅇ.ㅇ..
+    void (*FP)(/* 함수 이름 */);
+
     struct order_t *next;
 } ORDER;
-
 
 // 상품 구매
 // 상품의 상태를 변경시키고
