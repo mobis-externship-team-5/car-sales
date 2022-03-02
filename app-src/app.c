@@ -47,6 +47,7 @@ PRODUCT_DETAIL *cur_product_detail;
 int main(void)
 {
     char switch_value; // 메뉴 번호
+	int user_role;
 
     /* 변수 초기화 */
     uhead = utail = NULL;
@@ -104,13 +105,13 @@ int main(void)
 		switch (switch_value)
 		{
 			case '1':
-				ui_login(&switch_value, &cur_user->role);
+				ui_login(&switch_value, &user_role);
 				break;                   //로그인 화면으로
 			case '2':
-				ui_main_window(&switch_value, &cur_user->role);
+				ui_main_window(&switch_value, &user_role);
 				break; //메인 화면으로
 			case '3':
-				ui_mypage(&switch_value, &cur_user->role); //마이페이지로
+				ui_mypage(&switch_value, &user_role); //마이페이지로
 				break;                    //
 			case '0':
 				printf("-- PROGRAM END --"); //프로그램 엔드
@@ -354,6 +355,7 @@ int ui_mypage(char *switch_value, int *user_role)
 {
 
 	char switch_value_mypage;
+    int page_no_order = 0;
 
 	while (1)
 	{
@@ -392,7 +394,7 @@ int ui_mypage(char *switch_value, int *user_role)
 		if(*user_role !=2){
 			printf("\n                              ★★ MENU ★★\n 1 : REVISING INFO\n 2 : BUYING LIST\n 3 : BUCKET LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
-			scanf("%c %d", &switch_value_mypage, user_role);
+			scanf("%c", &switch_value_mypage);
 			getchar();
 			system("clear");
 			switch (switch_value_mypage)
@@ -403,6 +405,7 @@ int ui_mypage(char *switch_value, int *user_role)
 					break;
 				case '2': // BUYING LIST
 					// ui_order_list(ORDER *ohead, PRODUCT *phead);
+                    print_list_order(ohead, page_no_order, element_column_order, arr_order, *user_role, cur_user);
 					ui_order_list(switch_value,user_role);
 					break;
 				case '3': // BUCKET LIST
@@ -854,6 +857,7 @@ int ui_order_list(char *switch_value, int *user_role)
 {
 	char switch_value_order;
 	int find_detail;
+	int page_no_order = 0;
 	while (1)
 	{
 
@@ -884,7 +888,7 @@ int ui_order_list(char *switch_value, int *user_role)
 		ui_basic_form_top("MYPAGE_ADMIN_STOCKLIST");
 		//printf("\n                              MYPAGE_ADMIN_STOCKLIST\n\n");
 
-		//print_list_product(element_order, element_column_order, arr_order);
+		print_list_order(ohead, page_no_order, element_column_order, arr_order, *user_role, cur_user);
 
 		printf("\n                              ★★ MENU ★★\n 1 : SEARCH\n 2 : SORT\n 3 : DETAIL\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 		printf("-> SELECT MENU :");
@@ -925,6 +929,7 @@ int ui_order_list(char *switch_value, int *user_role)
 				//*switch_value = '2';
 				break;
 			case '7':
+                
 			case '8':
 			case '9':
 			case '0':

@@ -4,9 +4,9 @@
 
 
 enum USER_ROLE {
-    GUEST,
-    CUSTOMER,
-    ADMIN
+    GUEST = 0,
+    CUSTOMER = 1,
+    ADMIN = 2
 };
 
 typedef struct user_t {
