@@ -155,6 +155,7 @@ int ui_login(char *switch_value, int *user_role)
 		case '1':
 			//로그인 확인으로 이동
 			ui_login_check(switch_value, user_role);
+			*user_role =1;
 			//*switch_value = '2';
 			break;
 
