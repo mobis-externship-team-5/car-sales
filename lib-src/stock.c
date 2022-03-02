@@ -265,7 +265,7 @@ int print_list_stock(STOCK *sthead, int page_no,char element_column[][6][20],int
         printf("\n                                   %d/10                           \n",page_no+1);
         ui_printlist_printline('=');
 
-
+    return ERR_STOCK_OK;
 }
 /*
 int stock_search_ID(STOCK *sthead,STOCK **shead,STOCK **stail,int stock_id){
