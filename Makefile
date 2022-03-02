@@ -1,3 +1,7 @@
+run:
+	make all;
+	cd app-src; ./app
+
 all:
 	cd lib-src; make
 	cd app-src; make

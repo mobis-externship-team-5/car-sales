@@ -10,8 +10,8 @@
 
 typedef struct order_t {
     int order_num;
-    char date[20]; // 구매 날짜
-    char user_id[30]; // 고객 아이디
+    char date[30]; // 구매 날짜
+    char user_id[20]; // 고객 아이디
     char user_name[20]; // 고객 이름
     int product_id;
 
@@ -32,5 +32,8 @@ int print_order(ORDER *order);
 int print_all_order_list(ORDER *ohead);
 int print_customer_order_list(ORDER *ohead, const char* user_id);
 int print_sales(ORDER *ohead);
+
+int load_order(ORDER **ohead, ORDER **otail, const char* filename);
+int save_order(ORDER *ohead, const char *filename);
 
 #endif

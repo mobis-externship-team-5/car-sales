@@ -59,11 +59,13 @@ int main(void)
     load_product(&phead, &ptail, PRODUCT_FILE);
     load_product_detail(&pdhash, PRODUCT_DETAIL_FILE);
     load_stock(&sthead, &sttail, STOCK_FILE);
+    load_order(&ohead, &otail, ORDER_FILE);
 
     // 파일로부터 데이터 로드 후 결과 출력
     print_product_list(phead, 0); // phead, page_no
     print_product_detail_list(pdhash);
     print_stock_list(sthead);
+    print_all_order_list(ohead);
 
     // [start] 필요한 만큼 데이터 입력이 끝나시면, start~end 블럭 지워주시면 됩니다!
     
@@ -88,6 +90,7 @@ int main(void)
     // 0) EXIT 메뉴를 통해 프로그램을 정상종료 할 경우 입력했던 상품 목록들이 파일에 저장됩니다.
     
     purchase(&ohead, &otail, "nayeon", "nayeon", 0);
+    purchase(&ohead, &otail, "nayeon", "nayeon", 1);
     print_all_order_list(ohead);
 
     // [end]
@@ -123,6 +126,7 @@ int main(void)
             save_product(phead, PRODUCT_FILE);
             save_product_detail(pdhash, PRODUCT_DETAIL_FILE);
             save_stock(sthead, STOCK_FILE);
+            save_order(ohead, ORDER_FILE);
 
             exit(0);
             break;
