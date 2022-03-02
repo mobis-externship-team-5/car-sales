@@ -76,7 +76,7 @@ int find_product_detail(LPHASH pdhash, int product_id, PRODUCT_DETAIL **product_
 		printf("%s:%d error code = %d\n",__FILE__, __LINE__, err_code);
 	} else {
     	//key 값과 value를 ?력한다.
-    	printf("key = %d\n", product_id);
+    	//printf("key = %d\n", product_id);
         print_product_detail(*product_detail);
     }
 
@@ -114,7 +114,7 @@ int print_product_detail_list(LPHASH pdhash)
 
 int print_product_detail(PRODUCT_DETAIL *product_detail)
 {
-    printf("%3d%10s %10s %10s %10d\n",
+    printf(" PRODUCT_ID : %d\n DETAIL_NAME : %s\n COLOR : %s\n SIZE : %s\n CC : %d\n",
             product_detail->product_id, product_detail->detail_name, product_detail->color, size_str[product_detail->size],
             product_detail->cc);
 
