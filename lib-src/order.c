@@ -6,7 +6,7 @@
 #include "order.h"
 #include "user.h"
 
-int purchase(ORDER **ohead, ORDER **otail, const char *user_id, const char *user_name, int product_id)
+int purchase(ORDER **ohead, ORDER **otail, const char *user_id, const char *user_name, int price, int product_id)
 {
     int err_code;
     ORDER *new_order;
@@ -18,7 +18,7 @@ int purchase(ORDER **ohead, ORDER **otail, const char *user_id, const char *user
     }
 
     set_order_num(&new_order, *otail);
-    input_order_info(&new_order, user_id, user_name, product_id);
+    input_order_info(&new_order, user_id, user_name, price, product_id);
 
     link_order(ohead, otail, &new_order);
 
@@ -48,7 +48,7 @@ int set_order_num(ORDER **order, ORDER *otail)
 }
 
 
-int input_order_info(ORDER **order, const char *user_id, const char *user_name, int product_id) 
+int input_order_info(ORDER **order, const char *user_id, const char *user_name, int price, int product_id) 
 {
     char date[30];
     time_t now;
@@ -63,6 +63,7 @@ int input_order_info(ORDER **order, const char *user_id, const char *user_name, 
     strcpy((*order)->user_name, user_name);
     
     (*order)->product_id = product_id;
+    (*order)->price = price;
 
     return ERR_ORDER_OK;
 }
@@ -84,9 +85,9 @@ int link_order(ORDER **ohead, ORDER **otail, ORDER **order)
 // 주문 정보 입력됐는지 출력
 int print_order(ORDER *order)
 {
-    printf("%3d %30s %10s(%s) %3d\n", 
+    printf("%3d %30s %10s(%s) %10d %3d\n", 
             order->order_num, order->date, order->user_id, 
-            order->user_name, order->product_id);
+            order->user_name, order->price, order->product_id);
 
     return ERR_ORDER_OK;
 }
@@ -98,9 +99,9 @@ int print_all_order_list(ORDER *ohead)
 
     while (cur)
     {
-         printf("%3d %30s %10s(%s) %3d\n", 
+         printf("%3d %30s %10s(%s) %10d %3d\n", 
                 cur->order_num, cur->date, cur->user_id, 
-                cur->user_name, cur->product_id);
+                cur->user_name, cur->price, cur->product_id);
         cur = cur->next;
     }
 
@@ -115,9 +116,9 @@ int print_customer_order_list(ORDER *ohead, const char* user_id)
     while (cur)
     {
         if (strcmp(cur->user_id, user_id) == 0) {
-            printf("%3d %30s %10s(%s) %3d\n", 
+            printf("%3d %30s %10s(%s) %10d %3d\n", 
                 cur->order_num, cur->date, cur->user_id, 
-                cur->user_name, cur->product_id);
+                cur->user_name, cur->price, cur->product_id);
         }
         cur = cur->next;
     }
@@ -209,8 +210,8 @@ int print_list_order(ORDER *ohead, int page_no, char element_column[][6][20], in
         printspace_int(current->order_num, arr[0]);
         printspace_string(current->date, arr[1]);
         printspace_string(current->user_id, arr[2]);
-        printspace_int(current->product_id, arr[3]);
-        //printspace_string(product_status_str[current->status],arr[0]);
+        printspace_int(current->price, arr[3]);
+        printspace_int(current->product_id, arr[4]);
         printf("\n");
 
         current = current->next;

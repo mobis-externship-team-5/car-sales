@@ -15,14 +15,15 @@ typedef struct order_t {
     char user_id[20]; // 고객 아이디
     char user_name[20]; // 고객 이름
     int product_id;
+    int price;
 
     struct order_t *next;
 } ORDER;
 
 
-int purchase(ORDER **ohead, ORDER **otail, const char *user_id, const char *user_name, int product_id);
+int purchase(ORDER **ohead, ORDER **otail, const char *user_id, const char *user_name, int price, int product_id);
 int create_order(ORDER **prder);
-int input_order_info(ORDER **order, const char *user_id, const char *user_name, int product_id) ;
+int input_order_info(ORDER **order, const char *user_id, const char *user_name, int price, int product_id);
 int set_order_num(ORDER **order, ORDER *otail);
 int link_order(ORDER **ohead, ORDER **otail, ORDER **order);
 
