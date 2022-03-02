@@ -1,4 +1,4 @@
-SRCS = product.c product-detail.c hash.c ui-printlist.c
+SRCS = product.c product-detail.c hash.c ui-printlist.c stock.c order.c user.c
 OBJS = $(SRCS:.c=.o)
 INCPATH = ../include
 CFLAGS = -I$(INCPATH) -g -c -fPIC

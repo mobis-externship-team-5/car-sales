@@ -56,7 +56,7 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail)
     int i;
     int err_code;
 
-    err_code = increase_product_id(product, ptail);
+    err_code = set_product_id(product, ptail);
     if (ERR_PRODUCT_OK != err_code) {
         return err_code;
     }
@@ -96,7 +96,7 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail)
 }
 
 /* 상품 아이디를 부여하는 함수 */
-int increase_product_id(PRODUCT **product, PRODUCT *ptail)
+int set_product_id(PRODUCT **product, PRODUCT *ptail)
 {
     // 상품이 처음 입고된 경우
     if(ptail == NULL) {
@@ -141,6 +141,26 @@ int print_product_list_in_detail(PRODUCT *phead)
     return ERR_PRODUCT_OK;
 }
 
+int find_product(PRODUCT* phead, int product_id, PRODUCT **product)
+{
+    PRODUCT *cur = phead;
+    while (cur)
+    {
+        if (cur->product_id == product_id) {
+            *product = cur;
+            break;
+        }
+        cur = cur->next;
+    }
+
+    if (cur == NULL) {
+        printf("PRODUCT(ID:%d) NOT FOUND.. REPRESS THE OPTION!\n", product_id);
+        return ERR_PRODUCT_NOTFOUND;
+    }
+
+    return ERR_PRODUCT_OK;
+}
+
 /* 파일로부터 상품 리스트를 불러오는 함수 */
 int load_product(PRODUCT **phead, PRODUCT **ptail, const char *filename)
 {
@@ -174,7 +194,6 @@ int save_product(PRODUCT *phead, const char *filename)
     FILE *fp;
     PRODUCT *current;
     
-    int errnum;
     if ((fp = fopen(filename, "w")) == NULL) {
         return ERR_PRODUCT_FILE;
     }
@@ -191,64 +210,74 @@ int save_product(PRODUCT *phead, const char *filename)
 
 }
 
-int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],int arr[6]){
-        PRODUCT *current = phead;
-        int chart_length = 72;
-        int arr_size = 6;
-//      ui_printlist_printroof('-','*');
+int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20], int arr[6])
+{
+    PRODUCT *current = phead;
+    int chart_length = 72;
+    int arr_size = 6;
+    //      ui_printlist_printroof('-','*');
 
-        ui_printlist_printline('=');
-        ui_printlist_printline('-');
-        set_column_size(arr,chart_length,arr_size,element_column,1,0);
-	ui_printlist_printline('-');
+    ui_printlist_printline('=');
+    ui_printlist_printline('-');
+    set_column_size(arr, chart_length, arr_size, element_column, 1, 0);
+    ui_printlist_printline('-');
 
-//정수는 루트 10ㅇ으로 짜르고ㅑㄴ
-        for(int i=0; i<page_no*5;i++){
-           if(current==NULL)
-			break;
-		current=current->next;
-	}
-        int count = 0;
-        while (current)
+    // 정수는 루트 10으로 자르고
+    for (int i = 0; i < page_no * 5; i++)
     {
-        if(count == 5)
-                break;
+        if (current == NULL)
+            break;
+        current = current->next;
+    } // TODO: Q. 이 코드의 역할 - 여기서 DISABLE에 대한 처리 필요?
+    int count = 0;
+    while (current)
+    {
+        if (count == 5)
+            break;
+        if (current->status == DISABLE)
+            continue; // 판매된 상품 출력 X
         printf("|");
-        printspace_int(current->product_id,arr[0]);
-        printspace_string(current->model,arr[1]);
-        printspace_string(oem_str[current->oem],arr[2]);
-        printspace_int(current->price,arr[3]);
-        printspace_string(fuel_str[current->fuel],arr[4]);
-        printspace_double(current->gas_mileage,arr[5]);
-//printspace_string(product_status_str[current->status],arr[0]);
+        printspace_int(current->product_id, arr[0]);
+        printspace_string(current->model, arr[1]);
+        printspace_string(oem_str[current->oem], arr[2]);
+        printspace_int(current->price, arr[3]);
+        printspace_string(fuel_str[current->fuel], arr[4]);
+        printspace_double(current->gas_mileage, arr[5]);
+        //printspace_string(product_status_str[current->status],arr[0]);
         printf("\n");
 
         current = current->next;
         count++;
-        }
-        ui_printlist_printline('-');
-        printf("\n                                   %d/10                           \n",page_no+1);
-        ui_printlist_printline('=');
+    }
+    ui_printlist_printline('-');
+    printf("\n                                   %d/10                           \n", page_no + 1);
+    ui_printlist_printline('=');
 
-
+    return ERR_PRODUCT_OK;
 }
 
-int product_search_ID(PRODUCT *phead,PRODUCT **shead,PRODUCT **stail,int product_id){
+int product_search_ID(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail, int product_id)
+{
     PRODUCT *search, *smake;
-       search = phead;
-    	*shead = NULL;
- 
-        while(search!=NULL){
-            if(product_id == search->product_id) {
-                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
-                product_copy(search,smake);
-                if((*shead)==NULL){
-                    *shead = *stail = smake;
-               		break;
-		 }
+    search = phead;
+    *shead = NULL;
+
+    while (search != NULL)
+    {
+        if (product_id == search->product_id)
+        {
+            smake = (PRODUCT *)malloc(sizeof(PRODUCT));
+            product_copy(search, smake);
+            if ((*shead) == NULL)
+            {
+                *shead = *stail = smake;
+                break;
             }
-            search = search->next;
         }
+        search = search->next;
+    }
+
+    return ERR_PRODUCT_OK;
 }
 
 int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_role, int opt2)

@@ -64,7 +64,7 @@ int signup(USER **uhead, USER **utail)
     return 0;
 }
 
-int login(USER *uhead, USER *current_user) {
+int login(USER *uhead, USER **current_user) {
     USER *temp = (USER*)malloc(sizeof(USER));
     USER *guest = (USER*)malloc(sizeof(USER));
     char id[20];
@@ -87,13 +87,13 @@ int login(USER *uhead, USER *current_user) {
         while(temp!=NULL){
             if(strcmp(id,temp->user_id)==0 && strcmp(pw,temp->password)==0) {
                 if(strcmp(id,"root")==0 && strcmp(pw,"root")==0){
-                    current_user = temp;
-                    current_user->role = ADMIN;
+                    (*current_user) = temp;
+                    (*current_user)->role = ADMIN;
                     chk = 1; 
                     break;
                 }
-                current_user = temp;
-                current_user->role = CUSTOMER;
+                (*current_user) = temp;
+                (*current_user)->role = CUSTOMER;
                 chk = 1;
                 break;
             }
@@ -107,13 +107,13 @@ int login(USER *uhead, USER *current_user) {
             return 1;
         }
     }
-    if(current_user->role == CUSTOMER){
+    if((*current_user)->role == CUSTOMER){
         printf("회원으로 로그인합니다.\n\n");
     }
-    else if(current_user->role == ADMIN){   // ADMIN 이 따로 있기 때문에 지우든지 
+    else if((*current_user)->role == ADMIN){   // ADMIN 이 따로 있기 때문에 지우든지 
         printf("관리자로 로그인합니다.\n\n");   // 아니면 switch value를 int로 리턴할건지
     }
-    else if(current_user->role == GUEST){
+    else if((*current_user)->role == GUEST){
         printf("비회원으로 로그인합니다.\n\n");
     }
     return 0;
@@ -151,5 +151,60 @@ int print_all_user(USER *uhead) {
         find = find->next;
     }
     printf("-------- 유저 명단 리스트 --------\n\n");
+    return 0;
+}
+
+
+int load_user(USER **uhead, USER **utail, const char *filename)
+{
+    FILE *fp;
+    USER *new_user;
+
+    if ((fp = fopen(filename, "r")) == NULL) {
+        return 0;
+    }
+
+    while (1)
+    {
+        new_user = (USER*)malloc(sizeof(USER));
+
+        if ((fread(new_user, sizeof(USER), 1, fp))) {
+            if (*uhead == NULL)
+            {
+                *uhead = *utail = new_user;
+            }
+            else
+            {
+                (*utail)->next = new_user;
+                *utail = new_user;
+            }
+        }
+        else {
+            free(new_user);
+            break;
+        }
+    }
+
+    fclose(fp);
+    return 0;
+}
+
+int save_user(USER *uhead, const char *filename)
+{
+    FILE *fp;
+    USER *cur;
+    
+    if ((fp = fopen(filename, "w")) == NULL) {
+        return 0;
+    }
+
+    cur = uhead;
+    while (cur)
+    {
+        fwrite(cur, sizeof(USER), 1, fp);
+        cur = cur->next;
+    }
+
+    fclose(fp);
     return 0;
 }
