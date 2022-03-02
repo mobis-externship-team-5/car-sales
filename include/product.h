@@ -56,9 +56,12 @@ int print_product_list(PRODUCT *phead, int page_no);
 int print_all_product(PRODUCT *phead, int page_no);
 int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail);
 
-int find_product(PRODUCT *tmp_product, int product_id);
+
+int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],int arr[6]);
+
 
 int load_product(PRODUCT **phead, PRODUCT **ptail, const char *filename);
 int save_product(PRODUCT *phead, const char *filename);
 
 #endif
+
