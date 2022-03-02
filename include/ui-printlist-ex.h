@@ -36,10 +36,10 @@
         {"23","G830","G33ENESIS","asdfqwerq","",""}
         };
         char element_column_order[1][6][20]={
-        {"ORDER_NUM","DATE","USER_ID","PRODUCT_ID","",""}
+        {"ORDER_NUM","DATE","USER_ID","PRICE","PRODUCT_ID",""}
         };
         // int arr_order[] = {15,22,15,15,0,0}; // 67 로 맞추기
-        int arr_order[] = {12,25,15,14,0,0}; // 다 챙워져 있거나 하나가 없으면 66 두 개일때는 67 3개 일때는 68 
+        int arr_order[] = {9,23,13,11,10,0}; // 다 챙워져 있거나 하나가 없으면 66 두 개일때는 67 3개 일때는 68 
 	
 	char element_detail[3][6][20]={
         {"123443","SONATA SE","BLUE","COMPACT","1000C",""},
