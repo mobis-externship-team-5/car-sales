@@ -1,12 +1,12 @@
 #ifndef USER_H
 #define USER_H
 
-#
+
 
 enum USER_ROLE {
+    GUEST,
     CUSTOMER,
-    ADMIN,
-    GUEST
+    ADMIN
 };
 
 typedef struct user_t {

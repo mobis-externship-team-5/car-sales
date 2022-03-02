@@ -227,15 +227,20 @@ int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20]
     {
         if (current == NULL)
             break;
+        if (current->status == DISABLE) 
+            i--;
         current = current->next;
-    } // TODO: Q. 이 코드의 역할 - 여기서 DISABLE에 대한 처리 필요?
+    }
     int count = 0;
     while (current)
     {
         if (count == 5)
             break;
-        if (current->status == DISABLE)
+        if (current->status == DISABLE) {
+            current = current->next;
             continue; // 판매된 상품 출력 X
+        }
+            
         printf("|");
         printspace_int(current->product_id, arr[0]);
         printspace_string(current->model, arr[1]);
