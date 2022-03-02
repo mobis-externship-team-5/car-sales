@@ -47,6 +47,7 @@ int user_search(USER *uhead, USER **shead, USER **stail,int *user_role, int opt2
 //int user_search_ID(USER *uhead,USER **uhead,USER **utail,int user_id);
 int user_copy(USER *origin,USER *copy);
 
+int get_user_sales_info(USER *uhead, int *total_user);
 
 
 #endif
