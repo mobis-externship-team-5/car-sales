@@ -302,7 +302,7 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
         m[strlen(m)-1]='\0';
         while(search!=NULL){
             if(strcmp(m,search->model)==0) {
-                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                if(role==1 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
                     search = search->next;
                     continue;
                 }
@@ -324,11 +324,11 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
         printf("검색할 제조사(브랜드)를 선택 >> 0.HTUNDAI, 1.KIA, 2.GENESIS\n");
         printf("번호 선택 : ");
         scanf("%d",&em);
-getchar();
+        getchar();
 
         while(search!=NULL){
-if(em==search->oem) {
-		if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+            if(em==search->oem) {
+		        if(role==1 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
                     search = search->next;
                     continue;
                 }
@@ -351,14 +351,14 @@ if(em==search->oem) {
         printf("검색할 가격대 입력(단위 : 만원) >> ex) 1000 2000\n");
         printf("최소 가격 : ");
         scanf("%d",&min);
-getchar();
+        getchar();
         printf("최대 가격 : ");
         scanf("%d",&max);
-getchar();
+        getchar();
         
         while(search!=NULL){
             if(search->price>=min && search->price<=max) {
-                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                if(role==1 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
                     search = search->next;
                     continue;
                 }
@@ -380,11 +380,11 @@ getchar();
         printf("검색할 엔진 선택 >> 0.GASOLINE, 1.DIESEL, 2.EV, 3.LPG, 4.EV, 5.HEV\n");
         printf("번호 선택 : ");
         scanf("%d",&fu);
-getchar();
+        getchar();
 
         while(search!=NULL){
             if(fu==search->fuel) {
-                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                if(role==1 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
                     search = search->next;
                     continue;
                 }
@@ -409,7 +409,7 @@ getchar();
         
         while(search!=NULL){
             if(mile<=search->gas_mileage) {
-                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                if(role==1 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
                     search = search->next;
                     continue;
                 }
