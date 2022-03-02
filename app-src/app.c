@@ -31,7 +31,7 @@ USER cur_user;
 
 USER *uhead, *utail;    /* 사용자 연결 리스트 */
 PRODUCT *phead, *ptail; /* 상품 연결 리스트 */
-STOCK *shead, *stail;   /* 재고 연결 리스트 */
+STOCK *sthead, *sttail;   /* 재고 연결 리스트 */
 
 LPHASH pdhash; /* 상품 상세설명 해시 */
 PRODUCT_DETAIL *cur_product_detail;
@@ -44,7 +44,7 @@ int main(void)
     /* 변수 초기화 */
     uhead = utail = NULL;
     phead = ptail = NULL;
-    shead = stail = NULL;
+    sthead = sttail = NULL;
 
     err_code = hashCreate(&pdhash);
     if (ERR_HASH_OK != err_code)
@@ -55,22 +55,32 @@ int main(void)
     /* 구조체 데이터 로드 */
     load_product(&phead, &ptail, PRODUCT_FILE);
     load_product_detail(&pdhash, PRODUCT_DETAIL_FILE);
+    load_stock(&sthead, &sttail, STOCK_FILE);
 
     // 파일로부터 데이터 로드 후 결과 출력
     print_product_list(phead, 0); // phead, page_no
     print_product_detail_list(pdhash);
+    print_stock_list(sthead);
 
     // [start] 필요한 만큼 데이터 입력이 끝나시면, start~end 블럭 지워주시면 됩니다!
     
-    // loop 만큼 상품과 상세정보를 입력합니다.
-    for(int i=0; i<10; i++) {
-        insert_product(&phead, &ptail);
-        insert_product_detail(ptail->product_id, &pdhash);
-    }
+    // // loop 만큼 상품과 상세정보를 입력합니다.
+    // for(int i=0; i<6; i++) {
+    //     insert_product(&phead, &ptail);
+    //     insert_product_detail(ptail->product_id, &pdhash);
+    //     increase_stock(&sthead, &sttail, ptail->model);
+    // }
 
-    // 상품과 상세정보 추가 후 결과
-    print_product_list(phead, 0); // phead, page_no
-    print_product_detail_list(pdhash);
+    // // 상품과 상세정보 추가 후 결과
+    // print_product_list(phead, 0); // phead, page_no
+    // print_product_detail_list(pdhash);
+    // print_stock_list(sthead);
+
+    //  // 재고 삭제 확인 블럭
+    // decrease_stock(&sthead, &sthead, "AAA");
+    // print_stock_list(sthead);
+    // decrease_stock(&sthead, &sthead, "FFF");
+    // print_stock_list(sthead);
 
     // 0) EXIT 메뉴를 통해 프로그램을 정상종료 할 경우 입력했던 상품 목록들이 파일에 저장됩니다.
     
@@ -106,6 +116,7 @@ int main(void)
             /* 구조체 데이터 저장 */
             save_product(phead, PRODUCT_FILE);
             save_product_detail(pdhash, PRODUCT_DETAIL_FILE);
+            save_stock(sthead, STOCK_FILE);
 
             exit(0);
             break;

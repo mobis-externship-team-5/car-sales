@@ -25,6 +25,7 @@ int insert_product_detail(int product_id, LPHASH *pdhash)
     if (ERR_PRODUCT_DETAIL_OK != err_code) {
         return err_code;
     }
+    new_product_detail->product_id = product_id; // 상품과 상세정보 연결
 
     input_product_detail(&new_product_detail);
 
@@ -113,8 +114,8 @@ int print_product_detail_list(LPHASH pdhash)
 
 int print_product_detail(PRODUCT_DETAIL *product_detail)
 {
-    printf("%10s %10s %10s %10d\n",
-            product_detail->detail_name, product_detail->color, size_str[product_detail->size],
+    printf("%3d%10s %10s %10s %10d\n",
+            product_detail->product_id, product_detail->detail_name, product_detail->color, size_str[product_detail->size],
             product_detail->cc);
 
     return ERR_PRODUCT_DETAIL_OK;

@@ -1,9 +1,11 @@
 #ifndef STOCK_H
 #define STOCK_H
 
-#include "product.h"
+#define ERR_STOCK_OK                  0
+#define ERR_STOCK_CREATE          -4000
+#define ERR_STOCK_FILE            -4001
+#define ERR_STOCK_NOT_FOUND       -4002
 
-// 날짜 입력 형식: YYYY-MM-DD
 
 typedef struct stock_t {
     char model[20]; 
@@ -12,20 +14,15 @@ typedef struct stock_t {
     struct stock_t *next;
 } STOCK;
 
-// 입고는 임의로 데이터를 삽입하고, 관리자가 추가한다고 가정하자
-// 그렇다면 출고 날짜와 고객 인수 날짜는 어떻게 지정하나?
-//   - 사용자가 구매를 한 날짜에서 오차 범위 안
-
-// model, quantity
-int print_stock(STOCK *sthead);
-
-int increase_stock(STOCK **sthead, PRODUCT product);
-
-int decrease_stock(STOCK **sthead, PRODUCT product);
-
-// 재고 찾는 함수가 중복되면 search 따로 빼는 것을 고려 해봅시다!
+int increase_stock(STOCK **sthead, STOCK **sttail, const char* product_model);
+int insert_stock(STOCK **sthead, STOCK **sttail, const char* product_model);
+int create_stock(STOCK **stock);
+int link_stock(STOCK **sthead, STOCK **sttail, STOCK **stock);
+int decrease_stock(STOCK **sthead, STOCK **sttail, const char* product_model); // main: cur_product
+int delete_stock(STOCK **sthead, STOCK **sttail, const char* product_model);
+int print_stock_list(STOCK *sthead);
+int print_stock(STOCK *sthead, const char* product_model);
+int load_stock(STOCK **sthead, STOCK **sttail, const char *filename);
+int save_stock(STOCK *sthead, const char *filename);
 
 #endif
-
-
-// 차량 재고 관리 함수는 여기 있어야하나?
