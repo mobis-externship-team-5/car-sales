@@ -7,3 +7,15 @@
 # C Libraries
 **/*.o
 **/*.so
+lib/*.so
+
+# Program Execution File
+app/**
+!app/*.c
+
+# Makefile
+Makefile
+
+# Data Files
+data-files/*
+!data-files/readme.txt

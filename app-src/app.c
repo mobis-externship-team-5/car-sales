@@ -9,6 +9,7 @@
 #include "product.h"
 #include "product-detail.h"
 #include "stock.h"
+#include "order.h"
 
 int ui_basic_form_top(char *page_name);
 int ui_basic_form_bottom();
@@ -29,13 +30,15 @@ int ui_signup(char *switch_value, int *user_role);
 
 int err_code;
 
-USER *cur_user;
+USER *cur_user; // 현재 로그인한 사용자
+PRODUCT *cur_product; // 사용자가 확인 중인 상품
 
-USER *uhead, *utail;    /* ?��?��?�� ?���? 리스?�� */
-PRODUCT *phead, *ptail; /* ?��?�� ?���? 리스?�� */
-PRODUCT *Sphead, *Sptail; /* ?��?�� �??��  리스?�� */
-STOCK *sthead, *sttail;   /* ?���? ?���? 리스?�� */
-STOCK *Ssthead, *Ssttail;   /* ?���? ?���? 리스?�� */
+USER *uhead, *utail;    /* 사용자 연결 리스트 */
+PRODUCT *phead, *ptail; /* 상품 연결 리스트 */
+STOCK *sthead, *sttail; /* 재고 연결 리스트 */
+ORDER *ohead, *otail;   /* 주문 연결 리스트 */
+PRODUCT *Sphead, *Sptail; /* 상품 검색  리스트 */
+
 
 LPHASH pdhash; /* ?��?�� ?��?��?���? ?��?�� */
 PRODUCT_DETAIL *cur_product_detail;
@@ -43,56 +46,38 @@ PRODUCT_DETAIL *cur_product_detail;
 
 int main(void)
 {
-	char switch_value; // 메뉴 번호
-	int user_role;    
-	/* �??�� 초기?�� */
-	uhead = utail = NULL;
-	phead = ptail = NULL;
-	sthead = sttail = NULL;
-	Sphead = Sptail = NULL;
+    char switch_value; // 메뉴 번호
+
+    /* 변수 초기화 */
+    uhead = utail = NULL;
+    phead = ptail = NULL;
+    sthead = sttail = NULL;
+    ohead = otail = NULL;
+    Sphead = Sptail = NULL;
+
 	err_code = hashCreate(&pdhash);
 	if (ERR_HASH_OK != err_code)
 	{
 		return 0;
 	}
 
-	/* 구조�? ?��?��?�� 로드 */
+    /* 구조체 데이터 로드 */
     load_user(&uhead, &utail, USER_FILE);
     load_product(&phead, &ptail, PRODUCT_FILE);
     load_product_detail(&pdhash, PRODUCT_DETAIL_FILE);
     load_stock(&sthead, &sttail, STOCK_FILE);
     load_order(&ohead, &otail, ORDER_FILE);
 
-    // ??????��?????? ????????? �ε� ??? ��� ���
+    // 파일로부터 데이터 로드 후 결과 출력
     print_all_user(uhead);
     print_product_list(phead, 0);
     print_product_detail_list(pdhash);
     print_stock_list(sthead);
     print_all_order_list(ohead);
 
-	// ?��?��로�???�� ?��?��?�� 로드 ?�� 결과 출력
-	//	print_list_product(phead,1,element_column_product,arr_product); // phead, page_no
-	//	print_list_product(phead,0,element_column_product,arr_product); // phead, page_no
-	//	print_product_detail_list(pdhash);
-
-	// [start] ?��?��?�� 만큼 ?��?��?�� ?��?��?�� ?��?��?���?, start~end 블럭 �??��주시�? ?��?��?��!
-
-	// loop 만큼 ?��?���? ?��?��?��보�?? ?��?��?��?��?��.
-	/*	for(int i=0; i<2; i++) {
-		insert_product(&phead, &ptail);
-		insert_product_detail(ptail->product_id, &pdhash);
-		}
-	 */
-	// ?��?���? ?��?��?���? 추�?? ?�� 결과
-	//	print_product_list(phead, 0); // phead, page_no
-	//print_product_detail_list(pdhash);
-
-	// 0) EXIT 메뉴�? ?��?�� ?��로그?��?�� ?��?��종료 ?�� 경우 ?��?��?��?�� ?��?�� 목록?��?�� ?��?��?�� ????��?��?��?��.
 
 	// [end]
 
-	//  int* page;
-	// *switch_value = '1';
 	printf("-- PROGRAM START --\n\n");
 	printf("START LOGIN:1\nEXIT:0\n");
 	printf("-> SELECT MENU : ");
@@ -105,18 +90,18 @@ int main(void)
 		switch (switch_value)
 		{
 			case '1':
-				ui_login(&switch_value, &user_role);
-				break;                   //로그?�� ?��면으�?
+				ui_login(&switch_value, &cur_user->role);
+				break;                   //로그인 화면으로
 			case '2':
-				ui_main_window(&switch_value, &user_role);
-				break; //메인 ?��면으�?
+				ui_main_window(&switch_value, &cur_user->role);
+				break; //메인 화면으로
 			case '3':
-				ui_mypage(&switch_value, &user_role); //마이?��?���?�?
+				ui_mypage(&switch_value, &cur_user->role); //마이페이지로
 				break;                    //
 			case '0':
-				printf("-- PROGRAM END --"); //?��로그?�� ?��?��
+				printf("-- PROGRAM END --"); //프로그램 엔드
 
-				/* 구조�? ?��?��?�� ????�� */
+				/* 구조체 데이터 저장 */
                 save_user (uhead, USER_FILE);
                 save_product(phead, PRODUCT_FILE);
                 save_product_detail(pdhash, PRODUCT_DETAIL_FILE);
@@ -256,6 +241,14 @@ int ui_main_window(char *switch_value, int *user_role)
 					printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
 					scanf("%d",&find_detail);
 					getchar();
+                    
+                    // 해당되는 아이디의 상품이 존재하는지 검색: cur_product를 설정하기 위함
+                    err_code = find_product(phead, find_detail, &cur_product);
+                    if (ERR_PRODUCT_OK != err_code) {
+                        system("clear");
+                        ui_main_window(switch_value, user_role);
+                    }
+
 					system("clear");
 					err_code = find_product(phead, find_detail, &cur_product);
                     if (ERR_PRODUCT_OK != err_code) {
@@ -318,6 +311,7 @@ int ui_main_window(char *switch_value, int *user_role)
 						printf("THERE's NO PRODUCT\n");
                         ui_main_window(switch_value, user_role);
                     }else{
+
 					ui_product_detail(&switch_value_main,user_role,find_detail);
 					}// ui_product_detail(PRODUCT *phead, PRODUCT_DETAIL *dhead, int product_id);
 					break;
@@ -394,7 +388,11 @@ int ui_mypage(char *switch_value, int *user_role)
 		if(*user_role !=2){
 			printf("\n                              ?��?�� MENU ?��?��\n 1 : REVISING INFO\n 2 : BUYING LIST\n 3 : BUCKET LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
+<<<<<<< HEAD
 			scanf("%c", &switch_value_mypage);
+=======
+			scanf("%c %d", &switch_value_mypage, user_role);
+>>>>>>> origin
 			getchar();
 			system("clear");
 			switch (switch_value_mypage)
@@ -853,6 +851,8 @@ int ui_purchase()
 	}
 	return 0;
 }
+
+
 int ui_order_list(char *switch_value, int *user_role)
 {
 	char switch_value_order;
@@ -1046,8 +1046,9 @@ int ui_login_check(char *switch_value,int* user_role)
 	ui_basic_form_bottom();
 	printf("\n");
 
-	int chk = login(uhead, cur_user,user_role);
-	if(chk) { //prev page�?
+	int chk = login(uhead, &cur_user);
+
+	if(chk) { //prev page로
 		*switch_value = '1';
 		return 0;
 	}
@@ -1071,8 +1072,8 @@ int ui_signup(char *switch_value,int* user_role)
 	ui_basic_form_top("SIGN UP");
 	ui_basic_form_bottom();
 	printf("\n");
-	//?��?���??�� ?��?��
-	signup(&uhead,&utail,user_role);
+	//회원가입 실행
+	signup(&uhead,&utail);
 
 	ui_basic_form_bottom();
 	printf("\n");
@@ -1130,7 +1131,7 @@ int ui_basic_form_top(char *page_name)
 		}
 		printf("\n"); // �?�? 방향?���? 별을 ?�� 그린 ?�� ?��?�� 줄로 ?��?���?
 	}
-
+    return 0;
 }
 
 
@@ -1138,7 +1139,5 @@ int ui_basic_form_bottom()
 {
 	for (int i = 0; i < 72; i++)
 		printf("=");
+    return 0;
 }
-
-
-

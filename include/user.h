@@ -1,7 +1,10 @@
 #ifndef USER_H
 #define USER_H
 
+
+
 enum USER_ROLE {
+    GUEST,
     CUSTOMER,
     ADMIN,
     GUEST
@@ -24,7 +27,7 @@ int signup(USER **uhead, USER **utail,int *user_role);
 
 // 아이디와 패스워드를 입력 받아
 // 파일의 내용과 비교하는 연산 (사용자 정보가 파일에 저장되어 있는지 확인)
-int login(USER *uhead, USER *current_user,int *user_role);
+int login(USER *uhead, USER **current_user);
 
 // 현재 사용자 변수 초기화 시키기
 // 현재 유저 = NULL
@@ -35,5 +38,9 @@ int find_user(USER *uhead, char *user_id);
 
 // [관리자] 회원 리스트 출력
 int print_all_user(USER *uhead);
+
+int load_user(USER **uhead, USER **utail, const char *filename);
+
+int save_user(USER *uhead, const char *filename);
 
 #endif
