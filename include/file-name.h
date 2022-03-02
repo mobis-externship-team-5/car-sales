@@ -3,5 +3,6 @@
 
 #define PRODUCT_FILE        "../data-files/product.dat"
 #define PRODUCT_DETAIL_FILE "../data-files/product-detail.dat"
+#define STOCK_FILE          "../data-files/stock.dat"
 
 #endif

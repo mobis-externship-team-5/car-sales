@@ -4,8 +4,8 @@
 #include "hash.h"
 
 #define ERR_PRODUCT_DETAIL_OK           0 /* 함수 성공 시 상수값 */
-#define ERR_PRODUCT_DETAIL_CREATE   -1100 /* 메모리 할당 시 오류 코드 */
-#define ERR_PRODUCT_DETAIL_FILE     -1101 /* 파일 입출력 오류 코드 */
+#define ERR_PRODUCT_DETAIL_CREATE   -2000 /* 메모리 할당 시 오류 코드 */
+#define ERR_PRODUCT_DETAIL_FILE     -2001 /* 파일 입출력 오류 코드 */
 
 enum SIZE {
     COMPACT,

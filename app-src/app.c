@@ -33,7 +33,7 @@ USER cur_user;
 
 USER *uhead, *utail;    /* 사용자 연결 리스트 */
 PRODUCT *phead, *ptail; /* 상품 연결 리스트 */
-STOCK *shead, *stail;   /* 재고 연결 리스트 */
+STOCK *sthead, *sttail;   /* 재고 연결 리스트 */
 
 LPHASH pdhash; /* 상품 상세설명 해시 */
 PRODUCT_DETAIL *cur_product_detail;
@@ -41,82 +41,90 @@ PRODUCT_DETAIL *cur_product_detail;
 
 int main(void)
 {
-	char switch_value; // 메뉴 번호
-	int user_role;    
-	/* 변수 초기화 */
-	uhead = utail = NULL;
-	phead = ptail = NULL;
-	shead = stail = NULL;
+    char switch_value; // 메뉴 번호
+    
+    /* 변수 초기화 */
+    uhead = utail = NULL;
+    phead = ptail = NULL;
+    sthead = sttail = NULL;
 
-	err_code = hashCreate(&pdhash);
-	if (ERR_HASH_OK != err_code)
-	{
-		return 0;
-	}
+    err_code = hashCreate(&pdhash);
+    if (ERR_HASH_OK != err_code)
+    {
+        return 0;
+    }
 
-	/* 구조체 데이터 로드 */
-	load_product(&phead, &ptail, PRODUCT_FILE);
-	load_product_detail(&pdhash, PRODUCT_DETAIL_FILE);
+    /* 구조체 데이터 로드 */
+    load_product(&phead, &ptail, PRODUCT_FILE);
+    load_product_detail(&pdhash, PRODUCT_DETAIL_FILE);
+    load_stock(&sthead, &sttail, STOCK_FILE);
 
-	// 파일로부터 데이터 로드 후 결과 출력
-	print_list_product(phead,1,element_column_product,arr_product); // phead, page_no
-	print_list_product(phead,0,element_column_product,arr_product); // phead, page_no
-	print_product_detail_list(pdhash);
+    // 파일로부터 데이터 로드 후 결과 출력
+    print_product_list(phead, 0); // phead, page_no
+    print_product_detail_list(pdhash);
+    print_stock_list(sthead);
 
-	// [start] 필요한 만큼 데이터 입력이 끝나시면, start~end 블럭 지워주시면 됩니다!
+    // [start] 필요한 만큼 데이터 입력이 끝나시면, start~end 블럭 지워주시면 됩니다!
+    
+    // // loop 만큼 상품과 상세정보를 입력합니다.
+    // for(int i=0; i<6; i++) {
+    //     insert_product(&phead, &ptail);
+    //     insert_product_detail(ptail->product_id, &pdhash);
+    //     increase_stock(&sthead, &sttail, ptail->model);
+    // }
 
-	// loop 만큼 상품과 상세정보를 입력합니다.
-	/*for(int i=0; i<2; i++) {
-	  insert_product(&phead, &ptail);
-	  insert_product_detail(ptail->product_id, &pdhash);
-	  }*/
+    // // 상품과 상세정보 추가 후 결과
+    // print_product_list(phead, 0); // phead, page_no
+    // print_product_detail_list(pdhash);
+    // print_stock_list(sthead);
 
-	// 상품과 상세정보 추가 후 결과
-	print_product_list(phead, 0); // phead, page_no
-	print_product_detail_list(pdhash);
+    //  // 재고 삭제 확인 블럭
+    // decrease_stock(&sthead, &sthead, "AAA");
+    // print_stock_list(sthead);
+    // decrease_stock(&sthead, &sthead, "FFF");
+    // print_stock_list(sthead);
 
-	// 0) EXIT 메뉴를 통해 프로그램을 정상종료 할 경우 입력했던 상품 목록들이 파일에 저장됩니다.
+    // 0) EXIT 메뉴를 통해 프로그램을 정상종료 할 경우 입력했던 상품 목록들이 파일에 저장됩니다.
+    
+    // [end]
 
-	// [end]
+    //  int* page;
+    // *switch_value = '1';
+    printf("-- PROGRAM START --\n\n");
+    printf("START LOGIN:1\nEXIT:0\n");
+    printf("-> SELECT MENU : ");
 
-	//  int* page;
-	// *switch_value = '1';
-	printf("-- PROGRAM START --\n\n");
-	printf("START LOGIN:1\nEXIT:0\n");
-	printf("-> SELECT MENU : ");
+    scanf("%c", &switch_value);
+    getchar();
+    while (1)
+    {
+        switch (switch_value)
+        {
+        case '1':
+            system("clear");
+            ui_login(&switch_value); //
+            break;                   //로그인 화면으로
+        case '2':
+            system("clear");
+            ui_main_window(&switch_value);
+            break; //메인 화면으로
+        case '3':
+            system("clear");
+            ui_mypage(&switch_value); //마이페이지로
+            break;                    //
+        case '0':
+            printf("-- PROGRAM END --"); //프로그램 엔드
 
-	scanf("%c", &switch_value);
-	getchar();
-	while (1)
-	{
-		system("clear");
-		switch (switch_value)
-		{
-			case '1':
-				ui_login(&switch_value, &user_role);
-				break;                   //로그인 화면으로
-			case '2':
-				ui_main_window(&switch_value, &user_role);
-				break; //메인 화면으로
-			case '3':
-				ui_mypage(&switch_value, &user_role); //마이페이지로
-				break;                    //
-			case '0':
-				printf("-- PROGRAM END --"); //프로그램 엔드
+            /* 구조체 데이터 저장 */
+            save_product(phead, PRODUCT_FILE);
+            save_product_detail(pdhash, PRODUCT_DETAIL_FILE);
+            save_stock(sthead, STOCK_FILE);
 
-				/* 구조체 데이터 저장 */
-				save_product(phead, PRODUCT_FILE);
-				save_product_detail(pdhash, PRODUCT_DETAIL_FILE);
-
-				exit(0);
-				break;
-			default:
-				printf("CHOOSE ALRIGHT MENU NUMBER!\n");
-				break;
-
-		}
-	}
-	return 0;
+            exit(0);
+            break;
+        }
+    }
+    return 0;
 }
 
 int ui_login(char *switch_value, int *user_role)
