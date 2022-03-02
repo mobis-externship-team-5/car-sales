@@ -321,7 +321,7 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     } 
 
     else if(opt==2){ //제조사(브랜드)로 검색
-        printf("검색할 제조사(브랜드)를 선택 >> 0.HTUNDAI, 1.KIA, 2.GENESIS\n");
+        printf("검색할 제조사(브랜드)를 선택 >> 0.HYUNDAI, 1.KIA, 2.GENESIS\n");
         printf("번호 선택 : ");
         scanf("%d",&em);
 getchar();

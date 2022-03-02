@@ -385,7 +385,7 @@ int ui_mypage(char *switch_value, int *user_role)
 
 		ui_basic_form_bottom();
 		if(*user_role !=2){
-			printf("\n                              ?��?�� MENU ?��?��\n 1 : REVISING INFO\n 2 : BUYING LIST\n 3 : BUCKET LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+			printf("\n                              ?��?�� MENU ?��?��\n 1 : REVISING INFO\n 2 : ORDER LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_mypage);
 			getchar();
@@ -396,15 +396,12 @@ int ui_mypage(char *switch_value, int *user_role)
 					printf("revising info\n");
 					// ui_product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail); ;
 					break;
-				case '2': // BUYING LIST
+				case '2': // ORDER LIST
 					// ui_order_list(ORDER *ohead, PRODUCT *phead);
                     print_list_order(ohead, page_no_order, element_column_order, arr_order, *user_role, cur_user);
 					ui_order_list(switch_value,user_role);
 					break;
 				case '3': // BUCKET LIST
-					printf("wish listn");
-					//ui_stock_list(switch_value);
-					break;
 				case '7':
 				case '8':
 				case '9':
