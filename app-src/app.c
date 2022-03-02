@@ -34,6 +34,7 @@ USER *cur_user; // 현재 로그인한 사용자
 PRODUCT *cur_product; // 사용자가 확인 중인 상품
 
 USER *uhead, *utail;    /* 사용자 연결 리스트 */
+USER *Suhead, *Sutail;    /* 사용자 연결 리스트 */
 PRODUCT *phead, *ptail; /* 상품 연결 리스트 */
 STOCK *sthead, *sttail; /* 재고 연결 리스트 */
 STOCK *Ssthead, *Ssttail; /* 재고 연결 리스트 */
@@ -51,6 +52,7 @@ int main(void)
 	int user_role;
 	/* 변수 초기화 */
 	uhead = utail = NULL;
+	Suhead = Sutail = NULL;
 	phead = ptail = NULL;
 	sthead = sttail = NULL;
 	ohead = otail = NULL;
@@ -427,7 +429,7 @@ int ui_mypage(char *switch_value, int *user_role)
 
 			}
 		}else{
-			printf("\n                              ?��?�� MENU ?��?��\n 1 : REVISING INFO\n 2 : BUYING LIST\n 3 : BUCKET LIST\n 4 : MEMBER LIST\n 5 : SALES LIST\n 6 : STOCK LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+			printf("\n                              ?��?�� MENU ?��?��\n 1 : REVISING INFO\n 2 : BUYING LIST\n 3 : BUCKET LIST\n 4 : USER LIST\n 5 : SALES LIST\n 6 : STOCK LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_mypage);
 			getchar();
@@ -442,13 +444,13 @@ int ui_mypage(char *switch_value, int *user_role)
 					// ui_order_list(ORDER *ohead, PRODUCT *phead);
 					ui_order_list(switch_value,user_role);
 					break;
-				case '3': // STOCK LIST
+				case '3': // 
 					printf("wish list");
 					break;
 				case '4': // MEMBER LIST
 					// ui_member_list()
 					// set nouser role
-					printf("MEMBERLIST\n");
+					ui_user_list(switch_value,user_role);
 					break;
 				case '5': // SALES LIST
 					printf("SALESLIST\n");
@@ -1044,13 +1046,12 @@ int ui_stock_list(char *switch_value, int *user_role)
 	return 0;
 }
 
-/*
+
 int ui_user_list(char *switch_value, int *user_role)
 {
         int find_detail;
         char switch_value_user;
-        int page_no_member = 0;
-        char temp_stock[20];
+        int page_no_user = 0;
         while (1)
         {
 
@@ -1078,8 +1079,9 @@ int ui_user_list(char *switch_value, int *user_role)
                         break;
                 }
                 ui_basic_form_top("MYPAGE_ADMIN_MEMBERLIST");
-                print_list_member(uhead,page_no_user,element_column_user,arr_user);
+                print_list_user(uhead,page_no_user,element_column_user,arr_user);
 
+                print_list_user(Suhead,page_no_user,element_column_user,arr_user);
                 printf("\n                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : PREVIOUS\n 3 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
                 printf("-> SELECT MENU :");
 
@@ -1093,7 +1095,7 @@ int ui_user_list(char *switch_value, int *user_role)
                                 // ui_product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail);
                                 break;
 				
-		     case '2': // INSERT STOCK
+/*		     case '2': // INSERT STOCK
                                 printf("INPUT PRODUCT YOU WANT TO INSERT : ");
                                 scanf("%s",temp_stock);
                                 getchar();
@@ -1111,17 +1113,17 @@ int ui_user_list(char *switch_value, int *user_role)
                                         ui_product_detail(&switch_value_stock, user_role,find_detail);
                                 }// ui_product_detail(PRODUCT *phead, PRODUCT_DETAIL *dhead, int product_id);
                                 break;
-                      */
-/*			case '2': //previous
+                      
+		*/	case '2': //previous
                                 //set nouser role
                                 printf("previous\n");
-                                page_no_stock--;
-                                if(page_no_stock <0)
-                                        page_no_stock= 0;
+                                page_no_user--;
+                                if(page_no_user <0)
+                                        page_no_user = 0;
                                 break;
                         case '3': //next
                                 printf("next\n");
-                                page_no_stock++;
+                                page_no_user++;
                                 break;
                         case '7':
                         case '8':
@@ -1137,7 +1139,6 @@ int ui_user_list(char *switch_value, int *user_role)
         return 0;
 }
 
-*/
 
 int ui_login_check(char *switch_value,int* user_role)
 {

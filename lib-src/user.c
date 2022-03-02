@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "user.h"
+#include "ui-printlist.h"
 
 int signup(USER **uhead, USER **utail){
     FILE *fp;
@@ -207,3 +208,102 @@ int save_user(USER *uhead, const char *filename)
     fclose(fp);
     return 0;
 }
+
+
+
+
+int user_search(USER *uhead, USER **shead, USER **stail,int *user_role, int opt2)
+{
+    int role = *user_role;
+    USER *search, *smake;
+    int opt = opt2;
+    char m[100];
+
+    search = uhead;
+    *shead = NULL;
+    if(opt==1){ // 紐⑤뜽紐낆쑝濡� 寃��깋
+        printf("INPUT USER YOU WANT TO FIND: ");
+        fgets(m,99,stdin);
+        m[strlen(m)-1]='\0';
+        while(search!=NULL){
+            if(strcmp(m,search->name)==0) {
+                smake = (USER*)malloc(sizeof(USER));
+                user_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+            search = search->next;
+        }
+    }
+    else {
+        printf("IT's WRONG. \n");
+    }
+    return 0;
+}
+
+int user_copy(USER *origin,USER *copy)
+{
+    strcpy(copy->user_id,origin->user_id);
+    strcpy(copy->name,origin->name);
+    strcpy(copy->password,origin->password);
+    strcpy(copy->addr,origin->addr);
+    strcpy(copy->phone,origin->phone);
+    copy->role=origin->role;
+    return 0;
+}
+
+
+
+
+
+
+
+
+int print_list_user(USER *uhead, int page_no,char element_column[][6][20],int arr[6]){
+        USER *current = uhead;
+        int chart_length = 72;
+        int arr_size = 6;
+//      ui_printlist_printroof('-','*');
+
+        char temp_list[][3] = {"GUEST","CUSTOMER","ADMIN"};
+        ui_printlist_printline('=');
+        ui_printlist_printline('-');
+        set_column_size(arr,chart_length,arr_size,element_column,1,0);
+        ui_printlist_printline('-');
+
+//�젙�닔�뒗 猷⑦듃 10�뀋�쑝濡� 吏쒕Ⅴ怨졼뀘�꽩
+        for(int i=0; i<page_no*5;i++){
+           if(current==NULL)
+                        break;
+                current=current->next;
+        }
+        int count = 0;
+        while (current)
+    {
+        if(count == 5)
+                break;
+        printf("|");
+        printspace_string(current->user_id,arr[0]);
+        printspace_string(current->name,arr[1]);
+        printspace_string(current->password,arr[2]);
+        printspace_string(current->addr,arr[3]);
+        printspace_string(current->phone,arr[4]);
+	printspace_string(temp_list[current->role],arr[5]);
+//printspace_string(user_status_str[current->status],arr[0]);
+        printf("\n");
+
+        current = current->next;
+        count++;
+        }
+        ui_printlist_printline('-');
+        printf("\n                                   %d/10                           \n",page_no+1);
+        ui_printlist_printline('=');
+
+
+}
+
