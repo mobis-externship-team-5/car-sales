@@ -146,7 +146,7 @@ int find_product(PRODUCT* phead, int product_id, PRODUCT **product)
     PRODUCT *cur = phead;
     while (cur)
     {
-        if (cur->product_id == product_id) {
+        if (cur->status == ABLE && cur->product_id == product_id) {
             *product = cur;
             break;
         }

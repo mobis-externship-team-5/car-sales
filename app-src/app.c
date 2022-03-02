@@ -50,6 +50,7 @@ int main(void)
 {
 	char switch_value; // 메뉴 번호
 	int user_role;
+  
 	/* 변수 초기화 */
 	uhead = utail = NULL;
 	Suhead = Sutail = NULL;
@@ -87,9 +88,6 @@ int main(void)
 	
 	print_all_order_list(ohead);
 	printf("\n\n");
-
-
-	// [end]
 
 	printf("-- PROGRAM START --\n\n");
 	printf("START LOGIN:1\nEXIT:0\n");
@@ -317,10 +315,9 @@ int ui_main_window(char *switch_value, int *user_role)
 					scanf("%d",&find_detail);
 					getchar();
 					system("clear");
-					// ???????????? ???????????? ????????? ����???????? ?????: cur_product?? ??????????? ??????
-					err_code = find_product(phead, find_detail, &cur_product);
-					if (ERR_PRODUCT_OK != err_code) {
-
+                    
+          err_code = find_product(phead, find_detail, &cur_product);
+          if (ERR_PRODUCT_OK != err_code) {                      
 						printf("THERE's NO PRODUCT\n");
 						ui_main_window(switch_value, user_role);
 					}else{
@@ -363,6 +360,7 @@ int ui_mypage(char *switch_value, int *user_role)
 {
 
 	char switch_value_mypage;
+    int page_no_order = 0;
 
 	while (1)
 	{
@@ -412,6 +410,7 @@ int ui_mypage(char *switch_value, int *user_role)
 					break;
 				case '2': // BUYING LIST
 					// ui_order_list(ORDER *ohead, PRODUCT *phead);
+                    print_list_order(ohead, page_no_order, element_column_order, arr_order, *user_role, cur_user);
 					ui_order_list(switch_value,user_role);
 					break;
 				case '3': // BUCKET LIST
@@ -767,7 +766,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 				case '0':
 					break;
 				default:
-					printf("%c",switch_value_detail);
+					printf("%c", switch_value_detail);
 					printf("CHOOSE ALRIGHT MENU NUMBER!\n");
 					break;
 			}
@@ -866,7 +865,7 @@ int ui_order_list(char *switch_value, int *user_role)
 {
 	char switch_value_order;
 	int find_detail;
-	int page_no_order =0;
+	int page_no_order = 0;
 	while (1)
 	{
 
@@ -897,7 +896,7 @@ int ui_order_list(char *switch_value, int *user_role)
 		ui_basic_form_top("MYPAGE_ADMIN_STOCKLIST");
 		//printf("\n                              MYPAGE_ADMIN_STOCKLIST\n\n");
 
-		//print_list_product(element_order, element_column_order, arr_order);
+		print_list_order(ohead, page_no_order, element_column_order, arr_order, *user_role, cur_user);
 
 		printf("\n                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : SORT\n 3 : DETAIL\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 		printf("-> SELECT MENU :");
@@ -941,6 +940,7 @@ int ui_order_list(char *switch_value, int *user_role)
 				page_no_order++;
 				break;
 			case '7':
+                
 			case '8':
 			case '9':
 			case '0':
@@ -989,8 +989,7 @@ int ui_stock_list(char *switch_value, int *user_role)
 		ui_basic_form_top("MYPAGE_ADMIN_STOCKLIST");
 		// print_list_product(element_stock, element_column_stock, arr_stock);
 		print_list_stock(sthead,page_no_stock,element_column_stock,arr_stock);
-		//print_list_stock(Ssthead,page_no_stock,element_column_stock,arr_stock);
-
+    
 		printf("\n                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : INSERT STOCK\n 3 : DETAIL\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 		printf("-> SELECT MENU :");
 
@@ -999,19 +998,20 @@ int ui_stock_list(char *switch_value, int *user_role)
 		switch (switch_value_stock)
 		{
 			case '1': // search
-				stock_search(sthead,&Ssthead,&Ssttail,user_role,1);
+				stock_search(sthead,&sthead,&sttail,user_role,1);
 
 				// ui_product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail);
 				break;
 			case '2': // INSERT STOCK
-				printf("INPUT PRODUCT YOU WANT TO INSERT : ");
-				scanf("%s",temp_stock);
-				getchar();	
-				increase_stock(&sthead,&sttail,temp_stock);// ui_sort
+				printf("INPUT PRODUCT INFO YOU WANT TO INSERT\n\n");
+
+				insert_product(&phead, &ptail);
+				insert_product_detail(ptail->product_id, &pdhash);
+				increase_stock(&sthead, &sttail, ptail->model);
 				break;
 			case '3': // detail
 				printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
-				scanf("%d",&find_detail);
+				scanf("%d", &find_detail);
 				system("clear");
 				err_code = find_product(phead, find_detail, &cur_product);
 				if (ERR_PRODUCT_OK != err_code) {
