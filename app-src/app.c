@@ -746,6 +746,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 		ui_basic_form_bottom();
 		if(*user_role != 0){
 			printf("\n                              ?��?�� MENU ?��?��\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+			printf("유저롤 0 아님\n ");
 			printf("-> SELECT MENU :");
 			scanf("%c",&switch_value_detail);
 			getchar();
@@ -769,19 +770,19 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 					break;
 			}
 		}else{
-			printf("                              ?��?�� MENU ?��?��\n 1 : APPLY PURCHASING\n 8 : LOGIN \n 9 : MAIN\n 0 : EXIT\n\n");
+			printf("                              ?��?�� MENU ?��?��\n 8 : LOGIN \n 9 : MAIN\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_detail);
 			getchar();
 			system("clear");
 			switch (switch_value_detail)
 			{
-				case '1': // APPLY PURCHASING
-					ui_purchase();
-					printf("PRESS ENTER ...");
-					getchar();
-					switch_value_detail = '8';
-					break;
+				// case '1': // APPLY PURCHASING
+				// 	ui_purchase();
+				// 	printf("PRESS ENTER ...");
+				// 	getchar();
+				// 	switch_value_detail = '8';
+				// 	break;
 				case '8':
 					switch_value_detail = '9';
 					break;
