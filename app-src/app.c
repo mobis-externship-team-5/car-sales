@@ -242,6 +242,7 @@ int ui_main_window(char *switch_value, int *user_role)
 					printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
 					scanf("%d",&find_detail);
 					getchar();
+					system("clear");
 					ui_product_detail(&switch_value_main, user_role,find_detail);
 					//ui_product_detail(PRODUCT *phead, PRODUCT_DETAIL *dhead, int product_id);
 					break;
@@ -266,8 +267,8 @@ int ui_main_window(char *switch_value, int *user_role)
 				default:
 					printf("CHOOSE ALRIGHT MENU NUMBER!\n");
 					break;
-					system("clear");
 			}
+		system("clear");
 		}else{
 			printf("                              ★★ MENU ★★\n 1 : SEARCH\n 2 : SORT\n 3 : DETAIL\n 4 : PREVIOUS\n 5 : NEXT\n 8 : LOGIN\n 9 : MAIN\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
@@ -694,12 +695,13 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 		//scanfswitch_value_login
 
 		ui_basic_form_top("DETAILS");
-		printf("%d",find_detail);
+		product_search_ID(phead,&Sphead,&Sptail,find_detail);
+		print_product_list_in_detail(Sphead);	
 		find_product_detail(pdhash,0,&cur_product_detail);
 		ui_basic_form_bottom();
 		if(*user_role != 0){
 			printf("\n                              ★★ MENU ★★\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
-			printf("-> SELECT MENUU :");
+			printf("-> SELECT MENU :");
 			scanf("%c",&switch_value_detail);
 			getchar();
 			system("clear");

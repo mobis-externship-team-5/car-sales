@@ -57,6 +57,9 @@ int print_all_product(PRODUCT *phead, int page_no);
 int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_role,int opt);
 int product_copy(PRODUCT *origin,PRODUCT *copy);
 
+int product_search_ID(PRODUCT *phead,PRODUCT **shead,PRODUCT **stail,int product_id);
+
+int print_product_list_in_detail(PRODUCT *phead);
 
 int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],int arr[6]);
 

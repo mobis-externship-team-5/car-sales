@@ -129,6 +129,17 @@ int print_product_list(PRODUCT *phead, int page_no)
 
     return ERR_PRODUCT_OK;
 }
+int print_product_list_in_detail(PRODUCT *phead)
+{
+    PRODUCT *current = phead;
+
+        printf(" MODEL NAME : %s\n OEM : %s\n GAS_MILLEGE : %2.2f\n FUEL : %s\n PRICE : %d\n\n",
+                current->model, oem_str[current->oem],
+                current->gas_mileage, fuel_str[current->fuel],current->price);
+
+
+    return ERR_PRODUCT_OK;
+}
 
 /* 파일로부터 상품 리스트를 불러오는 함수 */
 int load_product(PRODUCT **phead, PRODUCT **ptail, const char *filename)
@@ -180,10 +191,6 @@ int save_product(PRODUCT *phead, const char *filename)
 
 }
 
-
-
-
-
 int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],int arr[6]){
         PRODUCT *current = phead;
         int chart_length = 72;
@@ -207,10 +214,10 @@ int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],
         if(count == 5)
                 break;
         printf("|");
-                printspace_int(current->product_id,arr[0]);
-                printspace_string(current->model,arr[1]);
-                printspace_string(oem_str[current->oem],arr[2]);
-                printspace_int(current->price,arr[3]);
+        printspace_int(current->product_id,arr[0]);
+        printspace_string(current->model,arr[1]);
+        printspace_string(oem_str[current->oem],arr[2]);
+        printspace_int(current->price,arr[3]);
         printspace_string(fuel_str[current->fuel],arr[4]);
         printspace_double(current->gas_mileage,arr[5]);
 //printspace_string(product_status_str[current->status],arr[0]);
@@ -226,7 +233,23 @@ int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],
 
 }
 
-
+int product_search_ID(PRODUCT *phead,PRODUCT **shead,PRODUCT **stail,int product_id){
+    PRODUCT *search, *smake;
+       search = phead;
+    	*shead = NULL;
+ 
+        while(search!=NULL){
+            if(product_id == search->product_id) {
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+               		break;
+		 }
+            }
+            search = search->next;
+        }
+}
 
 int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_role, int opt2)
 {
