@@ -1,4 +1,4 @@
-
+#include "math.h"
 #include <stdio.h>
 #include <string.h>
 #include "ui-printlist.h"
@@ -39,9 +39,12 @@ int printspace_string(char* element,int arr_num){
 }
 
 int printspace_int(int element,int arr_num){
-	int item_size = 5;
+	
+	char s1[20];
+        sprintf(s1, "%d",element);
+        int item_size = strlen(s1);
 	ui_printlist_space_bar(arr_num - item_size -1);
-        printf("%5d",element);
+	printf("%d",element);
         if(item_size<arr_num)
         printf(" ");
         if(item_size != 0 || arr_num == 6)
@@ -51,13 +54,15 @@ int printspace_int(int element,int arr_num){
 }
 
 int printspace_double(double element,int arr_num){
-	int item_size = 5;
-        ui_printlist_space_bar(arr_num- item_size -1);
-        printf("%2.2f",element);
+	char s1[20];
+	sprintf(s1, "%.2f",element );
+        int item_size = strlen(s1);
+	ui_printlist_space_bar(arr_num- item_size -1);
+	printf("%2.2f",element);
         if(item_size<arr_num)
         printf(" ");
         if(item_size != 0 || arr_num == 6)
-        printf("|");
+	printf("|");
         else
         printf(" ");
 }
@@ -133,3 +138,4 @@ int ui_printlist_printline(char a){
         printf("%c",a);
     printf("\n");
 }
+

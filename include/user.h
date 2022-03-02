@@ -6,7 +6,8 @@
 enum USER_ROLE {
     GUEST,
     CUSTOMER,
-    ADMIN
+    ADMIN,
+    GUEST
 };
 
 typedef struct user_t {
@@ -22,7 +23,7 @@ typedef struct user_t {
 
 /* 사용자 기능 */
 // 고객 계정 생성 (관리자는 미리 생성된 계정 사용)
-int signup(USER **uhead, USER **utail);
+int signup(USER **uhead, USER **utail,int *user_role);
 
 // 아이디와 패스워드를 입력 받아
 // 파일의 내용과 비교하는 연산 (사용자 정보가 파일에 저장되어 있는지 확인)
