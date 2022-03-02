@@ -3,7 +3,8 @@
 
 enum USER_ROLE {
     CUSTOMER,
-    ADMIN
+    ADMIN,
+    GUEST
 };
 
 typedef struct user_t {
