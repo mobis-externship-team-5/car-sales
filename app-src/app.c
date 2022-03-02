@@ -391,10 +391,11 @@ int ui_mypage(char *switch_value, int *user_role)
 		ui_basic_form_top("MYPAGE");
 		ui_basic_form_bottom();
 		printf("\n");
-		printf("ID       : ABCD\n");
-		printf("PASSWORD : ****\n");
-		printf("NICKNAME : WOW \n");
-		printf("REALNAME : WOW \n");
+		printf("ID       : %s \n",cur_user->user_id);
+		printf("name       : %s \n",cur_user->name);
+		printf("PASSWORD : ");for(int paslen = 0; paslen<strlen(cur_user->password); paslen++)printf("*"); 
+		printf("\nPHONENUM : %s \n",cur_user->phone);
+		printf("ADDRESS  : %s \n",cur_user->addr);
 
 		ui_basic_form_bottom();
 		if(*user_role !=2){
@@ -1179,7 +1180,7 @@ int ui_signup(char *switch_value,int* user_role)
 	return 0;
 	//   *switch_value = '2';
 }
-
+/*
 int check_sales()
 {
 
@@ -1194,11 +1195,11 @@ int check_sales()
         printf(" C) ADDRESS     : %s \n",cur_user->addr);
         printf("\n");
         ui_basic_form_bottom();
-        printf("\n                                       ?��?�� APPLYING CONSULTING MENU ?��?��\n A) YOUR ID : (ex: HELOO123)\n");
+        printf("\n                                       ?��?�� APPLYING CONSULTING MENU ?��?��\n \n");
         printf(" \n");
-        printf(" \nIF YOU AGREE THAT INFOS USED IN CAR PURCHASING??\n");
-        printf("\n IF YOU AGREE SELECT 1");
-        printf("\n                                  ?��?�� MENU ?��?��\n 1 : PURCHASING\n 0 : EXIT\n\n");
+        printf(" \n                   IF YOU AGREE THAT INFOS USED IN CAR PURCHASING??\n");
+        printf("\n                     IF YOU AGREE SELECT 1");
+        printf("\n     \n\n                             ?��?�� MENU ?��?��\n 1 : PURCHASING\n 0 : EXIT\n\n");
         printf("-> SELECT MENU :");
 
         scanf("%c", &switch_value_purchase);
@@ -1221,8 +1222,218 @@ int check_sales()
                         break;
 	}
 return 0;
-}
+}*/
+/*
+int ui_product_revice_user(char *switch_value, int *user_role)
+{
+	char switch_value_revice_user;
+	while (1)
+	{
 
+		if (switch_value_revice_user == '7' && *user_role !=0)
+		{
+			system("clear");
+			*switch_value = '7';
+			break;
+		}
+		else if (switch_value_revice_user == '8')
+		{
+			system("clear");
+			*switch_value = '8';
+			break;
+		}
+		else if (switch_value_revice_user== '9')
+		{
+			system("clear");
+			*switch_value = '9';
+			break;
+		}
+		else if (switch_value_revice_user == '0')
+		{
+			system("clear");
+			*switch_value = '0';
+			break;
+		}
+        printf("\n A) YOUR NAME  : %c%c%c(%s)\n",*(cur_user->name),'*',*(cur_user->name) + 2,cur_user->user_id);
+       	
+	 printf(" B) YOUR ID : %s\n",cur_user->user_id);
+I	 printf(" C) PASSWORD : %s\n",cur_user->password);
+	
+	 printf(" D) PHONENUMBER : %s\n",cur_user->phone);
+        printf(" E) ADDRESS     : %s \n",cur_user->addr);
+
+		ui_basic_form_top("REVISGNG INFO");
+
+			printf("                           ?��?�� SEARCH MENU ?��?��\n");
+			if(switch_value_search== 'A')
+				printf(" A) MODEL : %s\n",Sphead->model);
+			else
+
+				printf(" A) MODEL : \n");
+			if(switch_value_search== 'B')
+				printf(" B) OEM : %d\n",Sphead->oem);
+			else
+				printf(" B) OEM : \n");
+			if(switch_value_search== 'C')
+				printf(" C) GAS_MILLEGE :  %2.2f\n",Sphead->gas_mileage);
+			else
+				printf(" C) GAS_MILLEGE :  \n");
+			if(switch_value_search== 'D')
+				printf(" D) FUEL : %d\n",Sphead->fuel);
+			else
+				printf(" D) FUEL : \n");
+
+			if(switch_value_search== 'E')
+				printf(" E) PRICE : %d - %d\n",Sphead->price-10,Sphead->price +10);
+			else
+				printf(" E) PRICE :\n");
+
+
+		printf("\n\n");
+
+		ui_basic_form_bottom();
+		if(*user_role != 0 ){
+			printf("\n                              ?��?�� MENU ?��?��\n 1 : RESET\n 3 : DETAILS\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+			printf("-> SELECT MENU :");
+			scanf("%c", &switch_value_search);
+			getchar();
+
+			switch (switch_value_search)
+			{
+
+				case 'A': //Name
+					start_search =1;
+					product_search(phead,&Sphead,&Sptail,user_role,1);
+					//scanf(%s,name)
+					break;
+				case 'B': //Brand
+					//scanf(%s,brand);
+					start_search =1;
+					product_search(phead,&Sphead,&Sptail,user_role,2);
+					break;
+				case 'C': //Engine
+					start_search =1;
+					product_search(phead,&Sphead,&Sptail,user_role,5);
+					//scanf(%s,engine);
+					break;
+				case 'D': //kind
+					product_search(phead,&Sphead,&Sptail,user_role,4);
+					start_search =1;
+					// scanf(%s,kind);
+					break;
+				case 'E': //price
+					start_search =1;
+					product_search(phead,&Sphead,&Sptail,user_role,3);
+					//  scanf(%d,lowprce);
+					//  scanf(%d,highprice);
+					break;
+				case '1': //reset
+					start_search =0;
+					break;
+				case '3': //detail
+					printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
+					scanf("%d",&find_detail);	
+					getchar();
+					system("clear");
+                    err_code = find_product(phead, find_detail, &cur_product);
+                    if (ERR_PRODUCT_OK != err_code) {
+                        printf("THERE's no PRODUCT\n");
+                        ui_main_window(switch_value, user_role);
+                    }else{
+						ui_product_detail(&switch_value_search, user_role,find_detail);
+					}
+					break;
+				case '4': //previous
+					//set nouser role
+					printf("previous\n");
+					page_no_search--;
+					if(page_no_search <0)
+						page_no_search = 0;
+					break;
+				case '5': //next
+					printf("next\n");
+					page_no_search++;
+				case '7':
+				case '8':
+				case '9':
+				case '0':
+					break;
+				default:
+					printf("CHOOSE ALRIGHT MENU NUMBER!\n");
+					break;
+			}
+			system("clear");
+
+		}else{
+			printf("\n                              ?��?�� MENU ?��?��\n 3 : DETAILS\n 4 : PREVIOUS\n 5 : NEXT\n 9 : MAIN\n 0 : EXIT\n\n");
+			printf("-> SELECT MENU :");
+			scanf("%c", &switch_value_search);
+			getchar();
+			switch (switch_value_search)
+			{
+
+				case 'A': // Name
+					printf("scanf A\n");
+					// scanf(%s,name)
+					break;
+				case 'B': // Brand
+					printf("scanf B\n");
+					// scanf(%s,brand);
+					break;
+				case 'C': // Engine
+					printf("scanf C\n");
+					// scanf(%s,engine);
+					break;
+				case 'D': // kind
+					printf("scanf D\n");
+					// scanf(%s,kind);
+					break;
+				case 'E': // price
+					printf("scanf E\n");
+					printf("scanf E2\n");
+					//  scanf(%d,lowprce);
+					//  scanf(%d,highprice);
+					break;
+				case 'F': // GAS
+					printf("scanf E\n");
+					//  scanf(%d,lowprce);
+					//  scanf(%d,highprice);
+					break;
+				case 'G': // search_start
+					printf("scanf start\n");
+					//   int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail);
+					break;
+				case '3': // detail
+					printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
+					scanf("%d",&find_detail);
+					getchar();
+					err_code = find_product(phead, find_detail, &cur_product);
+                    if (ERR_PRODUCT_OK != err_code) {
+                        printf("THERE's no PRODUCT\n");
+                        ui_main_window(switch_value, user_role);
+                    }else{
+						ui_product_detail(&switch_value_search, user_role,find_detail);
+					}
+					break;
+				case '4': // previous
+					break;
+				case '5': // next
+					//ui_product_detail(&switch_value_search,user_role);
+					break;
+				case '9':
+					switch_value_search = '8';
+					break;
+				case '0':
+					break;
+				default:
+					printf("CHOOSE ALRIGHT MENU NUMBER!\n");
+					break;
+			}
+			system("clear");
+		}
+	}
+	return 0;
+}*/
 int ui_basic_form_top(char *page_name)
 {
 

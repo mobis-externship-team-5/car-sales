@@ -212,6 +212,13 @@ int save_product(PRODUCT *phead, const char *filename)
 
 int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20], int arr[6])
 {
+    PRODUCT *check_count = phead;
+int sum =0;
+while(check_count){
+	sum++;
+	check_count= check_count->next;
+	}
+sum =(int)(sum/5)+1;
     PRODUCT *current = phead;
     int chart_length = 72;
     int arr_size = 6;
@@ -255,7 +262,7 @@ int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20]
         count++;
     }
     ui_printlist_printline('-');
-    printf("\n                                   %d/10                           \n", page_no + 1);
+    printf("\n                                   %d/%d                           \n", page_no + 1,sum);
     ui_printlist_printline('=');
 
     return ERR_PRODUCT_OK;
