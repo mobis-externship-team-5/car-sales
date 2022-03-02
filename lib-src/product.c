@@ -206,6 +206,10 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail)
         m[strlen(m)-1]='\0';
         while(search!=NULL){
             if(strcmp(m,search->model)==0) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
                 smake = (PRODUCT*)malloc(sizeof(PRODUCT));
                 product_copy(search,smake);
                 if((*shead)==NULL){
@@ -227,6 +231,10 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail)
 
         while(search!=NULL){
             if(em==search->oem) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
                 smake = (PRODUCT*)malloc(sizeof(PRODUCT));
                 product_copy(search,smake);
                 if((*shead)==NULL){
@@ -250,6 +258,10 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail)
         
         while(search!=NULL){
             if(search->price>=min && search->price<=max) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
                 smake = (PRODUCT*)malloc(sizeof(PRODUCT));
                 product_copy(search,smake);
                 if((*shead)==NULL){
@@ -271,6 +283,10 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail)
 
         while(search!=NULL){
             if(fu==search->fuel) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
                 smake = (PRODUCT*)malloc(sizeof(PRODUCT));
                 product_copy(search,smake);
                 if((*shead)==NULL){
@@ -291,6 +307,10 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail)
         
         while(search!=NULL){
             if(mile<=search->gas_mileage) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
                 smake = (PRODUCT*)malloc(sizeof(PRODUCT));
                 product_copy(search,smake);
                 if((*shead)==NULL){
