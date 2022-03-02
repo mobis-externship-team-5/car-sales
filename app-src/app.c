@@ -29,7 +29,7 @@ int ui_signup(char *switch_value, int *user_role);
 
 int err_code;
 
-USER cur_user;
+USER *cur_user;
 
 USER *uhead, *utail;    /* 사용자 연결 리스트 */
 PRODUCT *phead, *ptail; /* 상품 연결 리스트 */
@@ -118,6 +118,9 @@ int main(void)
 		}
 	}
 	return 0;
+
+
+
 }
 
 int ui_login(char *switch_value, int *user_role)
@@ -958,60 +961,26 @@ int ui_stock_list(char *switch_value, int *user_role)
 
 int ui_login_check(char *switch_value,int* user_role)
 {
-
-
 	char switch_value_login_check;
 
 	ui_basic_form_top("LOGIN_CHECK");
-	//      printf("\n                              LOGIN\n\n");
 
 	ui_basic_form_bottom();
 	printf("\n");
-	printf("\n A) YOUR ID : (ex:HELLO123)\n");
-	printf(" B) YOUR PW : (ex: 32654ZX)\n");
-	printf(" C) LOGIN : \n");
-	printf(" 9) GO BACK : \n");
-	printf(" 0) EXIT: \n");
-	/* printf("E) NICKNAME : (ex: 2000 4000\n");
-	   printf("F) REALNAME : (ex: 2000 4000\n");
-	   printf("G) WHAT IS YOUR FIRST SCHOOL NAME: (ex:hyocheon)\n");*/
 
-	ui_basic_form_bottom();
-	printf("\n");
-	printf("-> SELECT MENU :");
+	int chk = login(uhead, cur_user);
 
-	scanf("%c", &switch_value_login_check);
-	getchar();
-
-	switch (switch_value_login_check)
-	{
-
-		case 'A': // Name
-			printf("scanf A\n");
-			// scanf(%s,name)
-			break;
-		case 'B': // Brand
-			printf("scanf B\n");
-			// scanf(%s,brand);
-			break;
-		case 'C': // Engine
-			printf("scanf C\n");
-			*user_role = 1;
-			*switch_value = '2';
-			// scanf(%s,engine);
-			break;
-		case '9':
-			printf("GO BACK\n");
-			*user_role = 0;
-			*switch_value = '1';
-			break;
-		default:
-			printf("exit\n");
-			*switch_value = '1';
-			break;
+	if(chk) { //prev page로
+		*switch_value = '1';
+		return 0;
 	}
+
+	ui_basic_form_bottom();
+	printf("\n");
+	printf("press Enter ....");
+	getchar();
 	system("clear");
-	//*switch_value = '2';
+	*switch_value = '2';
 	return 0;
 }
 /*int ui_find_user(*switch_value){}
@@ -1023,64 +992,15 @@ int ui_signup(char *switch_value,int* user_role)
 	char switch_value_sign_up;
 
 	ui_basic_form_top("SIGN UP");
-	//      printf("\n                              SIGN_UP\n\n");
-
-	//signup(USER_HEAD,USER_TAIL);
 	ui_basic_form_bottom();
 	printf("\n");
-	printf("\n A) YOUR ID : (ex: HELLO1234)\n");
-	printf(" B) YOUR PW : (ex: 123456)\n");
-	printf(" C) CHECK PW : (ex: 123456\n");
-	printf(" D) PHONENUMBER: (ex: 01012345678)\n");
-	printf(" E) ADDR : (ex: SUWON HOMAESIL)\n");
-	printf(" G) REGISTER\n");
-	printf(" 9) GO LOGIN STATE\n");
-	printf(" 0) EXIT\n");
-	/* printf("E) NICKNAME : (ex: 2000 4000\n");
-	   printf("F) REALNAME : (ex: 2000 4000\n");
-	   printf("G) WHAT IS YOUR FIRST SCHOOL NAME: (ex:hyocheon)\n");*/
+	//회원가입 실행
+	signup(&uhead,&utail);
 
 	ui_basic_form_bottom();
-	scanf("%c", &switch_value_sign_up);
+	printf("\n");
+	printf("press Enter ....");
 	getchar();
-	printf("-> SELECT MENU :");
-	switch (switch_value_sign_up)
-	{
-		case 'A': // Name
-			printf("scanf A\n");
-			// scanf(%s,name)
-			break;
-		case 'B': // Brand
-			printf("scanf B\n");
-			// scanf(%s,brand);
-			break;
-		case 'C': // Engine
-			printf("scanf C\n");
-			// scanf(%s,engine);
-			break; // Name
-		case 'D':  // Brand
-			printf("scanf B\n");
-			// scanf(%s,brand);
-			break;
-		case 'E': // Engine
-			printf("scanf C\n");
-			// scanf(%s,engine);
-			break; // Name
-		case 'G': // Brand
-			printf("scanf B\n");
-			*user_role = '1';
-			*switch_value = '2';
-			break;
-		case '9':
-			printf("GO BACK\n");
-			*user_role = '0';
-			*switch_value = '1';
-			break;
-		default:
-			printf("exit\n");
-			*switch_value = '0';
-			break;
-	}
 	system("clear");
 	return 0;
 	//   *switch_value = '2';
