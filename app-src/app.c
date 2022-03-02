@@ -47,7 +47,6 @@ PRODUCT_DETAIL *cur_product_detail;
 int main(void)
 {
     char switch_value; // 메뉴 번호
-	int user_role;    
 
     /* 변수 초기화 */
     uhead = utail = NULL;
@@ -105,13 +104,13 @@ int main(void)
 		switch (switch_value)
 		{
 			case '1':
-				ui_login(&switch_value, &user_role);
+				ui_login(&switch_value, &cur_user->role);
 				break;                   //로그인 화면으로
 			case '2':
-				ui_main_window(&switch_value, &user_role);
+				ui_main_window(&switch_value, &cur_user->role);
 				break; //메인 화면으로
 			case '3':
-				ui_mypage(&switch_value, &user_role); //마이페이지로
+				ui_mypage(&switch_value, &cur_user->role); //마이페이지로
 				break;                    //
 			case '0':
 				printf("-- PROGRAM END --"); //프로그램 엔드
@@ -841,7 +840,7 @@ int ui_purchase()
                 printf("FAILELD, CONTACT ANGENT :(\n");
             }
             printf("THANKYOU FOR PURCHASING!\n");
-            system("clear");
+            // system("clear");
 			break;
 		case '0': // exit
 			break;
