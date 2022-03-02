@@ -252,9 +252,9 @@ int print_list_stock(STOCK *sthead, int page_no,char element_column[][6][20],int
         printspace_string(current->model,arr[0]);
         printspace_int(current->quantity,arr[1]);
         printspace_string("",arr[2]);
-        printspace_int(0,arr[3]);
+        printspace_string("",arr[3]);
         printspace_string("",arr[4]);
-        printspace_double(0,arr[5]);
+        printspace_string("",arr[5]);
 //printspace_string(stock_status_str[current->status],arr[0]);
         printf("\n");
 

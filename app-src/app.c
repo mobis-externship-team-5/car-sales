@@ -893,6 +893,7 @@ int ui_stock_list(char *switch_value, int *user_role)
 	int find_detail;
 	char switch_value_stock;
 	int page_no_stock = 0;
+	char temp_stock[20];
 	while (1)
 	{
 
@@ -924,7 +925,7 @@ int ui_stock_list(char *switch_value, int *user_role)
 		print_list_stock(sthead,page_no_stock,element_column_stock,arr_stock);
 		print_list_stock(Ssthead,page_no_stock,element_column_stock,arr_stock);
 
-		printf("\n                              ★★ MENU ★★\n 1 : SEARCH\n 2 : SORT\n 3 : DETAIL\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+		printf("\n                              ★★ MENU ★★\n 1 : SEARCH\n 2 : INSERT STOCK\n 3 : DETAIL\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 		printf("-> SELECT MENU :");
 
 		scanf("%c", &switch_value_stock);
@@ -936,9 +937,11 @@ int ui_stock_list(char *switch_value, int *user_role)
 
 				// ui_product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail);
 				break;
-			case '2': // sort
-				printf("sort window\n");
-				// ui_sort
+			case '2': // INSERT STOCK
+				printf("INPUT PRODUCT YOU WANT TO INSERT : ");
+				scanf("%s",temp_stock);
+				getchar();	
+				increase_stock(&sthead,&sttail,temp_stock);// ui_sort
 				break;
 			case '3': // detail
 				printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
@@ -946,14 +949,17 @@ int ui_stock_list(char *switch_value, int *user_role)
 				ui_product_detail(&switch_value_stock,user_role,find_detail);
 				// ui_product_detail(PRODUCT *phead, PRODUCT_DETAIL *dhead, int product_id);
 				break;
-			case '4': // previous
-				printf("previous\n");
-				//*switch_value = '2';
-				break;
-			case '5': // next
-				printf("next\n");
-				//*switch_value = '2';
-				break;
+		 case '4': //previous
+                                        //set nouser role
+                                        printf("previous\n");
+                                        page_no_stock--;
+                                        if(page_no_stock <0)
+                                                page_no_stock= 0;
+                                        break;
+                                case '5': //next
+                                        printf("next\n");
+                                        page_no_stock++;
+                                        break;
 			case '7':
 			case '8':
 			case '9':
