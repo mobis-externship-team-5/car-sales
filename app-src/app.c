@@ -231,7 +231,7 @@ int ui_main_window(char *switch_value, int *user_role)
 		ui_basic_form_top("MAIN");
 
 		// print_list_product();
-		print_list_product(phead,page_no_main,element_column_product,arr_product,user_role); // phead, page_no
+		print_list_product(phead,page_no_main,element_column_product,arr_product,*user_role); // phead, page_no
 		if(*user_role !=0){
 			printf("                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : SORT\n 3 : DETAIL\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE \n 8 : MAIN \n 9 : LOGOUT \n 0 : EXIT\n\n");
 
@@ -257,14 +257,14 @@ int ui_main_window(char *switch_value, int *user_role)
 					getchar();
 
 					// 해당되는 아이디의 상품이 존재하는지 검색: cur_product를 설정하기 위함
-					err_code = find_product(phead, find_detail, &cur_product);
+					err_code = find_product(phead, &cur_product, find_detail);
 					if (ERR_PRODUCT_OK != err_code) {
 						system("clear");
 						ui_main_window(switch_value, user_role);
 					}
 
 					system("clear");
-					err_code = find_product(phead, find_detail, &cur_product);
+					err_code = find_product(phead, &cur_product, find_detail);
 					if (ERR_PRODUCT_OK != err_code) {
 						*switch_value = '2'; //����
 					}else{
@@ -318,9 +318,8 @@ int ui_main_window(char *switch_value, int *user_role)
 					scanf("%d",&find_detail);
 					getchar();
 					system("clear");
-
-					err_code = find_product(phead, find_detail, &cur_product);
-					if (ERR_PRODUCT_OK != err_code) {                      
+          err_code = find_product(phead, &cur_product, find_detail);
+          if (ERR_PRODUCT_OK != err_code) {                      
 						printf("THERE's NO PRODUCT\n");
 						ui_main_window(switch_value, user_role);
 					}else{
@@ -513,7 +512,7 @@ int ui_product_search(char *switch_value, int *user_role)
 		//print_list_product(element_product, element_column_product, arr_product);
 		if(Sphead==NULL && start_search ==1){
 
-			print_list_product(NULL,page_no_search,element_column_product,arr_product,user_role); // phead, page_no
+			print_list_product(NULL,page_no_search,element_column_product,arr_product,*user_role); // phead, page_no
 
 			printf("                           ?��?�� SEARCH MENU ?��?��\n");
 			printf(" A) MODEL : \n");
@@ -524,7 +523,7 @@ int ui_product_search(char *switch_value, int *user_role)
 
 		}else if(Sphead==NULL){
 
-			print_list_product(phead,page_no_search,element_column_product,arr_product,user_role); // phead, page_no
+			print_list_product(phead,page_no_search,element_column_product,arr_product,*user_role); // phead, page_no
 
 			printf("                           ?��?�� SEARCH MENU ?��?��\n");
 			printf(" A) MODEL : \n");
@@ -534,7 +533,7 @@ int ui_product_search(char *switch_value, int *user_role)
 			printf(" E) PRICE :\n");
 
 		}else{
-			print_list_product(Sphead,page_no_search,element_column_product,arr_product,user_role); // phead, page_no
+			print_list_product(Sphead,page_no_search,element_column_product,arr_product,*user_role); // phead, page_no
 
 			printf("                           ?��?�� SEARCH MENU ?��?��\n");
 			if(switch_value_search== 'A')
@@ -608,7 +607,7 @@ int ui_product_search(char *switch_value, int *user_role)
 					scanf("%d",&find_detail);	
 					getchar();
 					system("clear");
-					err_code = find_product(phead, find_detail, &cur_product);
+					err_code = find_product(phead, &cur_product, find_detail);
 					if (ERR_PRODUCT_OK != err_code) {
 						printf("THERE's no PRODUCT\n");
 						ui_main_window(switch_value, user_role);
@@ -680,7 +679,7 @@ int ui_product_search(char *switch_value, int *user_role)
 					printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
 					scanf("%d",&find_detail);
 					getchar();
-					err_code = find_product(phead, find_detail, &cur_product);
+					err_code = find_product(phead, &cur_product, find_detail);
 					if (ERR_PRODUCT_OK != err_code) {
 						printf("THERE's no PRODUCT\n");
 						ui_main_window(switch_value, user_role);
@@ -744,7 +743,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 		ui_basic_form_top("DETAILS");
 		product_search_ID(phead,&Sphead,&Sptail,find_detail);
 		print_product_list_in_detail(Sphead);	
-		find_product_detail(pdhash,0,&cur_product_detail);
+		// find_product_detail(pdhash,0,&cur_product_detail);
 		ui_basic_form_bottom();
 		if(*user_role != 0){
 			printf("\n                               ?��?�� MENU ?��?��\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
@@ -1040,7 +1039,7 @@ int ui_stock_list(char *switch_value, int *user_role)
 				printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
 				scanf("%d", &find_detail);
 				system("clear");
-				err_code = find_product(phead, find_detail, &cur_product);
+				err_code = find_product(phead, &cur_product, find_detail);
 				if (ERR_PRODUCT_OK != err_code) {
 					printf("THERE's no PRODUCT\n");
 					ui_main_window(switch_value, user_role);
