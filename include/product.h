@@ -62,14 +62,14 @@ int product_search_ID(PRODUCT *phead,PRODUCT **shead,PRODUCT **stail,int product
 
 int print_product_list_in_detail(PRODUCT *phead);
 
-int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20], int arr[6], int user_role);
+int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20], int arr[6], int ign_status);
 
 int find_product(PRODUCT *phead, PRODUCT **product, int product_id);
 
 int load_product(PRODUCT **phead, PRODUCT **ptail, const char *filename);
 int save_product(PRODUCT *phead, const char *filename);
 
-
+int get_product_sales_info(PRODUCT *phead, int *total_price);
 
 #endif
 

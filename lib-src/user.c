@@ -307,3 +307,15 @@ int print_list_user(USER *uhead, int page_no,char element_column[][6][20],int ar
 
 }
 
+int get_user_sales_info(USER *uhead, int *total_user)
+{
+    USER *cur = uhead;
+    
+    while (cur)
+    {
+        *(total_user) += 1;
+        cur = cur->next;
+    }
+
+    return 0;
+}
