@@ -155,32 +155,32 @@ int ui_login(char *switch_value, int *user_role)
 	switch (switch_value_login)
 	{
 		case '1':
-			//로그?�� ?��?��?���? ?��?��
+			//로그인 확인으로 이동
 			ui_login_check(switch_value, user_role);
 			//*switch_value = '2';
 			break;
 
 		case '2':
-			//로그?�� 찾기�? ?��?��
+			//로그인 찾기로 이동
 			printf("ui_find_user\n");
 			//ui_find_user(*switch_value);
 			*switch_value = '1';
 			break;
 
-		case '3': //로그?�� ?��?���??��;?��?���? ?��?��
+		case '3': //로그인 회원가이;ㅂ으로 이동
 			ui_signup(switch_value, user_role);
 			printf("ui_signup\n");
 			break;
 
 		case '4':
-			//set nouser role?�� 비유???�? ?��?��
+			//set nouser role을 비유저로 적용
 			//ui_login_check(*switch_value);
 			*user_role =0;
 			printf("login B user\n");
 			*switch_value = '2';
 			break;
 		case '5':
-			// set nouser role?�� 비유???�? ?��?��
+			// set nouser role을 비유저로 적용
 			system("clear");
 			// ui_login_check(*switch_value);
 			*user_role = 2;
@@ -209,7 +209,7 @@ int ui_main_window(char *switch_value, int *user_role)
 
 		if (switch_value_main == '7' && *user_role != 0)
 		{   system("clear");
-			*switch_value = '3'; //마이?��?���?�?
+			*switch_value = '3'; //마이페이지로
 			break;
 		}
 		else if (switch_value_main == '8')
@@ -219,7 +219,7 @@ int ui_main_window(char *switch_value, int *user_role)
 		}
 		else if (switch_value_main == '9')
 		{   system("clear");
-			*switch_value = '1'; //로그?��?��
+			*switch_value = '1'; //로그아웃
 			break;
 		}
 		else if (switch_value_main == '0')
@@ -566,7 +566,7 @@ int ui_product_search(char *switch_value, int *user_role)
 		printf("\n\n");
 
 		ui_basic_form_bottom();
-		if(*user_role != 0 ){
+		if(1){
 			printf("\n                              ?��?�� MENU ?��?��\n 1 : RESET\n 3 : DETAILS\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_search);
