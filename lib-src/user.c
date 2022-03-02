@@ -270,7 +270,7 @@ int print_list_user(USER *uhead, int page_no,char element_column[][6][20],int ar
         int arr_size = 6;
 //      ui_printlist_printroof('-','*');
 
-        char temp_list[][3] = {"GUEST","CUSTOMER","ADMIN"};
+        char temp_list[][15] = {"GUEST","CUSTOMER","ADMIN"};
         ui_printlist_printline('=');
         ui_printlist_printline('-');
         set_column_size(arr,chart_length,arr_size,element_column,1,0);
