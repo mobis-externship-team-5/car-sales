@@ -15,6 +15,7 @@ int ui_basic_form_top(char *page_name);
 int ui_basic_form_bottom();
 int ui_basic_form_up();
 
+int ui_user_list(char *switch_value, int *user_role);
 int ui_login(char *switch_value, int *user_role);
 int ui_main_window(char *switch_value, int *user_role);
 int ui_mypage(char *switch_value, int *user_role);
@@ -748,7 +749,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 		find_product_detail(pdhash,0,&cur_product_detail);
 		ui_basic_form_bottom();
 		if(*user_role != 0){
-			printf("\n                              ?��?�� MENU ?��?��\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+			printf("\n                               ?��?�� MENU ?��?��\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c",&switch_value_detail);
 			getchar();
@@ -772,19 +773,13 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 					break;
 			}
 		}else{
-			printf("                              ?��?�� MENU ?��?��\n 1 : APPLY PURCHASING\n 8 : LOGIN \n 9 : MAIN\n 0 : EXIT\n\n");
+			printf("\n                               ?��?�� MENU ?��?��\n 8 : LOGIN \n 9 : MAIN\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_detail);
 			getchar();
 			system("clear");
 			switch (switch_value_detail)
 			{
-				case '1': // APPLY PURCHASING
-					ui_purchase();
-					printf("PRESS ENTER ...");
-					getchar();
-					switch_value_detail = '8';
-					break;
 				case '8':
 					switch_value_detail = '9';
 					break;
@@ -810,16 +805,16 @@ int ui_purchase()
 
 	ui_basic_form_bottom();
 	printf("\n");
-	printf("\n A) YOUR ID : (ex: HELOO123)\n");
-	printf(" B) PHONENUMBER: (ex: 010123456)\n");
-	printf(" C) ADDRESS : (ex: SUWON HOMAESIL)\n");
+	printf("\n A) YOUR NAME  : %c%c%c(%s)\n",*(cur_user->name),'*',*(cur_user->name) + 2,cur_user->user_id);
+	printf(" B) PHONENUMBER : %s\n",cur_user->phone);
+	printf(" C) ADDRESS     : %s \n",cur_user->addr);
 	printf("\n");
 	ui_basic_form_bottom();
-	printf("                                        ?��?�� APPLYING CONSULTING MENU ?��?��\n A) YOUR ID : (ex: HELOO123)\n");
-	printf(" B) PHONENUMBER:  (ex: 010123456)\n");
-	printf(" C) ADDRESS : (ex: SUWON HOMAESIL)\n");
-	printf("\n");
-	printf("\n                              ?��?�� MENU ?��?��\n 1 : PURCHASING\n 0 : EXIT\n\n");
+	printf("\n                                       ?��?�� APPLYING CONSULTING MENU ?��?��\n\n");
+	printf(" \n");
+	printf(" \n                      IF YOU AGREE THAT INFOS USED IN CAR PURCHASING??\n");
+	printf("\n                       IF YOU AGREE SELECT 1");
+	printf("\n\n\n                                  ?��?�� MENU ?��?��\n 1 : PURCHASING\n 0 : EXIT\n\n");
 	printf("-> SELECT MENU :");
 
 	scanf("%c", &switch_value_purchase);
@@ -1162,6 +1157,7 @@ int ui_login_check(char *switch_value,int* user_role)
 	getchar();
 	system("clear");
 	*switch_value = '2';
+	*user_role =1;
 	return 0;
 }
 /*int ui_find_user(*switch_value){}
@@ -1187,6 +1183,48 @@ int ui_signup(char *switch_value,int* user_role)
 	//   *switch_value = '2';
 }
 
+int check_sales()
+{
+
+        char switch_value_purchase;
+        ui_basic_form_top("PURCHASE");
+        //  printf("\n                              PURCHASE\n\n");
+
+        ui_basic_form_bottom();
+        printf("\n");
+        printf("\n A) YOUR NAME  : %c%c%c(%s)\n",*(cur_user->name),'*',*(cur_user->name) + 2,cur_user->user_id);
+        printf(" B) PHONENUMBER : %s\n",cur_user->phone);
+        printf(" C) ADDRESS     : %s \n",cur_user->addr);
+        printf("\n");
+        ui_basic_form_bottom();
+        printf("\n                                       ?��?�� APPLYING CONSULTING MENU ?��?��\n A) YOUR ID : (ex: HELOO123)\n");
+        printf(" \n");
+        printf(" \nIF YOU AGREE THAT INFOS USED IN CAR PURCHASING??\n");
+        printf("\n IF YOU AGREE SELECT 1");
+        printf("\n                                  ?��?�� MENU ?��?��\n 1 : PURCHASING\n 0 : EXIT\n\n");
+        printf("-> SELECT MENU :");
+
+        scanf("%c", &switch_value_purchase);
+        getchar();
+        system("clear");
+        //scanfswitch_value_login
+        switch (switch_value_purchase)
+        {
+                case '1': // PURCHASING
+                        cur_product->status = DISABLE; // ?��?��?�� ?��?���? �?�?
+                        purchase(&ohead, &otail, cur_user->user_id, cur_user->name, cur_product->product_id);
+                        err_code = decrease_stock(&sthead, &sttail, cur_product->model); // ?���? ?��?�� 감소
+                        if (ERR_STOCK_OK != err_code) {
+                                printf("FAILELD, CONTACT AGENT :(\n");
+                        }else{
+                                printf("THANKYOU FOR PURCHASING!\n");
+                        }
+                        break;
+                case '0': // exit
+                        break;
+	}
+return 0;
+}
 
 int ui_basic_form_top(char *page_name)
 {
