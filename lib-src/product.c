@@ -227,3 +227,163 @@ int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],
 }
 
 
+
+int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_role, int opt2)
+{
+	int role = *user_role;
+    PRODUCT *search, *smake;
+    int em, min, max, fu;
+    int opt = opt2;
+    double mile;
+    char m[100];
+    
+    search = phead;
+    *shead = NULL;
+    if(opt==1){ // 모델명으로 검색
+        printf("검색할 모델명 입력 : ");
+        fgets(m,99,stdin);
+        m[strlen(m)-1]='\0';
+        while(search!=NULL){
+            if(strcmp(m,search->model)==0) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+            search = search->next;
+        }        
+    } 
+
+    else if(opt==2){ //제조사(브랜드)로 검색
+        printf("검색할 제조사(브랜드)를 선택 >> 0.HTUNDAI, 1.KIA, 2.GENESIS\n");
+        printf("번호 선택 : ");
+        scanf("%d",&em);
+getchar();
+
+        while(search!=NULL){
+if(em==search->oem) {
+		if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+	
+	search = search->next;          
+        }
+    }
+
+    else if(opt==3){ //가격으로 검색
+        printf("검색할 가격대 입력(단위 : 만원) >> ex) 1000 2000\n");
+        printf("최소 가격 : ");
+        scanf("%d",&min);
+getchar();
+        printf("최대 가격 : ");
+        scanf("%d",&max);
+getchar();
+        
+        while(search!=NULL){
+            if(search->price>=min && search->price<=max) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+            search = search->next;
+        }                
+    }
+
+    else if(opt==4){ //엔진 유형으로 검색
+        printf("검색할 엔진 선택 >> 0.GASOLINE, 1.DIESEL, 2.EV, 3.LPG, 4.EV, 5.HEV\n");
+        printf("번호 선택 : ");
+        scanf("%d",&fu);
+getchar();
+
+        while(search!=NULL){
+            if(fu==search->fuel) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+            search = search->next;
+        }
+    }
+
+    else if(opt==5){ //연비 유형으로 검색
+        printf("검색할 최소 연비 입력 : ");
+        scanf("%lf",&mile);
+getchar();
+        
+        while(search!=NULL){
+            if(mile<=search->gas_mileage) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+            search = search->next;
+        } 
+    }
+    else {
+        printf("잘못된 입력입니다. \n");
+    }
+
+    return 0;
+}
+
+int product_copy(PRODUCT *origin,PRODUCT *copy)
+{
+    copy->product_id = origin->product_id;
+    strcpy(copy->model,origin->model);
+    copy->oem = origin->oem;
+    copy->price = origin->price;
+    copy->fuel = origin->fuel;
+    copy->gas_mileage = origin->gas_mileage;
+    copy->status = origin->status;
+    return 0;
+}
