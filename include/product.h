@@ -1,10 +1,11 @@
 #ifndef PRODUCT_H
 #define PRODUCT_H
 
-#define ERR_PRODUCT_OK          0 /* 함수 성공 상수값 */
-#define ERR_PRODUCT_CREATE  -1000 /* 메모리 할당 오류 코드 */
-#define ERR_PRODUCT_ID      -1001 /* 아이디 부여 오류 코드 */
-#define ERR_PRODUCT_FILE    -1002 /* 파일 입출력 오류 코드 */
+#define ERR_PRODUCT_OK           0  /* 함수 성공 상수값 */
+#define ERR_PRODUCT_CREATE   -1000  /* 메모리 할당 오류 코드 */
+#define ERR_PRODUCT_ID       -1001  /* 아이디 부여 오류 코드 */
+#define ERR_PRODUCT_FILE     -1002  /* 파일 입출력 오류 코드 */
+#define ERR_PRODUCT_NOTFOUND -1003  /* 상품 검색 실패 코드 */
 
 /* 판매 상태 */
 enum PRODUCT_STATUS {
@@ -54,11 +55,21 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail);
 int set_product_id(PRODUCT **product, PRODUCT *ptail);
 int print_product_list(PRODUCT *phead, int page_no);
 int print_all_product(PRODUCT *phead, int page_no);
-int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail);
+int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_role,int opt);
+int product_copy(PRODUCT *origin,PRODUCT *copy);
 
-int find_product(PRODUCT *tmp_product, int product_id);
+int product_search_ID(PRODUCT *phead,PRODUCT **shead,PRODUCT **stail,int product_id);
+
+int print_product_list_in_detail(PRODUCT *phead);
+
+int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],int arr[6]);
+
+int find_product(PRODUCT *phead, int product_id, PRODUCT **product);
 
 int load_product(PRODUCT **phead, PRODUCT **ptail, const char *filename);
 int save_product(PRODUCT *phead, const char *filename);
 
+
+
 #endif
+

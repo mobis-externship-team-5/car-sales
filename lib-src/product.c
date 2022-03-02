@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "ui-printlist.h"
 
 #include "product.h"
 
@@ -128,6 +129,37 @@ int print_product_list(PRODUCT *phead, int page_no)
 
     return ERR_PRODUCT_OK;
 }
+int print_product_list_in_detail(PRODUCT *phead)
+{
+    PRODUCT *current = phead;
+
+        printf(" MODEL NAME : %s\n OEM : %s\n GAS_MILLEGE : %2.2f\n FUEL : %s\n PRICE : %d\n\n",
+                current->model, oem_str[current->oem],
+                current->gas_mileage, fuel_str[current->fuel],current->price);
+
+
+    return ERR_PRODUCT_OK;
+}
+
+int find_product(PRODUCT* phead, int product_id, PRODUCT **product)
+{
+    PRODUCT *cur = phead;
+    while (cur)
+    {
+        if (cur->product_id == product_id) {
+            *product = cur;
+            break;
+        }
+        cur = cur->next;
+    }
+
+    if (cur == NULL) {
+        printf("PRODUCT(ID:%d) NOT FOUND.. REPRESS THE OPTION!\n", product_id);
+        return ERR_PRODUCT_NOTFOUND;
+    }
+
+    return ERR_PRODUCT_OK;
+}
 
 /* 파일로부터 상품 리스트를 불러오는 함수 */
 int load_product(PRODUCT **phead, PRODUCT **ptail, const char *filename)
@@ -162,7 +194,6 @@ int save_product(PRODUCT *phead, const char *filename)
     FILE *fp;
     PRODUCT *current;
     
-    int errnum;
     if ((fp = fopen(filename, "w")) == NULL) {
         return ERR_PRODUCT_FILE;
     }
@@ -176,4 +207,235 @@ int save_product(PRODUCT *phead, const char *filename)
 
     fclose(fp);
     return ERR_PRODUCT_OK;
+
+}
+
+int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20], int arr[6])
+{
+    PRODUCT *current = phead;
+    int chart_length = 72;
+    int arr_size = 6;
+    //      ui_printlist_printroof('-','*');
+
+    ui_printlist_printline('=');
+    ui_printlist_printline('-');
+    set_column_size(arr, chart_length, arr_size, element_column, 1, 0);
+    ui_printlist_printline('-');
+
+    // 정수는 루트 10으로 자르고
+    for (int i = 0; i < page_no * 5; i++)
+    {
+        if (current == NULL)
+            break;
+        current = current->next;
+    } // TODO: Q. 이 코드의 역할 - 여기서 DISABLE에 대한 처리 필요?
+    int count = 0;
+    while (current)
+    {
+        if (count == 5)
+            break;
+        if (current->status == DISABLE)
+            continue; // 판매된 상품 출력 X
+        printf("|");
+        printspace_int(current->product_id, arr[0]);
+        printspace_string(current->model, arr[1]);
+        printspace_string(oem_str[current->oem], arr[2]);
+        printspace_int(current->price, arr[3]);
+        printspace_string(fuel_str[current->fuel], arr[4]);
+        printspace_double(current->gas_mileage, arr[5]);
+        //printspace_string(product_status_str[current->status],arr[0]);
+        printf("\n");
+
+        current = current->next;
+        count++;
+    }
+    ui_printlist_printline('-');
+    printf("\n                                   %d/10                           \n", page_no + 1);
+    ui_printlist_printline('=');
+
+    return ERR_PRODUCT_OK;
+}
+
+int product_search_ID(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail, int product_id)
+{
+    PRODUCT *search, *smake;
+    search = phead;
+    *shead = NULL;
+
+    while (search != NULL)
+    {
+        if (product_id == search->product_id)
+        {
+            smake = (PRODUCT *)malloc(sizeof(PRODUCT));
+            product_copy(search, smake);
+            if ((*shead) == NULL)
+            {
+                *shead = *stail = smake;
+                break;
+            }
+        }
+        search = search->next;
+    }
+
+    return ERR_PRODUCT_OK;
+}
+
+int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_role, int opt2)
+{
+	int role = *user_role;
+    PRODUCT *search, *smake;
+    int em, min, max, fu;
+    int opt = opt2;
+    double mile;
+    char m[100];
+    
+    search = phead;
+    *shead = NULL;
+    if(opt==1){ // 모델명으로 검색
+        printf("검색할 모델명 입력 : ");
+        fgets(m,99,stdin);
+        m[strlen(m)-1]='\0';
+        while(search!=NULL){
+            if(strcmp(m,search->model)==0) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+            search = search->next;
+        }        
+    } 
+
+    else if(opt==2){ //제조사(브랜드)로 검색
+        printf("검색할 제조사(브랜드)를 선택 >> 0.HTUNDAI, 1.KIA, 2.GENESIS\n");
+        printf("번호 선택 : ");
+        scanf("%d",&em);
+getchar();
+
+        while(search!=NULL){
+if(em==search->oem) {
+		if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+	
+	search = search->next;          
+        }
+    }
+
+    else if(opt==3){ //가격으로 검색
+        printf("검색할 가격대 입력(단위 : 만원) >> ex) 1000 2000\n");
+        printf("최소 가격 : ");
+        scanf("%d",&min);
+getchar();
+        printf("최대 가격 : ");
+        scanf("%d",&max);
+getchar();
+        
+        while(search!=NULL){
+            if(search->price>=min && search->price<=max) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+            search = search->next;
+        }                
+    }
+
+    else if(opt==4){ //엔진 유형으로 검색
+        printf("검색할 엔진 선택 >> 0.GASOLINE, 1.DIESEL, 2.EV, 3.LPG, 4.EV, 5.HEV\n");
+        printf("번호 선택 : ");
+        scanf("%d",&fu);
+getchar();
+
+        while(search!=NULL){
+            if(fu==search->fuel) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+            search = search->next;
+        }
+    }
+
+    else if(opt==5){ //연비 유형으로 검색
+        printf("검색할 최소 연비 입력 : ");
+        scanf("%lf",&mile);
+getchar();
+        
+        while(search!=NULL){
+            if(mile<=search->gas_mileage) {
+                if(!role && search->status==0){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+            search = search->next;
+        } 
+    }
+    else {
+        printf("잘못된 입력입니다. \n");
+    }
+
+    return 0;
+}
+
+int product_copy(PRODUCT *origin,PRODUCT *copy)
+{
+    copy->product_id = origin->product_id;
+    strcpy(copy->model,origin->model);
+    copy->oem = origin->oem;
+    copy->price = origin->price;
+    copy->fuel = origin->fuel;
+    copy->gas_mileage = origin->gas_mileage;
+    copy->status = origin->status;
+    return 0;
 }
