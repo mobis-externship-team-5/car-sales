@@ -24,5 +24,9 @@ int print_stock_list(STOCK *sthead);
 int print_stock(STOCK *sthead, const char* product_model);
 int load_stock(STOCK **sthead, STOCK **sttail, const char *filename);
 int save_stock(STOCK *sthead, const char *filename);
+int print_list_stock(STOCK *sthead, int page_no,char element_column[][6][20],int arr[6]);
+int stock_search(STOCK *sthead, STOCK **shead, STOCK **stail,int *user_role, int opt2);
+int stock_search_ID(STOCK *sthead,STOCK **shead,STOCK **stail,int stock_id);
+int stock_copy(STOCK *origin,STOCK *copy);
 
 #endif

@@ -1,6 +1,6 @@
 z:
 	make all;
-	cd ~/DIR-MAKETEST/app-src; ./app
+	cd app-src; ./app
 y:
 	make clean;
 	make all;
