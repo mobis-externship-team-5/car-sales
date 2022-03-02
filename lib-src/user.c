@@ -3,8 +3,7 @@
 #include <string.h>
 #include "user.h"
 
-int signup(USER **uhead, USER **utail)
-{
+int signup(USER **uhead, USER **utail){
     FILE *fp;
     USER *temp, *comp;
 
