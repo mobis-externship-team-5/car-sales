@@ -9,6 +9,7 @@
 #include "product.h"
 #include "product-detail.h"
 #include "stock.h"
+#include "order.h"
 
 int ui_basic_form_top(char *page_name);
 int ui_basic_form_bottom();
@@ -31,7 +32,8 @@ USER cur_user;
 
 USER *uhead, *utail;    /* 사용자 연결 리스트 */
 PRODUCT *phead, *ptail; /* 상품 연결 리스트 */
-STOCK *sthead, *sttail;   /* 재고 연결 리스트 */
+STOCK *sthead, *sttail; /* 재고 연결 리스트 */
+ORDER *ohead, *otail;   /* 주문 연결 리스트 */
 
 LPHASH pdhash; /* 상품 상세설명 해시 */
 PRODUCT_DETAIL *cur_product_detail;
@@ -45,6 +47,7 @@ int main(void)
     uhead = utail = NULL;
     phead = ptail = NULL;
     sthead = sttail = NULL;
+    ohead = otail = NULL;
 
     err_code = hashCreate(&pdhash);
     if (ERR_HASH_OK != err_code)
@@ -84,6 +87,9 @@ int main(void)
 
     // 0) EXIT 메뉴를 통해 프로그램을 정상종료 할 경우 입력했던 상품 목록들이 파일에 저장됩니다.
     
+    purchase(&ohead, &otail, "nayeon", "nayeon", 0);
+    print_all_order_list(ohead);
+
     // [end]
 
     //  int* page;

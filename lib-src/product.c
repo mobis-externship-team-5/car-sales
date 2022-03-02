@@ -55,7 +55,7 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail)
     int i;
     int err_code;
 
-    err_code = increase_product_id(product, ptail);
+    err_code = set_product_id(product, ptail);
     if (ERR_PRODUCT_OK != err_code) {
         return err_code;
     }
@@ -95,7 +95,7 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail)
 }
 
 /* 상품 아이디를 부여하는 함수 */
-int increase_product_id(PRODUCT **product, PRODUCT *ptail)
+int set_product_id(PRODUCT **product, PRODUCT *ptail)
 {
     // 상품이 처음 입고된 경우
     if(ptail == NULL) {

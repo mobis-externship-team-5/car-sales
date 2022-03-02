@@ -51,7 +51,7 @@ int create_product(PRODUCT **product);
 int link_product(PRODUCT **phead, PRODUCT **ptail, PRODUCT **product);
 int insert_product(PRODUCT **phead, PRODUCT **ptail);
 int input_product_info(PRODUCT **product, PRODUCT *ptail);
-int increase_product_id(PRODUCT **product, PRODUCT *ptail);
+int set_product_id(PRODUCT **product, PRODUCT *ptail);
 int print_product_list(PRODUCT *phead, int page_no);
 int print_all_product(PRODUCT *phead, int page_no);
 int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail);
