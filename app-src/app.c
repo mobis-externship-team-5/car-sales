@@ -76,9 +76,6 @@ int main(void)
     print_stock_list(sthead);
     print_all_order_list(ohead);
 
-
-	// [end]
-
 	printf("-- PROGRAM START --\n\n");
 	printf("START LOGIN:1\nEXIT:0\n");
 	printf("-> SELECT MENU : ");
@@ -305,7 +302,7 @@ int ui_main_window(char *switch_value, int *user_role)
 					scanf("%d",&find_detail);
 					getchar();
 					system("clear");
-                    // ???????????? ???????????? ????????? ����???????? ?????: cur_product?? ??????????? ??????
+                    
                     err_code = find_product(phead, find_detail, &cur_product);
                     if (ERR_PRODUCT_OK != err_code) {
                         
@@ -980,8 +977,7 @@ int ui_stock_list(char *switch_value, int *user_role)
 		ui_basic_form_top("MYPAGE_ADMIN_STOCKLIST");
 		// print_list_product(element_stock, element_column_stock, arr_stock);
 		print_list_stock(sthead,page_no_stock,element_column_stock,arr_stock);
-		print_list_stock(sthead,page_no_stock,element_column_stock,arr_stock);
-
+\
 		printf("\n                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : INSERT STOCK\n 3 : DETAIL\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 		printf("-> SELECT MENU :");
 
@@ -995,14 +991,15 @@ int ui_stock_list(char *switch_value, int *user_role)
 				// ui_product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail);
 				break;
 			case '2': // INSERT STOCK
-				printf("INPUT PRODUCT YOU WANT TO INSERT : ");
-				scanf("%s",temp_stock);
-				getchar();	
-				increase_stock(&sthead,&sttail,temp_stock);// ui_sort
+				printf("INPUT PRODUCT INFO YOU WANT TO INSERT\n\n");
+
+				insert_product(&phead, &ptail);
+				insert_product_detail(ptail->product_id, &pdhash);
+				increase_stock(&sthead, &sttail, ptail->model);
 				break;
 			case '3': // detail
 				printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
-				scanf("%d",&find_detail);
+				scanf("%d", &find_detail);
 				system("clear");
                     err_code = find_product(phead, find_detail, &cur_product);
                     if (ERR_PRODUCT_OK != err_code) {
