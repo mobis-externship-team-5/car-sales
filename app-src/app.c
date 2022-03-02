@@ -25,7 +25,7 @@ int ui_order_list(char *switch_value, int *user_role);
 int ui_stock_list(char *switch_value, int *user_role);
 int ui_login_check(char *switch_value, int *user_role);
 int ui_signup(char *switch_value, int *user_role);
-
+int ui_user_list(char *switch_value, int *user_role);
 
 
 int err_code;
