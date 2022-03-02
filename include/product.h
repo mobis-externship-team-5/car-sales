@@ -62,7 +62,7 @@ int product_search_ID(PRODUCT *phead,PRODUCT **shead,PRODUCT **stail,int product
 
 int print_product_list_in_detail(PRODUCT *phead);
 
-int print_list_product(PRODUCT *phead, int page_no,char element_column[][6][20],int arr[6]);
+int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20], int arr[6]);
 
 int find_product(PRODUCT *phead, int product_id, PRODUCT **product);
 
