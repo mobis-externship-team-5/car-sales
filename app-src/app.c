@@ -482,14 +482,11 @@ int ui_product_search(char *switch_value, int *user_role)
 			*switch_value = '0';
 			break;
 		}
-
 		ui_basic_form_top("SEARCH");
 		//printf("\n                              SEARCH\n\n");
 		//print_list_product(element_product, element_column_product, arr_product);
 		if(Sphead==NULL && start_search ==1){
-
 			print_list_product(NULL,page_no_search,element_column_product,arr_product,DISABLE); // phead, page_no
-
 			printf("                           ?��?�� SEARCH MENU ?��?��\n");
 			printf(" A) MODEL 	: \n");
 			printf(" B) OEM 	: \n");
@@ -498,9 +495,7 @@ int ui_product_search(char *switch_value, int *user_role)
 			printf(" E) PRICE 	: \n");
 
 		}else if(Sphead==NULL){
-
 			print_list_product(phead,page_no_search,element_column_product,arr_product,DISABLE); // phead, page_no
-
 			printf("                           ?��?�� SEARCH MENU ?��?��\n");
 			printf(" A) MODEL 	: \n");
 			printf(" B) OEM 	: \n");
@@ -538,7 +533,6 @@ int ui_product_search(char *switch_value, int *user_role)
 		}
 
 		printf("\n\n");
-
 		ui_basic_form_bottom();
 		if(1){
 			printf("\n                              ?��?�� MENU ?��?��\n 1 : RESET\n 2 : DETAILS\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
@@ -551,32 +545,38 @@ int ui_product_search(char *switch_value, int *user_role)
 
 				case 'A': //Name
 					start_search =1;
+					page_no_search = 0;
 					product_search(phead,&Sphead,&Sptail,user_role,1);
 					//scanf(%s,name)
 					break;
 				case 'B': //Brand
 					//scanf(%s,brand);
 					start_search =1;
+					page_no_search = 0;
 					product_search(phead,&Sphead,&Sptail,user_role,2);
 					break;
 				case 'C': //Engine
 					start_search =1;
+					page_no_search = 0;
 					product_search(phead,&Sphead,&Sptail,user_role,5);
 					//scanf(%s,engine);
 					break;
 				case 'D': //kind
 					product_search(phead,&Sphead,&Sptail,user_role,4);
 					start_search =1;
+					page_no_search = 0;
 					// scanf(%s,kind);
 					break;
 				case 'E': //price
 					start_search =1;
+					page_no_search = 0;
 					product_search(phead,&Sphead,&Sptail,user_role,3);
 					//  scanf(%d,lowprce);
 					//  scanf(%d,highprice);
 					break;
 				case '1': //reset
 					start_search =0;
+					Sphead=NULL;
 					break;
 				case '2': //detail
 					printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
@@ -612,14 +612,13 @@ int ui_product_search(char *switch_value, int *user_role)
 					break;
 			}
 			system("clear");
-
 		}else{
 			printf("\n                              ?��?�� MENU ?��?��\n 2 : DETAILS\n 3 : PREVIOUS\n 4 : NEXT\n 9 : MAIN\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_search);
 			getchar();
 			switch (switch_value_search)
-		{		case 'A': //Name
+							{	case 'A': //Name
                                         start_search =1;
                                         product_search(phead,&Sphead,&Sptail,user_role,1);
                                         //scanf(%s,name)
@@ -754,7 +753,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 					break;
 			}
 		}else{
-			printf("                              ?��?�� MENU ?��?��\n 8 : LOGIN \n 9 : MAIN\n 0 : EXIT\n\n");
+			printf("\n                              ?��?�� MENU ?��?��\n 8 : LOGIN \n 9 : MAIN\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_detail);
 			getchar();
