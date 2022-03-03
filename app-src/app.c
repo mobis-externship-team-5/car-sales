@@ -160,7 +160,7 @@ int ui_login(char *switch_value, int *user_role)
 	printf("                                     |                               \n");
 	printf("                                     |                               \n");
 	ui_basic_form_bottom();
-	printf("\n                               @@ MENU @@\n 1 : LOGIN\n 2 : NON-USER\n 3 : REGISTER  \n 0 : EXIT");
+	printf("\n                               ★★ MENU ★★\n 1 : LOGIN\n 2 : NON-USER\n 3 : REGISTER  \n 0 : EXIT");
 	printf("\n\n-> SELECT MENU :");
 	scanf("%c", &switch_value_login);
 	clean_stdin();
@@ -226,7 +226,7 @@ int ui_main_window(char *switch_value, int *user_role)
 		// print_list_product();
 		print_list_product(phead,page_no_main,element_column_product,arr_product,DISABLE); // phead, page_no
 		if(*user_role !=0){
-			printf("                              @@ MENU @@\n 1 : SEARCH\n 2 : DETAIL\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE \n 8 : MAIN \n 9 : LOGOUT \n 0 : EXIT\n\n");
+			printf("                              ★★ MENU ★★\n 1 : SEARCH\n 2 : DETAIL\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE \n 8 : MAIN \n 9 : LOGOUT \n 0 : EXIT\n\n");
 
 			printf("-> SELECT MENU :");
 
@@ -285,7 +285,7 @@ int ui_main_window(char *switch_value, int *user_role)
 			}
 			system("clear");
 		}else{
-			printf("                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : DETAIL\n 3 : PREVIOUS\n 4 : NEXT\n 8 : LOGIN\n 9 : MAIN\n 0 : EXIT\n\n");
+			printf("                              ★★ MENU ★★\n 1 : SEARCH\n 2 : DETAIL\n 3 : PREVIOUS\n 4 : NEXT\n 8 : LOGIN\n 9 : MAIN\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 
 			scanf("%c", &switch_value_main);
@@ -388,7 +388,7 @@ int ui_mypage(char *switch_value, int *user_role)
 
 		ui_basic_form_bottom();
 		if(*user_role !=2){
-			printf("\n                              ?��?�� MENU ?��?��\n 1 : REVISING INFO\n 2 : ORDER LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+			printf("\n                              ★★ MENU ★★\n 1 : REVISING INFO\n 2 : ORDER LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_mypage);
 			clean_stdin();
@@ -399,8 +399,6 @@ int ui_mypage(char *switch_value, int *user_role)
 					ui_product_revice_user(&switch_value_mypage,user_role);
 					break;
 				case '2': // ORDER LIST
-					// ui_order_list(ORDER *ohead, PRODUCT *phead);
-                    print_list_order(ohead, page_no_order, element_column_order, arr_order, *user_role, cur_user);
 					ui_order_list(&switch_value_mypage,user_role);
 					break;
 				case '3': // BUCKET LIST
@@ -416,7 +414,7 @@ int ui_mypage(char *switch_value, int *user_role)
 
 			}
 		}else{
-			printf("\n                              ?��?�� MENU ?��?��\n 1 : REVISING INFO\n 2 : ORDER LIST\n 3 : USER LIST\n 4 : SALES LIST\n 5 : STOCK LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+			printf("\n                              ★★ MENU ★★\n 1 : REVISING INFO\n 2 : ORDER LIST\n 3 : USER LIST\n 4 : SALES LIST\n 5 : STOCK LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_mypage);
 			clean_stdin();
@@ -495,7 +493,7 @@ int ui_product_search(char *switch_value, int *user_role)
 		//print_list_product(element_product, element_column_product, arr_product);
 		if(Sphead==NULL && start_search ==1){
 			print_list_product(NULL,page_no_search,element_column_product,arr_product,DISABLE); // phead, page_no
-			printf("                           ?��?�� SEARCH MENU ?��?��\n");
+			printf("                           ★★ SEARCH OPTION ★★\n");
 			printf(" A) MODEL 	: \n");
 			printf(" B) OEM 	: \n");
 			printf(" C) GAS_MILLEGE	:  \n");
@@ -504,7 +502,7 @@ int ui_product_search(char *switch_value, int *user_role)
 
 		}else if(Sphead==NULL){
 			print_list_product(phead,page_no_search,element_column_product,arr_product,DISABLE); // phead, page_no
-			printf("                           ?��?�� SEARCH MENU ?��?��\n");
+			printf("                           ★★ SEARCH OPTION ★★\n");
 			printf(" A) MODEL 	: \n");
 			printf(" B) OEM 	: \n");
 			printf(" C) GAS_MILLEGE :  \n");
@@ -514,7 +512,7 @@ int ui_product_search(char *switch_value, int *user_role)
 		}else{
 			print_list_product(Sphead,page_no_search,element_column_product,arr_product,DISABLE); // phead, page_no
 
-			printf("                           ?��?�� SEARCH MENU ?��?��\n");
+			printf("                           ★★ SEARCH OPTION ★★\n");
 			if(switch_value_search== 'A')
 				printf(" A) MODEL 	: %s\n",Sphead->model);
 			else
@@ -543,7 +541,7 @@ int ui_product_search(char *switch_value, int *user_role)
 		printf("\n\n");
 		ui_basic_form_bottom();
 		if(1){
-			printf("\n                              ?��?�� MENU ?��?��\n 1 : RESET\n 2 : DETAILS\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+			printf("\n                              ★★ MENU ★★\n 1 : RESET\n 2 : DETAILS\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_search);
 			clean_stdin();
@@ -621,7 +619,7 @@ int ui_product_search(char *switch_value, int *user_role)
 			}
 			system("clear");
 		}else{
-			printf("\n                              ?��?�� MENU ?��?��\n 2 : DETAILS\n 3 : PREVIOUS\n 4 : NEXT\n 9 : MAIN\n 0 : EXIT\n\n");
+			printf("\n                              ★★ MENU ★★\n 2 : DETAILS\n 3 : PREVIOUS\n 4 : NEXT\n 9 : MAIN\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_search);
 			clean_stdin();
@@ -737,7 +735,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 		// find_product_detail(pdhash,0,&cur_product_detail);
 		ui_basic_form_bottom();
 		if(*user_role != 0){
-			printf("\n                              ?��?�� MENU ?��?��\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+			printf("\n                              ★★ MENU ★★\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c",&switch_value_detail);
 			clean_stdin();
@@ -761,19 +759,13 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 					break;
 			}
 		}else{
-			printf("\n                              ?��?�� MENU ?��?��\n 8 : LOGIN \n 9 : MAIN\n 0 : EXIT\n\n");
+			printf("\n                              ★★ MENU ★★\n 8 : LOGIN \n 9 : MAIN\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_detail);
 			clean_stdin();
 			system("clear");
 			switch (switch_value_detail)
 			{
-				// case '1': // APPLY PURCHASING
-				// 	ui_purchase();
-				// 	printf("PRESS ENTER ...");
-				// 	clean_stdin();
-				// 	switch_value_detail = '8';
-				// 	break;
 				case '8':
 					switch_value_detail = '9';
 					break;
@@ -805,12 +797,12 @@ int ui_purchase()
 	printf(" ADDRESS     :%s \n",cur_user->addr);
 	printf("\n");
 	ui_basic_form_bottom();
-	printf("\n                          ?��?�� APPLYING CONSULTING MENU ?��?��)\n");
+	printf("\n                          ★★ APPLYING CONSULTING MENU ★★)\n");
 	printf("\n");
 	printf("\n				YOUR INFO IS USED BUYING CAR IF YOU AGREE SELECT 1 NOT 0");
 	printf("\n");
 	printf("\n");
-	printf("\n                              ?��?�� MENU ?��?��\n 1 : PURCHASING\n 0 : EXIT\n\n");
+	printf("\n                              ★★ MENU ★★\n 1 : PURCHASING\n 0 : EXIT\n\n");
 	printf("-> SELECT MENU :");
 
 	scanf("%c", &switch_value_purchase);
@@ -890,9 +882,8 @@ int ui_order_list(char *switch_value, int *user_role)
 
 		print_list_order(ohead, page_no_order, element_column_order, arr_order, *user_role, cur_user);
 
-		printf("\n                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : DETAIL\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+		printf("\n                              ★★ MENU ★★\n 1 : SEARCH\n 2 : DETAIL\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 		printf("-> SELECT MENU :");
-		//嶺뚮?�����占?����
 
 		//scanfswitch_value_login
 
@@ -908,6 +899,8 @@ int ui_order_list(char *switch_value, int *user_role)
 			case '2': // detail
 				printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
 				scanf("%d",&find_detail);
+				getchar();
+				
 				system("clear");
 				err_code = find_product(phead, &cur_product, find_detail);
 				if (ERR_PRODUCT_OK != err_code) {
@@ -1031,7 +1024,7 @@ int ui_stock_list(char *switch_value, int *user_role)
 		// print_list_product(element_stock, element_column_stock, arr_stock);
 		print_list_stock(sthead,page_no_stock,element_column_stock,arr_stock);
     
-		printf("\n                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : INSERT STOCK\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+		printf("\n                              ★★ MENU ★★\n 1 : SEARCH\n 2 : INSERT STOCK\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 		printf("-> SELECT MENU :");
 
 		scanf("%c", &switch_value_stock);
@@ -1114,7 +1107,7 @@ int ui_user_list(char *switch_value, int *user_role)
 		print_list_user(uhead,page_no_user,element_column_user,arr_user);
 		if(search_switch == 1)
                 print_list_user(Suhead,page_no_user,element_column_user,arr_user);
-                printf("\n                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : PREVIOUS\n 3 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+                printf("\n                              ★★ MENU ★★\n 1 : SEARCH\n 2 : PREVIOUS\n 3 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
                 printf("-> SELECT MENU :");
 
                 scanf("%c", &switch_value_user);
@@ -1267,7 +1260,7 @@ int ui_product_revice_user(char *switch_value, int *user_role)
 
 		ui_basic_form_bottom();
 
-		printf("\n                           �쁾�쁾  REVISING MENU �쁾�쁾 \n");
+		printf("\n                           ★★ REVISING MENU ★★ \n");
 
 		printf(" A) PASSWORD    : %s\n",cur_user->password);
 		printf(" B) PHONENUMBER : %s\n",cur_user->phone);
@@ -1281,7 +1274,7 @@ int ui_product_revice_user(char *switch_value, int *user_role)
 
 
 		ui_basic_form_bottom();
-		printf("\n                              �쁾�쁾  MENU �쁾�쁾 \n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+		printf("\n                              ★★ MENU ★★ \n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 		printf("-> SELECT MENU :");
 		scanf("%c", &switch_value_revice_user);
 		clean_stdin();
