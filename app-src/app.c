@@ -1180,11 +1180,12 @@ int ui_login_check(char *switch_value,int* user_role)
 	ui_basic_form_bottom();
 	printf("\n");
 	int chk = login(uhead, &cur_user);
-	*user_role = cur_user->role;
+	
 	if(chk) { //prev page로
 		*switch_value = '1';
 		return 0;
 	}
+	*user_role = cur_user->role;
 
 	ui_basic_form_bottom();
 	printf("\n");
