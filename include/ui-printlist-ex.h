@@ -17,7 +17,7 @@
 	char element_column_user[1][6][20]={
         {"USER_ID","NAME","PASSWORD","ADDR","PHONE","ROLE"}
         };	
-        int arr_user[] = {10,9,11,18,12,5};
+        int arr_user[] = {8,7,11,18,12,10};
 	
 
 	char element_stock[3][6][20]={
