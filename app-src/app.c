@@ -11,6 +11,14 @@
 #include "stock.h"
 #include "order.h"
 
+void clean_stdin(void)
+{
+    int c;
+    do {
+        c = getchar();
+    } while (c != '\n' && c != EOF);
+}
+
 int ui_basic_form_top(char *page_name);
 int ui_basic_form_bottom();
 int ui_basic_form_up();
@@ -97,7 +105,7 @@ int main(void)
 	printf("-> SELECT MENU : ");
 
 	scanf("%c", &switch_value);
-	getchar();
+	clean_stdin();
 	while (1)
 	{
 		system("clear");
@@ -155,7 +163,7 @@ int ui_login(char *switch_value, int *user_role)
 	printf("\n                               @@ MENU @@\n 1 : LOGIN\n 2 : NON-USER\n 3 : REGISTER  \n 0 : EXIT");
 	printf("\n\n-> SELECT MENU :");
 	scanf("%c", &switch_value_login);
-	getchar();
+	clean_stdin();
 	system("clear");    
 	switch (switch_value_login)
 	{
@@ -224,7 +232,7 @@ int ui_main_window(char *switch_value, int *user_role)
 
 			scanf("%c", &switch_value_main);
 
-			getchar();
+			clean_stdin();
 			switch (switch_value_main)
 			{
 				case '1': //search
@@ -235,7 +243,7 @@ int ui_main_window(char *switch_value, int *user_role)
 				case '2': //detail
 					printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
 					scanf("%d",&find_detail);
-					getchar();
+					clean_stdin();
 
 					// 해당되는 아이디의 상품이 존재하는지 검색: cur_product를 설정하기 위함
 					err_code = find_product(phead, &cur_product, find_detail);
@@ -282,7 +290,7 @@ int ui_main_window(char *switch_value, int *user_role)
 
 			scanf("%c", &switch_value_main);
 
-			getchar();
+			clean_stdin();
 			switch (switch_value_main)
 			{
 				case '1': // search
@@ -294,7 +302,7 @@ int ui_main_window(char *switch_value, int *user_role)
 				case '2': // detail
 					printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
 					scanf("%d",&find_detail);
-					getchar();
+					clean_stdin();
 					system("clear");
                     
           err_code = find_product(phead, &cur_product, find_detail);
@@ -383,7 +391,7 @@ int ui_mypage(char *switch_value, int *user_role)
 			printf("\n                              ?��?�� MENU ?��?��\n 1 : REVISING INFO\n 2 : ORDER LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_mypage);
-			getchar();
+			clean_stdin();
 			system("clear");
 			switch (switch_value_mypage)
 			{
@@ -411,7 +419,7 @@ int ui_mypage(char *switch_value, int *user_role)
 			printf("\n                              ?��?�� MENU ?��?��\n 1 : REVISING INFO\n 2 : ORDER LIST\n 3 : USER LIST\n 4 : SALES LIST\n 5 : STOCK LIST\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_mypage);
-			getchar();
+			clean_stdin();
 			system("clear");
 			switch (switch_value_mypage)
 			{
@@ -538,7 +546,7 @@ int ui_product_search(char *switch_value, int *user_role)
 			printf("\n                              ?��?�� MENU ?��?��\n 1 : RESET\n 2 : DETAILS\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_search);
-			getchar();
+			clean_stdin();
 
 			switch (switch_value_search)
 			{
@@ -581,7 +589,7 @@ int ui_product_search(char *switch_value, int *user_role)
 				case '2': //detail
 					printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
 					scanf("%d",&find_detail);	
-					getchar();
+					clean_stdin();
 					system("clear");
 					err_code = find_product(phead, &cur_product, find_detail);
 					if (ERR_PRODUCT_OK != err_code) {
@@ -616,7 +624,7 @@ int ui_product_search(char *switch_value, int *user_role)
 			printf("\n                              ?��?�� MENU ?��?��\n 2 : DETAILS\n 3 : PREVIOUS\n 4 : NEXT\n 9 : MAIN\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_search);
-			getchar();
+			clean_stdin();
 			switch (switch_value_search)
 							{	case 'A': //Name
                                         start_search =1;
@@ -650,7 +658,7 @@ int ui_product_search(char *switch_value, int *user_role)
                                 case '2': //detail
                                         printf("INPUT PRODUCT ID YOU WANT TO SEE : ");
                                         scanf("%d",&find_detail);
-                                        getchar();
+                                        clean_stdin();
                                         system("clear");
                                         err_code = find_product(phead, &cur_product, find_detail);
                                         if (ERR_PRODUCT_OK != err_code) {
@@ -732,14 +740,14 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 			printf("\n                              ?��?�� MENU ?��?��\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c",&switch_value_detail);
-			getchar();
+			clean_stdin();
 			system("clear");
 			switch (switch_value_detail)
 			{
 				case '1': // APPLY PURCHASING
 					ui_purchase();
 					printf("PRESS ENTER ...");
-					getchar();
+					clean_stdin();
 					switch_value_detail = '8';
 					break;
 				case '7':
@@ -756,14 +764,14 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 			printf("\n                              ?��?�� MENU ?��?��\n 8 : LOGIN \n 9 : MAIN\n 0 : EXIT\n\n");
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_detail);
-			getchar();
+			clean_stdin();
 			system("clear");
 			switch (switch_value_detail)
 			{
 				// case '1': // APPLY PURCHASING
 				// 	ui_purchase();
 				// 	printf("PRESS ENTER ...");
-				// 	getchar();
+				// 	clean_stdin();
 				// 	switch_value_detail = '8';
 				// 	break;
 				case '8':
@@ -806,7 +814,7 @@ int ui_purchase()
 	printf("-> SELECT MENU :");
 
 	scanf("%c", &switch_value_purchase);
-	getchar();
+	clean_stdin();
 	system("clear");
 	/*if(switch_value_purchase == '7'){
 	 *switch_value = '3';
@@ -889,7 +897,7 @@ int ui_order_list(char *switch_value, int *user_role)
 		//scanfswitch_value_login
 
 		scanf("%c", &switch_value_order);
-		getchar();
+		clean_stdin();
 		switch (switch_value_order)
 		{
 			case '1': // search
@@ -958,7 +966,7 @@ int ui_sales_list(char* switch_value, int* user_role)
         printf("\n                               ?  ?   MENU ?  ?  \n 7 : MYPAGE\n\n");
 		printf("-> SELECT MENU :");
         scanf("%c", &switch_value_sales);
-        getchar();
+        clean_stdin();
         system("clear");
 
 
@@ -999,19 +1007,19 @@ int ui_stock_list(char *switch_value, int *user_role)
 		if (switch_value_stock == '7')
 		{
 			system("clear");
-			*switch_value = '3';
+			*switch_value = '7';
 			break;
 		}
 		else if (switch_value_stock == '8')
 		{
 			system("clear");
-			*switch_value = '2';
+			*switch_value = '8';
 			break;
 		}
 		else if (switch_value_stock == '9')
 		{
 			system("clear");
-			*switch_value = '1';
+			*switch_value = '9';
 			break;
 		}
 		else if (switch_value_stock == '0')
@@ -1023,11 +1031,11 @@ int ui_stock_list(char *switch_value, int *user_role)
 		// print_list_product(element_stock, element_column_stock, arr_stock);
 		print_list_stock(sthead,page_no_stock,element_column_stock,arr_stock);
     
-		printf("\n                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : INSERT STOCK\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+		printf("\n                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : INSERT STOCK\n 3 : PREVIOUS\n 4 : NEXT\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 		printf("-> SELECT MENU :");
 
 		scanf("%c", &switch_value_stock);
-		getchar();
+		clean_stdin();
 		switch (switch_value_stock)
 		{
 			case '1': // search
@@ -1110,7 +1118,7 @@ int ui_user_list(char *switch_value, int *user_role)
                 printf("-> SELECT MENU :");
 
                 scanf("%c", &switch_value_user);
-                getchar();
+                clean_stdin();
                 switch (switch_value_user)
                 {
                         case '1': // search
@@ -1122,7 +1130,7 @@ int ui_user_list(char *switch_value, int *user_role)
 /*		     case '2': // INSERT STOCK
                                 printf("INPUT PRODUCT YOU WANT TO INSERT : ");
                                 scanf("%s",temp_stock);
-                                getchar();
+                                clean_stdin();
                                 increase_stock(&sthead,&sttail,temp_stock);// ui_sort
                                 break;
                         case '3': // detail
@@ -1189,7 +1197,7 @@ int ui_login_check(char *switch_value,int* user_role)
 	ui_basic_form_bottom();
 	printf("\n");
 	printf("PRESS ENTER ....");
-	getchar();
+	clean_stdin();
 	system("clear");
 	*switch_value = '2';
 	return 0;
@@ -1217,7 +1225,7 @@ int ui_signup(char *switch_value,int* user_role)
 	ui_basic_form_bottom();
 	printf("\n");
 	printf("press Enter ....");
-	getchar();
+	clean_stdin();
 	system("clear");
 	return 0;
 	//   *switch_value = '2';
@@ -1276,14 +1284,14 @@ int ui_product_revice_user(char *switch_value, int *user_role)
 		printf("\n                              �쁾�쁾  MENU �쁾�쁾 \n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
 		printf("-> SELECT MENU :");
 		scanf("%c", &switch_value_revice_user);
-		getchar();
+		clean_stdin();
 		char tempstr[20];
 		switch (switch_value_revice_user)
 		{
 	/*		case 'A': //Name
 				printf("\n NAME TO CHANGE\n");
 				scanf("%s",&tempstr);
-				getchar();
+				clean_stdin();
 				strcpy(cur_user->name, tempstr);
 				//memset(Suhead->name, tempstr, strlen(tempstr) * sizeof(char));
 
@@ -1292,21 +1300,21 @@ int ui_product_revice_user(char *switch_value, int *user_role)
 				//scanf(%s,brand);
 				printf(" PW TO CHANGE\n");
 				scanf("%s",&tempstr);
-				getchar();
+				clean_stdin();
 				strcpy(cur_user->password, tempstr);
 				break;
 			case 'B': //Engine
 
 				printf(" PHONENUM TO CHANGE\n");
 				scanf("%s",&tempstr);
-				getchar();
+				clean_stdin();
 				strcpy(cur_user->addr, tempstr);
 				//scanf(%s,engine);
 				break;
 			case 'C': //kind
 				printf(" ADDR TO CHANGE\n");
 				scanf("%s",&tempstr);
-				getchar();
+				clean_stdin();
 				strcpy(cur_user->phone, tempstr);
 				// scanf(%s,kind);
 				break;
