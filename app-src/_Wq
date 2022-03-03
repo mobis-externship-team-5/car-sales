@@ -1544,7 +1544,7 @@ int ui_product_revice_user(char *switch_value, int *user_role)
 				printf("\n ID TO CHANGE\n");
 				scanf("%s",&tempstr);
 				getchar();
-				strcpy(cur_user->name, tempstr);
+				strcpy(Suhead->name, tempstr);
 				//memset(Suhead->name, tempstr, strlen(tempstr) * sizeof(char));
 
 				break;

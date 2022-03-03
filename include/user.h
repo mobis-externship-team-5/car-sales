@@ -46,6 +46,7 @@ int print_list_user(USER *uhead, int page_no,char element_column[][6][20],int ar
 int user_search(USER *uhead, USER **shead, USER **stail,int *user_role, int opt2);
 //int user_search_ID(USER *uhead,USER **uhead,USER **utail,int user_id);
 int user_copy(USER *origin,USER *copy);
+int user_search_one(USER *uhead, USER **shead, USER **stail,int *user_role, int opt2,char name[100]);
 
 
 

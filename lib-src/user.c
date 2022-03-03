@@ -307,3 +307,38 @@ int print_list_user(USER *uhead, int page_no,char element_column[][6][20],int ar
 
 }
 
+int user_search_one(USER *uhead, USER **shead, USER **stail,int *user_role, int opt2,char m[100])
+{
+    int role = *user_role;
+    USER *search, *smake;
+    int opt = opt2;
+    //char m[100];
+
+    search = uhead;
+    *shead = NULL;
+    if(opt==1){ // 紐⑤뜽紐낆쑝濡� 寃��깋
+        //printf("INPUT USER YOU WANT TO FIND: ");
+        //fgets(m,99,stdin);
+        //m[strlen(m)-1]='\0';
+        while(search!=NULL){
+            if(strcmp(m,search->name)==0) {
+                smake = (USER*)malloc(sizeof(USER));
+                user_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                    break;
+                }
+            }
+            search = search->next;
+        }
+    }
+    else {
+        printf("IT's WRONG. \n");
+    }
+    return 0;
+}
+
