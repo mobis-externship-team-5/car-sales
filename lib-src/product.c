@@ -378,14 +378,14 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     }
 
     else if(opt==4){ //엔진 유형으로 검색
-        printf("검색할 엔진 선택 >> 0.GASOLINE, 1.DIESEL, 2.EV, 3.LPG, 4.EV, 5.HEV\n");
+        printf("검색할 엔진 선택 >> 0.GASOLINE, 1.DIESEL, 2.LPG, 3.EV, 4.HEV\n");
         printf("번호 선택 : ");
         scanf("%d",&fu);
         getchar();
 
         while(search!=NULL){
             if(fu==search->fuel) {
-                if(role==1 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                if(role!=2 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
                     search = search->next;
                     continue;
                 }
