@@ -342,3 +342,16 @@ int user_search_one(USER *uhead, USER **shead, USER **stail,int *user_role, int 
     return 0;
 }
 
+int get_user_sales_info(USER *uhead, int *total_user)
+{
+    USER *cur = uhead;
+    
+    while (cur)
+    {
+        *(total_user) += 1;
+        cur = cur->next;
+    }
+
+    return 0;
+}
+

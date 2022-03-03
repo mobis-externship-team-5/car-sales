@@ -210,7 +210,7 @@ int save_product(PRODUCT *phead, const char *filename)
 
 }
 
-int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20], int arr[6], int user_role)
+int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20], int arr[6], int ign_status)
 {
     PRODUCT *check_count = phead;
 int sum =0;
@@ -234,7 +234,7 @@ sum =(int)(sum/5)+1;
     {
         if (current == NULL)
             break;
-        if (current->status == DISABLE) 
+        if (current->status == ign_status) 
             i--;
         current = current->next;
     }
@@ -243,7 +243,7 @@ sum =(int)(sum/5)+1;
     {
         if (count == 5)
             break;
-        if (current->status == DISABLE) {
+        if (current->status == ign_status) {
             current = current->next;
             continue; // 판매된 상품 출력 X
         }
@@ -252,9 +252,10 @@ sum =(int)(sum/5)+1;
         printspace_int(current->product_id, arr[0]);
         printspace_string(current->model, arr[1]);
         printspace_string(oem_str[current->oem], arr[2]);
-        printspace_int(current->price, arr[3]);
+        printspace_double(current->gas_mileage, arr[3]);
         printspace_string(fuel_str[current->fuel], arr[4]);
-        printspace_double(current->gas_mileage, arr[5]);
+        printspace_int(current->price, arr[5]);
+
         //printspace_string(product_status_str[current->status],arr[0]);
         printf("\n");
 
@@ -451,3 +452,22 @@ int product_copy(PRODUCT *origin,PRODUCT *copy)
     copy->status = origin->status;
     return 0;
 }
+
+// DISABLE한 상품 통계
+int get_product_sales_info(PRODUCT *phead, int *total_price)
+{
+    // VISIBLE
+    PRODUCT* cur = phead;
+
+    // 총 금액
+    while (cur)
+    {
+        if (cur->status == DISABLE) {
+            *(total_price) += cur->price;
+        }
+        cur = cur->next;
+    }
+    
+    return ERR_PRODUCT_OK;
+}
+

@@ -29,6 +29,7 @@ int ui_stock_list(char *switch_value, int *user_role);
 int ui_login_check(char *switch_value, int *user_role);
 int ui_signup(char *switch_value, int *user_role);
 int ui_user_list(char *switch_value, int *user_role);
+int ui_sales_list(char* switch_value, int* user_role);
 
 
 int err_code;
@@ -159,6 +160,7 @@ int ui_login(char *switch_value, int *user_role)
 		case '1':
 			//로그인 확인으로 이동
 			ui_login_check(switch_value, user_role);
+			*user_role =1;
 			//*switch_value = '2';
 			break;
 
@@ -239,7 +241,7 @@ int ui_main_window(char *switch_value, int *user_role)
 		ui_basic_form_top("MAIN");
 
 		// print_list_product();
-		print_list_product(phead,page_no_main,element_column_product,arr_product,*user_role); // phead, page_no
+		print_list_product(phead,page_no_main,element_column_product,arr_product,DISABLE); // phead, page_no
 		if(*user_role !=0){
 			printf("                              ?��?�� MENU ?��?��\n 1 : SEARCH\n 2 : SORT\n 3 : DETAIL\n 4 : PREVIOUS\n 5 : NEXT\n 7 : MYPAGE \n 8 : MAIN \n 9 : LOGOUT \n 0 : EXIT\n\n");
 
@@ -461,7 +463,9 @@ int ui_mypage(char *switch_value, int *user_role)
 					ui_user_list(&switch_value_mypage,user_role);
 					break;
 				case '5': // SALES LIST
+
 					ui_sales_list(&switch_value_mypage,user_role);
+
 					break;
 				case '6': // STOCK LIST
 					ui_stock_list(&switch_value_mypage,user_role);
@@ -477,6 +481,7 @@ int ui_mypage(char *switch_value, int *user_role)
 	}
 return 0;
 }
+
 
 int ui_product_search(char *switch_value, int *user_role)
 {
@@ -519,7 +524,7 @@ int ui_product_search(char *switch_value, int *user_role)
 		//print_list_product(element_product, element_column_product, arr_product);
 		if(Sphead==NULL && start_search ==1){
 
-			print_list_product(NULL,page_no_search,element_column_product,arr_product,*user_role); // phead, page_no
+			print_list_product(NULL,page_no_search,element_column_product,arr_product,DISABLE); // phead, page_no
 
 			printf("                           ?��?�� SEARCH MENU ?��?��\n");
 			printf(" A) MODEL : \n");
@@ -530,7 +535,7 @@ int ui_product_search(char *switch_value, int *user_role)
 
 		}else if(Sphead==NULL){
 
-			print_list_product(phead,page_no_search,element_column_product,arr_product,*user_role); // phead, page_no
+			print_list_product(phead,page_no_search,element_column_product,arr_product,DISABLE); // phead, page_no
 
 			printf("                           ?��?�� SEARCH MENU ?��?��\n");
 			printf(" A) MODEL : \n");
@@ -540,7 +545,7 @@ int ui_product_search(char *switch_value, int *user_role)
 			printf(" E) PRICE :\n");
 
 		}else{
-			print_list_product(Sphead,page_no_search,element_column_product,arr_product,*user_role); // phead, page_no
+			print_list_product(Sphead,page_no_search,element_column_product,arr_product,DISABLE); // phead, page_no
 
 			printf("                           ?��?�� SEARCH MENU ?��?��\n");
 			if(switch_value_search== 'A')
@@ -754,6 +759,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 		ui_basic_form_bottom();
 		if(*user_role != 0){
 			printf("\n                               ?��?�� MENU ?��?��\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
+
 			printf("-> SELECT MENU :");
 			scanf("%c",&switch_value_detail);
 			getchar();
@@ -778,6 +784,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 			}
 		}else{
 			printf("\n                               ?��?�� MENU ?��?��\n 8 : LOGIN \n 9 : MAIN\n 0 : EXIT\n\n");
+
 			printf("-> SELECT MENU :");
 			scanf("%c", &switch_value_detail);
 			getchar();
@@ -985,6 +992,58 @@ int ui_order_list(char *switch_value, int *user_role)
 		system("clear");
 	}
 	return 0;
+}
+
+int ui_sales_list(char* switch_value, int* user_role)
+{
+
+        char switch_value_sales;
+		int page_no_sales = 0;
+		int total_price = 0, total_user = 0;
+        //      print_product_list();
+        ui_basic_form_top("TOTAL SALES");
+        ui_basic_form_bottom();
+        printf("\n");
+        //      print_product_list();
+        printf("\n");
+
+		print_list_product(phead,page_no_sales,element_column_product,arr_product,ABLE);
+        get_product_sales_info(phead, &total_price);
+		get_user_sales_info(uhead, &total_user);
+
+        printf("TOTAL CLINED IS %d, SINCE NOW TOTAL SALES IS %d", total_user, total_price);
+        printf("\n");
+        ui_basic_form_bottom();
+        // printf("\n                               ?  ?   MENU ?  ?  \n 1 : PREV\n 2 : NEXT\n 0 : MYPAGE\n\n");
+        printf("\n                               ?  ?   MENU ?  ?  \n 0 : MYPAGE\n\n");
+		printf("-> SELECT MENU :");
+        scanf("%c", &switch_value_sales);
+        getchar();
+        system("clear");
+
+
+        //  printf("\n   int ui_purchase()
+        switch (switch_value_sales)
+        {
+		// case '1':
+		// 	printf("previous\n");
+		// 	page_no_sales--;
+		// 	if (page_no_sales  < 0)
+		// 		page_no_sales = 0;
+		// 	break;
+		// case '2': //next
+		// 	printf("next\n");
+		// 	page_no_sales++;
+		// 	break;
+
+		case '0':
+
+			break;
+		default:
+			printf("CHOOSE ALRIGHT MENU NUMBER!\n");
+			break;
+        }
+        return 0;
 }
 
 int ui_stock_list(char *switch_value, int *user_role)

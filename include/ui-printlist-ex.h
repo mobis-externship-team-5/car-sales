@@ -4,9 +4,9 @@
         {"3333333","G80 2020","GENESIS","22,1","HYBRID","10000WON"}
 	};
         char element_column_product[1][6][20]={
-        {"PRODUCT_ID","MODEL","OEM","GAS_MILLEGE","FUEL","PRICE"}
+        {"ID","MODEL","OEM","GAS_MILLEGE","FUEL","PRICE"}
 	};
-        int arr_product[] = {10,16,9,11,10,9};
+        int arr_product[] = {5,17,11,12,10,10}; // 65
 
 	
 	char element_user[3][6][20]={
@@ -39,7 +39,7 @@
         {"ORDER_NUM","DATE","USER_ID","PRICE","PRODUCT_ID",""}
         };
         // int arr_order[] = {15,22,15,15,0,0}; // 67 로 맞추기
-        int arr_order[] = {9,23,13,11,10,0}; // 다 챙워져 있거나 하나가 없으면 66 두 개일때는 67 3개 일때는 68 
+        int arr_order[] = {9,23,13,11,11,0}; // 다 챙워져 있거나 하나가 없으면 66 두 개일때는 67 3개 일때는 68 
 	
 	char element_detail[3][6][20]={
         {"123443","SONATA SE","BLUE","COMPACT","1000C",""},
