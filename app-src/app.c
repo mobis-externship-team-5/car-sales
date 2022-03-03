@@ -318,6 +318,7 @@ int ui_main_window(char *switch_value, int *user_role)
 					printf("next\n");
 					page_no_main++;
 					*switch_value = '2';
+					break;
 
 				case '8': ///change to 9
 					switch_value_main = '9';
