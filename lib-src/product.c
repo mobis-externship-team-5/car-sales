@@ -115,7 +115,7 @@ clean_stdin();
 
     // 연비 입력
     printf("GAS MILEAGE\n: ");
-    scanf("%lf", &(*product)->gas_mileage); getchar();
+    scanf("%lf", &(*product)->gas_mileage);
 clean_stdin();
     
     return ERR_PRODUCT_OK;
@@ -492,3 +492,56 @@ int get_product_sales_info(PRODUCT *phead, int *total_price)
     return ERR_PRODUCT_OK;
 }
 
+
+int product_search_price(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_role, int* print_min, int* print_max)
+{
+   int role = *user_role;
+    PRODUCT *search, *smake;
+    int em, min, max, fu;
+    int opt = 3;
+    double mile;
+    char m[100];
+    
+    search = phead;
+    *shead = NULL;
+
+
+
+    if(opt==3){ //가격으로 검색
+        printf("검색할 가격대 최소값과 최대값을 입력합니다.\n");
+        printf("Minimum Price (ex 10000000): ");
+        scanf("%d",&min);
+        *print_min =min;
+        getchar();
+        printf("Maximum Price (ex 20000000): ");
+        scanf("%d",&max);
+        *print_max =max;
+        clean_stdin();
+        while(search!=NULL){
+            if(search->price>=min && search->price<=max) {
+                if(role==1 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                    search = search->next;
+                    continue;
+                }
+                smake = (PRODUCT*)malloc(sizeof(PRODUCT));
+                product_copy(search,smake);
+                if((*shead)==NULL){
+                    *shead = *stail = smake;
+                }
+                else{
+                    (*stail)->next = smake;
+                    *stail = smake;
+                }
+            }
+            search = search->next;
+        }                
+    }
+
+    
+
+    else {
+        printf("Input Error... \n");
+    }
+
+    return 0;
+}

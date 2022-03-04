@@ -70,5 +70,7 @@ int save_product(PRODUCT *phead, const char *filename);
 
 int get_product_sales_info(PRODUCT *phead, int *total_price);
 
+int product_search_price(PRODUCT *phead,PRODUCT **shead,PRODUCT **stail,int *user_role, int *price_min,int *price_max);
+
 #endif
 

@@ -69,7 +69,6 @@ int input_product_detail(PRODUCT_DETAIL **product_detail)
 
     printf("CC\n: ");
     scanf("%d", &(*product_detail)->cc);
-    getchar();
     clean_stdin();
 
     return ERR_PRODUCT_DETAIL_OK;
