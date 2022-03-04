@@ -3,6 +3,7 @@
 #include <string.h>
 #include "ui-printlist.h"
 #include "stock.h"
+#include "file-typecheck.h"
 
 
 int increase_stock(STOCK **sthead, STOCK **sttail, const char* product_model)

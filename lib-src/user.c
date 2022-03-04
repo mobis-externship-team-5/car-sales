@@ -3,6 +3,7 @@
 #include <string.h>
 #include "user.h"
 #include "ui-printlist.h"
+#include "file-typecheck.h"
 
 int signup(USER **uhead, USER **utail){
 	FILE *fp;
