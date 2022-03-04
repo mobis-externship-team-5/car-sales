@@ -6,8 +6,8 @@
 #define ERR_ORDER_FILE            -3001
 #define ERR_ORDER_NOT_FOUND       -3002
 
-#include "user.h"
 #include "ui-printlist.h"
+#include "user.h"
 
 typedef struct order_t {
     int order_num;
@@ -30,7 +30,6 @@ int link_order(ORDER **ohead, ORDER **otail, ORDER **order);
 int print_order(ORDER *order);
 int print_all_order_list(ORDER *ohead);
 int print_customer_order_list(ORDER *ohead, const char* user_id);
-int print_sales(ORDER *ohead);
 
 int load_order(ORDER **ohead, ORDER **otail, const char* filename);
 int save_order(ORDER *ohead, const char *filename);

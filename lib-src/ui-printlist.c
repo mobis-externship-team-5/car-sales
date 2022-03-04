@@ -36,6 +36,8 @@ int printspace_string(char* element,int arr_num){
         printf("|");
         else
         printf(" ");
+
+        return 0;
 }
 
 int printspace_int(int element,int arr_num){
@@ -51,6 +53,8 @@ int printspace_int(int element,int arr_num){
         printf("|");
         else
         printf(" ");
+
+        return 0;
 }
 
 int printspace_double(double element,int arr_num){
@@ -65,6 +69,8 @@ int printspace_double(double element,int arr_num){
 	printf("|");
         else
         printf(" ");
+
+        return 0;
 }
 
 int set_column_size(int arr[],int chart_length,int arr_size,char element[][6][20],int element_size,int page_no){
@@ -85,6 +91,8 @@ int set_column_size(int arr[],int chart_length,int arr_size,char element[][6][20
 		}	
 		printf("\n");
 	}
+
+        return 0;
 }
 /*int set_column_size7(int arr[],int chart_length,int arr_size,char element[][7][20],int element_size,int page_no){
 
@@ -109,6 +117,8 @@ int ui_printlist_space_bar(int num){
 		printf(" ");
 
 	}
+
+        return 0;
 }
 
 int ui_printlist_printroof(char garo,char sero){
@@ -130,12 +140,14 @@ int ui_printlist_printroof(char garo,char sero){
         }
         printf("\n");              // 가로 방향으로 별을 다 그린 뒤 다음 줄로 넘어감
     }
-
+        return 0;
 }
 
 int ui_printlist_printline(char a){
     for(int i = 0; i< 72;i++)
         printf("%c",a);
     printf("\n");
+
+    return 0;
 }
 

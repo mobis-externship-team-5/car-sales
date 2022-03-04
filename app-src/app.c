@@ -285,13 +285,15 @@ int ui_main_window(char *switch_value, int *user_role)
 					scanf("%d",&find_detail);
 					clean_stdin();
 					system("clear");
-                    
-          err_code = find_product(phead, &cur_product, find_detail);
-          if (ERR_PRODUCT_OK != err_code) {                      
+
+					err_code = find_product(phead, &cur_product, find_detail);
+					if (ERR_PRODUCT_OK != err_code)
+					{
 						printf("THERE's NO PRODUCT\n");
 						ui_main_window(switch_value, user_role);
-					}else{
-
+					}
+					else
+					{
 						ui_product_detail(&switch_value_main,user_role,find_detail);
 					}
 					break;
@@ -713,7 +715,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 	printf("\n");	
 	product_search_ID(phead,&Sphead,&Sptail,find_detail);
 		print_product_list_in_detail(Sphead);	
-		// find_product_detail(pdhash,0,&cur_product_detail);
+		// find_product_detail(pdhash,find_detail,&cur_product_detail);
 		ui_basic_form_bottom();
 		if(*user_role != 0){
 			printf("\n                              ★★ MENU ★★\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
@@ -1273,21 +1275,21 @@ int ui_product_revice_user(char *switch_value, int *user_role)
 	*/		case 'A': //PASSWORD
 				//scanf(%s,brand);
 				printf(" PW TO CHANGE\n");
-				scanf("%s",&tempstr);
+				scanf("%s",tempstr);
 				clean_stdin();
 				strcpy(cur_user->password, tempstr);
 				break;
 			case 'B': //Engine
 
 				printf(" PHONENUM TO CHANGE\n");
-				scanf("%s",&tempstr);
+				scanf("%s",tempstr);
 				clean_stdin();
 				strcpy(cur_user->addr, tempstr);
 				//scanf(%s,engine);
 				break;
 			case 'C': //kind
 				printf(" ADDR TO CHANGE\n");
-				scanf("%s",&tempstr);
+				scanf("%s",tempstr);
 				clean_stdin();
 				strcpy(cur_user->phone, tempstr);
 				// scanf(%s,kind);

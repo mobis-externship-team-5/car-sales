@@ -12,4 +12,4 @@ int set_column_size(int arr[],int chart_length,int arr_size,char element[][6][20
 
 
 //int print_list_7(char element[][7][20],char element_column[][7][20],int arr[]);
-#endif
+#endif 

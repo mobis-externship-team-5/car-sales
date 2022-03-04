@@ -304,7 +304,7 @@ int print_list_user(USER *uhead, int page_no,char element_column[][6][20],int ar
         printf("\n                                   %d/10                           \n",page_no+1);
         ui_printlist_printline('=');
 
-
+    return 0;
 }
 
 int get_user_sales_info(USER *uhead, int *total_user)

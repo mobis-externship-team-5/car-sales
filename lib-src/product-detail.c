@@ -42,14 +42,12 @@ int input_product_detail(PRODUCT_DETAIL **product_detail)
 {
     int i;
     int err_code;
-
-    printf("\nINPUT VEHICLE DETAILS\n\n");
     
-    printf("DETAIL NAME\n>> ");
+    printf("\nDETAIL NAME\n: ");
     fgets((*product_detail)->detail_name, sizeof((*product_detail)->detail_name)-1, stdin);
     (*product_detail)->detail_name[strlen((*product_detail)->detail_name) - 1] = '\0';
 
-    printf("COLOR\n>> ");
+    printf("COLOR\n: ");
     fgets((*product_detail)->color, sizeof((*product_detail)->color)-1, stdin);
     (*product_detail)->color[strlen((*product_detail)->color) - 1] = '\0';
 
@@ -57,10 +55,10 @@ int input_product_detail(PRODUCT_DETAIL **product_detail)
     for(i=0; i<sizeof(size_str)/sizeof(char*); i++) {
         printf("%d (%s)\t", i, size_str[i]);
     }
-    printf("\n>> ");
+    printf("\n: ");
     scanf("%d", &(*product_detail)->size);
 
-    printf("CC\n>> ");
+    printf("CC\n: ");
     scanf("%d", &(*product_detail)->cc); getchar();
     
     return ERR_PRODUCT_DETAIL_OK;

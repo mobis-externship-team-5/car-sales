@@ -61,10 +61,22 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail)
         return err_code;
     }
 
-    printf("INPUT VEHICLE INFORMATION\n\n");
+    printf("\nPRODUCT INPUT EXAMPLE\n");
+    printf("---------------------------------------------\n");
+    printf("MODEL        (STRING)      : Hyundai Santa Fe\n");
+    printf("OEM          (INTEGER 0-2) : 1\n");
+    printf("PRICE        (INTEGER)(WON): 19800000\n");
+    printf("FUEL         (INTEGER 0-5) : 0\n");
+    printf("GAS MILEAGE  (DECIMAL)     : 15.4\n");
+    printf("DETAIL NAME  (STRING)      : Santa Fe\n");
+    printf("COLOR        (STRING)      : BLACK\n");
+    printf("SIZE         (0-3)(WON)    : 3\n");
+    printf("CC           (INTEGER)(CC) : 1762\n");
+    printf("---------------------------------------------\n\n");
+    
     
     // 모델명 입력
-    printf("MODEL\n>> ");
+    printf("MODEL\n: ");
     fgets((*product)->model, sizeof((*product)->model)-1, stdin);
     (*product)->model[strlen((*product)->model) - 1] = '\0';
 
@@ -73,11 +85,11 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail)
     for(i=0; i<sizeof(oem_str)/sizeof(char*); i++) {
         printf("%d(%s)  ", i, oem_str[i]);
     }
-    printf("\n>> ");
+    printf("\n: ");
     scanf("%d", &(*product)->oem);
 
     // 가격 입력
-    printf("PRICE\n>> ");
+    printf("PRICE\n: ");
     scanf("%d", &(*product)->price);
 
     // 연료 입력
@@ -85,11 +97,11 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail)
     for(i=0; i<sizeof(fuel_str)/sizeof(char*); i++) {
         printf("%d(%s)  ", i, fuel_str[i]);
     }
-    printf("\n>> ");
+    printf("\n: ");
     scanf("%d", &(*product)->fuel);
 
     // 연비 입력
-    printf("GAS MILEAGE\n>> ");
+    printf("GAS MILEAGE\n: ");
     scanf("%lf", &(*product)->gas_mileage); getchar();
     
     return ERR_PRODUCT_OK;
