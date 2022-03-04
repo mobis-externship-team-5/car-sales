@@ -713,7 +713,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 	printf("\n");	
 	product_search_ID(phead,&Sphead,&Sptail,find_detail);
 		print_product_list_in_detail(Sphead);	
-		// find_product_detail(pdhash,0,&cur_product_detail);
+		find_product_detail(pdhash,find_detail,&cur_product_detail);
 		ui_basic_form_bottom();
 		if(*user_role != 0){
 			printf("\n                              ★★ MENU ★★\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
