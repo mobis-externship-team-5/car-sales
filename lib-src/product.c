@@ -298,7 +298,7 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     search = phead;
     *shead = NULL;
     if(opt==1){ // 모델명으로 검색
-        printf("검색할 모델명 입력 : ");
+        printf("Type Model Name (ex Genesis G70) : ");
         fgets(m,99,stdin);
         m[strlen(m)-1]='\0';
         while(search!=NULL){
@@ -322,8 +322,8 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     } 
 
     else if(opt==2){ //제조사(브랜드)로 검색
-        printf("검색할 제조사(브랜드)를 선택 >> 0.HYUNDAI, 1.KIA, 2.GENESIS\n");
-        printf("번호 선택 : ");
+        printf("Choose 1 OEM >> 0.HYUNDAI, 1.KIA, 2.GENESIS\n");
+        printf("number : ");
         scanf("%d",&em);
         getchar();
 
@@ -349,11 +349,11 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     }
 
     else if(opt==3){ //가격으로 검색
-        printf("검색할 가격대 입력(단위 : 만원) >> ex) 1000 2000\n");
-        printf("최소 가격 : ");
+        printf("검색할 가격대 최소값과 최대값을 입력합니다.\n");
+        printf("Minimum Price (ex 10000000): ");
         scanf("%d",&min);
         getchar();
-        printf("최대 가격 : ");
+        printf("Maximum Price (ex 20000000): ");
         scanf("%d",&max);
         getchar();
         
@@ -378,8 +378,8 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     }
 
     else if(opt==4){ //엔진 유형으로 검색
-        printf("검색할 엔진 선택 >> 0.GASOLINE, 1.DIESEL, 2.LPG, 3.EV, 4.HEV\n");
-        printf("번호 선택 : ");
+        printf("Choose 1 Fuel Engine >> 0.GASOLINE, 1.DIESEL, 2.LPG, 3.EV, 4.HEV\n");
+        printf("number : ");
         scanf("%d",&fu);
         getchar();
 
@@ -404,7 +404,7 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     }
 
     else if(opt==5){ //연비 유형으로 검색
-        printf("검색할 최소 연비 입력 : ");
+        printf("Type Minimum gas-milage : ");
         scanf("%lf",&mile);
 getchar();
         
@@ -428,7 +428,7 @@ getchar();
         } 
     }
     else {
-        printf("잘못된 입력입니다. \n");
+        printf("Input Error... \n");
     }
 
     return 0;

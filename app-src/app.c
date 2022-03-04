@@ -504,9 +504,9 @@ int ui_product_search(char *switch_value, int *user_role)
 			else
 				printf(" B) OEM 	: \n");
 			if(switch_value_search== 'C')
-				printf(" C) GAS_MILLEGE 	:  %2.2f\n",Sphead->gas_mileage);
+				printf(" C) GAS_MILLEGE  :  %2.2f\n",Sphead->gas_mileage);
 			else
-				printf(" C) GAS_MILLEGE 	:  \n");
+				printf(" C) GAS_MILLEGE  :  \n");
 			if(switch_value_search== 'D')
 				printf(" D) FUEL 	: %d\n",Sphead->fuel);
 			else
