@@ -46,10 +46,19 @@ int input_product_detail(PRODUCT_DETAIL **product_detail)
     printf("\nDETAIL NAME\n: ");
     fgets((*product_detail)->detail_name, sizeof((*product_detail)->detail_name)-1, stdin);
     (*product_detail)->detail_name[strlen((*product_detail)->detail_name) - 1] = '\0';
+     if(strlen(strlen((*product_detail)->detail_name)==sizeof((*product_detail)->detail_name)-3))
+        clean_stdin();
+   
 
+<<<<<<< HEAD
     printf("COLOR\n: ");
+=======
+ printf("COLOR\n>> ");
+>>>>>>> origin/main
     fgets((*product_detail)->color, sizeof((*product_detail)->color)-1, stdin);
     (*product_detail)->color[strlen((*product_detail)->color) - 1] = '\0';
+if(strlen(strlen((*product_detail)->color)==sizeof((*product_detail)->color)-3))
+        clean_stdin();
 
     printf("SIZE NUMBER - ");
     for(i=0; i<sizeof(size_str)/sizeof(char*); i++) {
@@ -57,9 +66,11 @@ int input_product_detail(PRODUCT_DETAIL **product_detail)
     }
     printf("\n: ");
     scanf("%d", &(*product_detail)->size);
+ clean_stdin();
 
     printf("CC\n: ");
     scanf("%d", &(*product_detail)->cc); getchar();
+ clean_stdin();
     
     return ERR_PRODUCT_DETAIL_OK;
 }

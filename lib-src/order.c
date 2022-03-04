@@ -218,7 +218,7 @@ int print_list_order(ORDER *ohead, int page_no, char element_column[][6][20], in
         count++;
     }
     ui_printlist_printline('-');
-    printf("\n                                   %d/10                           \n", page_no + 1);
+    printf("\n                                   - %d -                          \n", page_no + 1);
     ui_printlist_printline('=');
 
     return ERR_ORDER_OK;

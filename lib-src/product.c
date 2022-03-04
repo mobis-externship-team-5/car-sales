@@ -5,6 +5,14 @@
 
 #include "product.h"
 
+void clean_stdin(void)
+{
+    int c;
+    do {
+        c = getchar();
+    } while (c != '\n' && c != EOF);
+}
+
 int create_product(PRODUCT **product)
 {
     *product = (PRODUCT *)malloc(sizeof(PRODUCT));
@@ -79,6 +87,8 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail)
     printf("MODEL\n: ");
     fgets((*product)->model, sizeof((*product)->model)-1, stdin);
     (*product)->model[strlen((*product)->model) - 1] = '\0';
+    if(strlen((*product)->model) == sizeof((*product)->model)-1)
+        clean_stdin();
 
     // 제조사 입력
     printf("OEM - ");
@@ -87,10 +97,12 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail)
     }
     printf("\n: ");
     scanf("%d", &(*product)->oem);
+clean_stdin();
 
     // 가격 입력
     printf("PRICE\n: ");
     scanf("%d", &(*product)->price);
+clean_stdin();
 
     // 연료 입력
     printf("FUEL - ");
@@ -99,10 +111,12 @@ int input_product_info(PRODUCT **product, PRODUCT *ptail)
     }
     printf("\n: ");
     scanf("%d", &(*product)->fuel);
+clean_stdin();
 
     // 연비 입력
     printf("GAS MILEAGE\n: ");
     scanf("%lf", &(*product)->gas_mileage); getchar();
+clean_stdin();
     
     return ERR_PRODUCT_OK;
 }
@@ -268,7 +282,7 @@ int print_list_product(PRODUCT *phead, int page_no, char element_column[][6][20]
         count++;
     }
     ui_printlist_printline('-');
-    printf("\n                                   %d/10                           \n", page_no + 1);
+    printf("\n                                   -%d-                           \n", page_no + 1);
     ui_printlist_printline('=');
 
     return ERR_PRODUCT_OK;
@@ -310,10 +324,14 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     search = phead;
     *shead = NULL;
     if(opt==1){ // 모델명으로 검색
-        printf("검색할 모델명 입력 : ");
+        printf("Type Model Name (ex Genesis G70) : ");
         fgets(m,99,stdin);
         m[strlen(m)-1]='\0';
-        while(search!=NULL){
+    if((strlen(m)) ==97 )
+        clean_stdin();
+       
+
+ while(search!=NULL){
             if(strcmp(m,search->model)==0) {
                 if(role==1 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
                     search = search->next;
@@ -334,10 +352,10 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     } 
 
     else if(opt==2){ //제조사(브랜드)로 검색
-        printf("검색할 제조사(브랜드)를 선택 >> 0.HYUNDAI, 1.KIA, 2.GENESIS\n");
-        printf("번호 선택 : ");
+        printf("Choose 1 OEM >> 0.HYUNDAI, 1.KIA, 2.GENESIS\n");
+        printf("number : ");
         scanf("%d",&em);
-        getchar();
+clean_stdin();       
 
         while(search!=NULL){
             if(em==search->oem) {
@@ -361,14 +379,13 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     }
 
     else if(opt==3){ //가격으로 검색
-        printf("검색할 가격대 입력(단위 : 만원) >> ex) 1000 2000\n");
-        printf("최소 가격 : ");
+        printf("검색할 가격대 최소값과 최대값을 입력합니다.\n");
+        printf("Minimum Price (ex 10000000): ");
         scanf("%d",&min);
         getchar();
-        printf("최대 가격 : ");
+        printf("Maximum Price (ex 20000000): ");
         scanf("%d",&max);
-        getchar();
-        
+        clean_stdin();
         while(search!=NULL){
             if(search->price>=min && search->price<=max) {
                 if(role==1 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
@@ -390,14 +407,13 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     }
 
     else if(opt==4){ //엔진 유형으로 검색
-        printf("검색할 엔진 선택 >> 0.GASOLINE, 1.DIESEL, 2.EV, 3.LPG, 4.EV, 5.HEV\n");
-        printf("번호 선택 : ");
+        printf("Choose 1 Fuel Engine >> 0.GASOLINE, 1.DIESEL, 2.LPG, 3.EV, 4.HEV\n");
+        printf("number : ");
         scanf("%d",&fu);
-        getchar();
-
+clean_stdin();
         while(search!=NULL){
             if(fu==search->fuel) {
-                if(role==1 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
+                if(role!=2 && search->status==1){ //회원으로 접속이고 검색한 제품이 disable이면 제외
                     search = search->next;
                     continue;
                 }
@@ -416,7 +432,7 @@ int product_search(PRODUCT *phead, PRODUCT **shead, PRODUCT **stail,int *user_ro
     }
 
     else if(opt==5){ //연비 유형으로 검색
-        printf("검색할 최소 연비 입력 : ");
+        printf("Type Minimum gas-milage : ");
         scanf("%lf",&mile);
 getchar();
         
@@ -440,7 +456,7 @@ getchar();
         } 
     }
     else {
-        printf("잘못된 입력입니다. \n");
+        printf("Input Error... \n");
     }
 
     return 0;

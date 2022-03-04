@@ -262,7 +262,7 @@ int print_list_stock(STOCK *sthead, int page_no,char element_column[][6][20],int
         count++;
         }
         ui_printlist_printline('-');
-        printf("\n                                   %d/10                           \n",page_no+1);
+        printf("\n                                   - %d -                           \n",page_no+1);
         ui_printlist_printline('=');
 
     return ERR_STOCK_OK;
@@ -299,7 +299,10 @@ int stock_search(STOCK *sthead, STOCK **shead, STOCK **stail,int *user_role, int
         printf("INPUT STOCK YOU WANT TO FIND: ");
         fgets(m,99,stdin);
         m[strlen(m)-1]='\0';
-        while(search!=NULL){
+        
+     if(strlen(m)==97)
+        clean_stdin()
+;while(search!=NULL){
             if(strcmp(m,search->model)==0) {
                 smake = (STOCK*)malloc(sizeof(STOCK));
                 stock_copy(search,smake);

@@ -506,9 +506,9 @@ int ui_product_search(char *switch_value, int *user_role)
 			else
 				printf(" B) OEM 	: \n");
 			if(switch_value_search== 'C')
-				printf(" C) GAS_MILLEGE 	:  %2.2f\n",Sphead->gas_mileage);
+				printf(" C) GAS_MILLEGE  :  %2.2f\n",Sphead->gas_mileage);
 			else
-				printf(" C) GAS_MILLEGE 	:  \n");
+				printf(" C) GAS_MILLEGE  :  \n");
 			if(switch_value_search== 'D')
 				printf(" D) FUEL 	: %d\n",Sphead->fuel);
 			else
@@ -715,7 +715,7 @@ int ui_product_detail(char *switch_value, int *user_role,int find_detail)
 	printf("\n");	
 	product_search_ID(phead,&Sphead,&Sptail,find_detail);
 		print_product_list_in_detail(Sphead);	
-		// find_product_detail(pdhash,find_detail,&cur_product_detail);
+		find_product_detail(pdhash,find_detail,&cur_product_detail);
 		ui_basic_form_bottom();
 		if(*user_role != 0){
 			printf("\n                              ★★ MENU ★★\n 1 : APPLY PURCHASING\n 7 : MYPAGE\n 8 : MAIN\n 9 : LOGOUT\n 0 : EXIT\n\n");
